@@ -1,7 +1,6 @@
 package com.softuni.webstore.entity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -82,5 +81,11 @@ public class Customer {
 	}
 	public void setActive(int active) {
 		this.active = active;
+	}
+	
+	@Override
+	public String toString() {
+		return "Customer id: " + getId() + ", name: " + getName() + ", birth date: " + getBirthDate().toString() +
+				", address: " + getAddress() + ", user: " + getUser() + ", active: " + getActive();
 	}
 }

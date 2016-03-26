@@ -11,6 +11,8 @@ import javax.persistence.TableGenerator;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
+import oracle.jdbc.proxy.annotation.GetDelegate;
+
 @Entity
 @Table(name="t_product_type")
 @OptimisticLocking(type=OptimisticLockType.VERSION)
@@ -35,5 +37,10 @@ public class ProductType {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public String toString() {
+		return "ProductType id:" + getId() + ", name: " + getName();
 	}
 }

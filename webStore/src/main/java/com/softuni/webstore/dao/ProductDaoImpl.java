@@ -23,30 +23,74 @@ public class ProductDaoImpl implements ProductDao{
 
 	@Override
 	public boolean addProduct(Product product) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			em.persist(product);
+			userlog.debug("Product was added successful: " + product);
+			return true;
+		} catch (Exception e) {
+			userlog.error("Cannot add product: " + product);
+			systemlog.error("Cannot add product: " + e.getMessage());
+			return false;
+		}
+		
 	}
 
 	@Override
 	public boolean editProduct(Product product) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			em.merge(product);
+			userlog.debug("Product was edited successful: " + product);
+			return true;
+		} catch (Exception e) {
+			userlog.error("Cannot edit product: " + product);
+			systemlog.error("Cannot edit product: " + e.getMessage());
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteProduct(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		Product product = null;
+		try {
+			product = em.find(Product.class, id);
+			userlog.debug("Product was deleted successful: " + product);
+			em.remove(product);
+			return true;
+		} catch (Exception e) {
+			userlog.error("Cannot delete product: " + product);
+			systemlog.error("Cannot delete product: " + e.getMessage());
+			return false;
+		}
 	}
 
 	@Override
 	public List<Product> searchByCriteria(String criteria, String value) {
 		TypedQuery<Product> q;
 		
-		q = em.createQuery("SELECT o FROM Account o."+ criteria + "LIKE o.+ %"+ value + "% ORDER BY o.id", Product.class);
-		//q.setParameter("criteria", criteria);
-		q.setParameter("value", "%" + value + "%");
-		return q.getResultList();
+		try {
+			q = em.createQuery("SELECT o FROM Product o."+ criteria + "LIKE o.+ %"+ value + "% ORDER BY o.id", Product.class);
+			//q.setParameter("criteria", criteria);
+			q.setParameter("value", "%" + value + "%");
+			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
+			return q.getResultList();
+		} catch (Exception e) {
+			userlog.error("Cannot search by criteria: " + criteria + ", and value: " + value);
+			userlog.error("Cannot search by criteria: " + criteria + ", value: " + value + e.getMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		TypedQuery<Product> q;
+		
+		try {
+			q = em.createQuery("SELECT o FROM Product o ORDER BY o.id", Product.class);
+			return q.getResultList();
+		} catch (Exception e) {
+			systemlog.error("Cannot getAllProducts: " + e.getMessage());
+			return null;
+		}
 	}
 
 }

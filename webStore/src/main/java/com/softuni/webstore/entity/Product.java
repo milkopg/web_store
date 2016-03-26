@@ -79,4 +79,10 @@ public class Product {
 	public void setActive(int active) {
 		this.active = active;
 	}
+	
+	@Override
+	public String toString() {
+		return "Product  id: " + getId() + ", name: " + getName() + ", product type: " + getType().getName() + 
+				", single price: " + getSinglePrice() + ", quantity: " + getQuantity() + ", active: " + getActive();
+	}
 }

@@ -9,4 +9,5 @@ public interface ProductDao {
 	public boolean editProduct(Product product);
 	public boolean deleteProduct(long id);
 	public List<Product> searchByCriteria(String criteria, String value);
+	public List<Product> getAllProducts();
 }

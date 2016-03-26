@@ -103,4 +103,11 @@ public class Order {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	@Override
+	public String toString() {
+		return "Order id:" + getId() + ", product: " + getProduct() +  ", order type: " + getOrderType() + 
+				", customer: " + getCustomer() + ", qty: " + getQty() + ", purchase date: " + getPurchaseDate() +
+				", total price: " + getTotalPrice() + ", comment: " + getComment(); 
+	}
 }
