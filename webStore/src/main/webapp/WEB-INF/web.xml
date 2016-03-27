@@ -16,6 +16,12 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://softuni.bg/tags</taglib-uri>
+      <taglib-location>/WEB-INF/custTags.tld</taglib-location>
+    </taglib>
+  </jsp-config>
  <!--  <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
