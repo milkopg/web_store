@@ -25,8 +25,8 @@ import org.hibernate.annotations.OptimisticLocking;
 public class Order {
 	@Id
 	@Column(name="id")
-	@TableGenerator(name="TABLE_GEN",table="T_GENERATOR", pkColumnName = "GEN_KEY", pkColumnValue = "WEBSTORE.T_ORDER", valueColumnName = "GEN_VALUE", initialValue = 1, allocationSize = 1 )
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN")
+	@TableGenerator(name="TABLE_GEN_ORDER",table="T_GENERATOR", pkColumnName = "GEN_KEY", pkColumnValue = "WEBSTORE.T_ORDER", valueColumnName = "GEN_VALUE", initialValue = 1, allocationSize = 1 )
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_ORDER")
 	private long id;
 	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
@@ -41,9 +41,6 @@ public class Order {
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="customer_id")
 	private Customer customer;
-	
-	@Column(name="qty")
-	private int qty;
 	
 	@Column(name="purchase_date")
 	@Temporal(value=TemporalType.TIMESTAMP)
@@ -79,12 +76,6 @@ public class Order {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
 	public Calendar getPurchaseDate() {
 		return purchaseDate;
 	}
@@ -107,7 +98,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order id:" + getId() + ", product: " + getProduct() +  ", order type: " + getOrderType() + 
-				", customer: " + getCustomer() + ", qty: " + getQty() + ", purchase date: " + getPurchaseDate() +
+				", customer: " + getCustomer()  + ", purchase date: " + getPurchaseDate() +
 				", total price: " + getTotalPrice() + ", comment: " + getComment(); 
 	}
 }

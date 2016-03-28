@@ -19,8 +19,8 @@ import oracle.jdbc.proxy.annotation.GetDelegate;
 public class ProductType {
 	@Id
 	@Column(name="id")
-	@TableGenerator(name="TABLE_GEN",table="T_GENERATOR", pkColumnName = "GEN_KEY", pkColumnValue = "WEBSTORE.T_PRODUCT_TYPE", valueColumnName = "GEN_VALUE", initialValue = 1, allocationSize = 1 )
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN")
+	@TableGenerator(name="TABLE_GEN_PRODUCT_TYPE",table="T_GENERATOR", pkColumnName = "GEN_KEY", pkColumnValue = "WEBSTORE.T_PRODUCT_TYPE", valueColumnName = "GEN_VALUE", initialValue = 1, allocationSize = 1 )
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_PRODUCT_TYPE")
 	private long id;
 	
 	@Column(name="name")
