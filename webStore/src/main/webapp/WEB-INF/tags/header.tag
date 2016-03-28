@@ -4,7 +4,7 @@
 <%@include file="../views/taglibs.jsp"%>
 
 <div id="header">
-		<a href="index.html" class="float"><img src="${images}/logo.jpg" alt="" width="171" height="73"></a>																																																		
+		<a href="${contextPath}/home" class="float"><img src="${images}/logo.jpg" alt="" width="171" height="73"></a>																																																		
 	  <div class="topblock1">
 			Currency:<br><select><option>US Dollar</option></select>
 		</div>
@@ -23,7 +23,7 @@
 		</div>
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>
-			<li><a href="index.html"><img src="${images}/but1_a.gif" alt="" width="90" height="29"></a></li>
+			<li><a href="${contextPath}/home"><img src="${images}/but1_a.gif" alt="" width="90" height="29"></a></li>
 			<li><a href="index2.html"><img src="${images}/but2.gif" alt="" width="129" height="29"></a></li>
 			<li><a href="index2.html"><img src="${images}/but3.gif" alt="" width="127" height="29"></a></li>
 			<li><a href="index2.html"><img src="${images}/but4.gif" alt="" width="113" height="29"></a></li>

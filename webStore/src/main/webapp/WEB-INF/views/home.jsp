@@ -1,9 +1,6 @@
 <%@include file="master.jsp"%>
 <%@include file="taglibs.jsp"%>
 
-<h1>
-	Online store -> Products
-</h1>
 	<ct:header></ct:header>
 	<ct:body>
 	<!-- <div id="container"> -->
