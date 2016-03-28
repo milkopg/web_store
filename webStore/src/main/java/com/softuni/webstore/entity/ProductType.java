@@ -11,7 +11,7 @@ import javax.persistence.TableGenerator;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
-import oracle.jdbc.proxy.annotation.GetDelegate;
+import com.softuni.webstore.utility.UtilityString;
 
 @Entity
 @Table(name="t_product_type")
@@ -41,6 +41,6 @@ public class ProductType {
 	
 	@Override
 	public String toString() {
-		return "ProductType id:" + getId() + ", name: " + getName();
+		return UtilityString.capEachWord(getName());
 	}
 }

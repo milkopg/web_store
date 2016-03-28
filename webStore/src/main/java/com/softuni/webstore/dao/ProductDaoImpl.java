@@ -93,4 +93,18 @@ public class ProductDaoImpl implements ProductDao{
 		}
 	}
 
+	@Override
+	public Product getProductById(Long id) {
+		Product product = null;
+		try {
+			product = em.find(Product.class, id);
+			userlog.debug("Product was loaded successful: " + product);
+			return product;
+		} catch (Exception e) {
+			userlog.error("Cannot find product: " + product);
+			systemlog.error("Cannot find product: " + e.getMessage());
+			return null;
+		}
+	}
+
 }

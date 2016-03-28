@@ -1,6 +1,8 @@
 package com.softuni.webstore.entity;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,9 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+
+import com.softuni.webstore.utility.UtilityString;
 
 @Entity
 @Table(name="t_product")
@@ -29,15 +34,28 @@ public class Product {
 	@Column(name="name")
 	private String name;
 	
+	@Column(name="description")
+	private String description;
+	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="product_type_id")
 	private ProductType type;
+	
+	@Transient
+	private List<String> productTypesList;
+	
+	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
+	@JoinColumn(name="currency_id")
+	private Currency currency;
 	
 	@Column(name="single_price")
 	private BigDecimal singlePrice;
 	
 	@Column(name="quantity")
 	private int quantity;
+	
+	@Column(name="picture_name")
+	private String pictureName;
 	
 	@Column(name="active")
 	private int active;
@@ -54,6 +72,12 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public ProductType getType() {
 		return type;
 	}
@@ -61,17 +85,33 @@ public class Product {
 		this.type = type;
 	}
 	
+	public List<String> getProductTypesList() {
+		return Arrays.asList(UtilityString.capEachWord(getType().getName()).split(" "));
+	}
+
 	public BigDecimal getSinglePrice() {
 		return singlePrice;
 	}
 	public void setSinglePrice(BigDecimal singlePrice) {
 		this.singlePrice = singlePrice;
 	}
+	public Currency getCurrency() {
+		return currency;
+	}
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	public String getPictureName() {
+		return pictureName;
+	}
+	public void setPictureName(String pictureName) {
+		this.pictureName = pictureName;
 	}
 	public int getActive() {
 		return active;
@@ -83,6 +123,6 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product  id: " + getId() + ", name: " + getName() + ", product type: " + getType().getName() + 
-				", single price: " + getSinglePrice() + ", quantity: " + getQuantity() + ", active: " + getActive();
+				", single price: " + getSinglePrice() + ", quantity: " + getQuantity() + ", pictureName:" + getPictureName() +  ", active: " + getActive();
 	}
 }

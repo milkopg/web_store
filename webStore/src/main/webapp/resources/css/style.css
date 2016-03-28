@@ -457,7 +457,7 @@ body {
 	float: left;
 }
 
-#about button {
+#about input[type="submit"] {
 	background-image: url(images/add.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
@@ -469,8 +469,17 @@ body {
 	font-size: 11px;
 	color: #5B5B5B;
 	margin: 21px 3px 0 0;
-	padding: 4px 0 6px 0
+	padding: 4px 0 6px 0;
+	text-align: center;
 }
+
+#about input[type="number"] {
+	margin: 21px 3px 0 0;
+	padding: 4px 0 0 0;
+	width: 62px;
+	text-align: center;	
+}
+
 
 .carts {
 	padding: 21px 0 0 0;
