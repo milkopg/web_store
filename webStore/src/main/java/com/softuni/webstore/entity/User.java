@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -29,6 +30,9 @@ public class User {
 	
 	@Column(name="password")
 	private String password;
+	
+	@Transient
+	private String retypePassword;
 	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="role_id")
@@ -51,6 +55,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getRetypePassword() {
+		return retypePassword;
+	}
+	public void setRetypePassword(String retypePassword) {
+		this.retypePassword = retypePassword;
 	}
 	public Role getRole() {
 		return role;

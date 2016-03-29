@@ -1,3 +1,4 @@
+
 @CHARSET "UTF-8";
 
 p {
@@ -496,4 +497,31 @@ body {
 	line-height: 0px;
 	padding: 0px;
 	font-size: 11px
+}
+
+.image_big {
+	width: 227px;
+	height: 215px;
+}
+
+.image_small {
+	width: 124px;
+	height: 90px;
+}
+
+.button  {
+	background-image: url('/resources/images/enter.png');
+	width: 60px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+div#submitForm input {
+  background: url('/resources/images/enter.png'') no-repeat scroll 0 0 transparent;
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  height: 20px;
+  padding-bottom: 2px;
+  width: 75px;
 }

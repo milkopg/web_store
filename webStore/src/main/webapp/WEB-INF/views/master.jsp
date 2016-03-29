@@ -1,8 +1,8 @@
 <%@include file="taglibs.jsp"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<spring:url value="/resources/css/style.css" var="stylesCSS" />
+<%-- <spring:url value="/resources/css/style.css" var="stylesCSS" />
 <spring:url value="/resources/images/" var="images" />
-
+<spring:url value="/resources/js/front.js" var="frontJS" />
+ --%> 
 
 <html>
 <head>

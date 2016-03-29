@@ -1,5 +1,4 @@
 <%@include file="master.jsp"%>
-<%@include file="taglibs.jsp"%>
 
 <ct:header></ct:header>
 <div id="container">
@@ -9,7 +8,7 @@
 				<div id="about">
 					<p class="tree"><a href="#">${product.productTypesList[0] }</a>  &gt;  <a href="#">${product.productTypesList[1]}</a>  &gt;  <a href="#">${product.productTypesList[2]} </a>  &gt; ${product.name }</p>
 					<div class="photos">
-						<img src="${images}/${product.pictureName}" alt="" width="227" height="215"><br>
+						<img src="${images}/${product.pictureName}" class="image_big" alt="" width="227" height="215"><br>
 						<a href="#" class="moreph">more photos</a>
 						<a href="#" class="comments">View Comments (27)</a>
 					</div>
