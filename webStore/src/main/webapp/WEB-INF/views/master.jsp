@@ -11,7 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Webstore</title>
-<link href="${stylesCSS}" rel="stylesheet" />
+<link href="${stylesCss}" rel="stylesheet" />
+<%-- <link href="${bootstrapMinCss}" rel="stylesheet" />
+<link href="${bootstrapThemeCss}" rel="stylesheet" /> --%>
+
 <link href="${images}" rel="stylesheet" />
 
 </head>

@@ -4,7 +4,7 @@
 	<form:form>
 		<div id="center" class="column">
 				<%-- <c:forEach var="o" varStatus="status" items="${order}"> --%>
-					<table border="1" id="cart_table" width="400px">
+					<table border="1" class="table table-striped" >
 					  <tr>
 					    <th>Product</th>
 					    <th>Description</th> 
