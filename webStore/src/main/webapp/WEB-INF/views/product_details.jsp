@@ -2,7 +2,7 @@
 
 <ct:header></ct:header>
 <div id="container">
-		<form:form method="POST" action="${contextPath}/home" modelAttribute="product">
+		<form:form method="POST" action="${contextPath}/cart" modelAttribute="product">
 			<div id="center" class="column">
 		  	<div id="content">
 				<div id="about">
@@ -28,7 +28,7 @@
 							<li class="color"><span>Nonumy eirmod</span>1234</li>
 						</ul>
 						<input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
-						<input type="submit" value="Add to Cart" onclick="location= '${contextPath}/addToChart">
+						<input type="submit" value="Add to Cart" onclick="location= '${contextPath}/cart">
 						<input type="hidden" name="productId" value="${product.id}">
 					</div>
 				</div>

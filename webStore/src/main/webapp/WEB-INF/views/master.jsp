@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <%@include file="taglibs.jsp"%>
 <%-- <spring:url value="/resources/css/style.css" var="stylesCSS" />
 <spring:url value="/resources/images/" var="images" />

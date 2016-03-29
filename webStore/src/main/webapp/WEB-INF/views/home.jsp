@@ -3,7 +3,7 @@
 	<ct:header></ct:header>
 	<ct:body>
 	<!-- <div id="container"> -->
-		<form:form method="POST" action="${contextPath}/home" modelAttribute="products">
+		<form:form method="POST" action="${contextPath}/cart" modelAttribute="products">
 			<div id="center" class="column">
 				<div class="stuff">
 					<c:forEach var="product" varStatus="status" items="${products}">
@@ -18,13 +18,12 @@
 							</div>
 					</c:forEach>
 					<img src="${images}/title6.gif" alt="" width="537" height="23" class="pad25">
-				<div class="stuff">
 					<div class="item">
 						<img src="${images}/pic1.jpg" class="image_small">
 						<a href="index2.html" class="name">Name Product</a>
 						<span>$250</span>
 						<input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
-						<input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/addToChart'">
+						<input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/cart'">
 						<input type="hidden" name="productId" value="${product.id}">
 					</div>
 					 <div class="item">
@@ -60,7 +59,6 @@
 						<span>$2250</span>
 						<a href="#"><img src="${images}/zoom.gif" alt="" width="53" height="19"></a><a href="#"><img src="${images}/cart.gif" alt="" width="71" height="19"></a>
 					</div> --%>
-				</div>
 					</div>
 				</div>
 			</form:form>

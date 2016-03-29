@@ -11,7 +11,7 @@ p {
 }
 
 img {
-	border: 0px;
+	border: 0px;s
 }
 
 html {
@@ -524,4 +524,8 @@ div#submitForm input {
   height: 20px;
   padding-bottom: 2px;
   width: 75px;
+}
+
+#cart_table {
+	width: 100px;
 }
