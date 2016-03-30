@@ -58,7 +58,10 @@ public class Product {
 	private String pictureName;
 	
 	@Column(name="active")
-	private int active;
+	private boolean active;
+	
+	@Transient
+	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -113,13 +116,19 @@ public class Product {
 	public void setPictureName(String pictureName) {
 		this.pictureName = pictureName;
 	}
-	public int getActive() {
+	public boolean getActive() {
 		return active;
 	}
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 	
+	public List<String> getErrors() {
+		return errors;
+	}
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
 	@Override
 	public String toString() {
 		return "Product  id: " + getId() + ", name: " + getName() + ", product type: " + getType().getName() + 

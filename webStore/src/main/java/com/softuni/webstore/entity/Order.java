@@ -2,6 +2,7 @@ package com.softuni.webstore.entity;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -29,10 +32,8 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_ORDER")
 	private long id;
 	
-	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
-	@JoinColumn(name="product_id")
-	private Product product;
-	
+	@OneToMany (cascade=javax.persistence.CascadeType.REFRESH, mappedBy="order")
+	private List<OrderDetails> orderDetails;
 	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="order_type_id")
@@ -52,17 +53,20 @@ public class Order {
 	@Column(name="comment")
 	private String comment;
 	
+	@Transient
+	private List<String> errors;
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Product getProduct() {
-		return product;
+	public List<OrderDetails> getOrderDetails() {
+		return orderDetails;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setOrderDetails(List<OrderDetails> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 	public OrderType getOrderType() {
 		return orderType;
@@ -95,9 +99,16 @@ public class Order {
 		this.comment = comment;
 	}
 	
+	public List<String> getErrors() {
+		return errors;
+	}
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
+	
 	@Override
 	public String toString() {
-		return "Order id:" + getId() + ", product: " + getProduct() +  ", order type: " + getOrderType() + 
+		return "Order id:" + getId() +  ", order type: " + getOrderType() + 
 				", customer: " + getCustomer()  + ", purchase date: " + getPurchaseDate() +
 				", total price: " + getTotalPrice() + ", comment: " + getComment(); 
 	}

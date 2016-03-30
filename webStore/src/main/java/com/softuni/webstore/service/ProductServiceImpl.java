@@ -43,4 +43,22 @@ public class ProductServiceImpl implements ProductService{
 	public Product getProductById(Long id) {
 		return productDao.getProductById(id);
 	}
+
+	@Override
+	public boolean activateProduct(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deactivateProduct(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<String> validateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

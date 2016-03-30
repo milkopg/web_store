@@ -14,6 +14,7 @@ import com.softuni.webstore.entity.Customer;
 public class UserController {
 	@RequestMapping(value="registerUser", method = RequestMethod.POST)
 	public String addToChart(Model model, @ModelAttribute("customer") Customer customer, HttpServletRequest request) {
+		request.getParameterMap();
 		model.addAttribute(customer);
 		return "home";
 	}

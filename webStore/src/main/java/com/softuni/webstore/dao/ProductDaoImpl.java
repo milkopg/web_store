@@ -13,7 +13,7 @@ import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 
 @Repository
-public class ProductDaoImpl implements ProductDao{
+public class ProductDaoImpl extends BaseDao implements ProductDao{
 	
 	Logger userlog = LoggerManager.getUserLogger();
 	Logger systemlog = LoggerManager.getSystemLogger();
@@ -32,7 +32,6 @@ public class ProductDaoImpl implements ProductDao{
 			systemlog.error("Cannot add product: " + e.getMessage());
 			return false;
 		}
-		
 	}
 
 	@Override
@@ -104,6 +103,38 @@ public class ProductDaoImpl implements ProductDao{
 			userlog.error("Cannot find product: " + product);
 			systemlog.error("Cannot find product: " + e.getMessage());
 			return null;
+		}
+	}
+
+	@Override
+	public boolean activateProduct(long id) {
+		Product product = null;
+		try {
+			product = em.find(Product.class, id);
+			product.setActive(true);
+			userlog.debug("Product was activated successful: " + product);
+			em.merge(product);
+			return true;
+		} catch (Exception e) {
+			userlog.error("Cannot activate product: " + product);
+			systemlog.error("Cannot activate product: " + e.getMessage());
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deactivateProduct(long id) {
+		Product product = null;
+		try {
+			product = em.find(Product.class, id);
+			product.setActive(false);
+			userlog.debug("Product was deactivated successful: " + product);
+			em.merge(product);
+			return true;
+		} catch (Exception e) {
+			userlog.error("Cannot deactivate product: " + product);
+			systemlog.error("Cannot deactivate product: " + e.getMessage());
+			return false;
 		}
 	}
 

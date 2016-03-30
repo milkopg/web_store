@@ -1,6 +1,7 @@
 package com.softuni.webstore.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -43,7 +45,10 @@ public class Customer {
 	private User user;
 	
 	@Column(name="active")
-	private int active;
+	private boolean active;
+	
+	@Transient
+	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -76,13 +81,19 @@ public class Customer {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public int getActive() {
+	public boolean getActive() {
 		return active;
 	}
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 	
+	public List<String> getErrors() {
+		return errors;
+	}
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
 	@Override
 	public String toString() {
 		return "Customer id: " + getId() + ", name: " + getName() + ", birth date: " + getBirthDate().toString() +
