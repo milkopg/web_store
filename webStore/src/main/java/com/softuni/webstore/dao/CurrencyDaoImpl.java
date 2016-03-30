@@ -1,0 +1,32 @@
+package com.softuni.webstore.dao;
+
+import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
+
+import com.softuni.webstore.entity.Currency;
+
+@Repository
+public class CurrencyDaoImpl extends BaseDao implements CurrencyDao{
+
+	@Override
+	public Currency getCurrencyById(long id) {
+		Currency currency = null;
+		try {
+			currency = em.find(Currency.class, id);
+		} catch (Exception e) {
+			systemlog.error("Cannot find currency in database"  + id);
+		}
+		return currency;
+	}
+
+	@Override
+	public Currency getCurrencyByName(String name) {
+		TypedQuery<Currency> q;
+		
+		q = em.createQuery("SELECT o FROM Currency where o.name = :name", Currency.class);
+		q.setParameter("name", name);
+		return getSingleResult(q);
+	}
+
+}

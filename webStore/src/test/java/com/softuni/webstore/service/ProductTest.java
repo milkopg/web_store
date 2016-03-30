@@ -1,4 +1,4 @@
-package com.softuni.webstore.product.service;
+package com.softuni.webstore.service;
 
 import java.util.HashMap;
 import java.util.Map;

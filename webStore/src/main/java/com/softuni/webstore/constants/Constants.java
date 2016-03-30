@@ -6,4 +6,7 @@ public class Constants {
 	public static final String ORDER_TYPE_SUPPLY = "supply";
 	public static final String ORDER_TYPE_SELL = "sell";
 	public static final String ORDER_TYPE_REFUND = "refund";
+	
+	public static final String ERROR_MANDATORY = "{0} field is mandatory";
+	
 }

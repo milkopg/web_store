@@ -107,13 +107,10 @@ public class ProductDaoImpl extends BaseDao implements ProductDao{
 	}
 
 	@Override
-	public boolean activateProduct(long id) {
-		Product product = null;
+	public boolean activateProduct(Product product) {
 		try {
-			product = em.find(Product.class, id);
-			product.setActive(true);
-			userlog.debug("Product was activated successful: " + product);
 			em.merge(product);
+			userlog.debug("Product was activated successful: " + product);
 			return true;
 		} catch (Exception e) {
 			userlog.error("Cannot activate product: " + product);
@@ -123,13 +120,10 @@ public class ProductDaoImpl extends BaseDao implements ProductDao{
 	}
 
 	@Override
-	public boolean deactivateProduct(long id) {
-		Product product = null;
+	public boolean deactivateProduct(Product product) {
 		try {
-			product = em.find(Product.class, id);
-			product.setActive(false);
-			userlog.debug("Product was deactivated successful: " + product);
 			em.merge(product);
+			userlog.debug("Product was deactivated successful: " + product);
 			return true;
 		} catch (Exception e) {
 			userlog.error("Cannot deactivate product: " + product);

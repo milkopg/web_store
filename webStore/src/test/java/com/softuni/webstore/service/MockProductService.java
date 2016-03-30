@@ -1,10 +1,9 @@
-package com.softuni.webstore.product.service;
+package com.softuni.webstore.service;
 
 import java.util.List;
 import java.util.Map;
 
 import com.softuni.webstore.entity.Product;
-import com.softuni.webstore.service.ProductService;
 
 public class MockProductService implements ProductService{
 	private Map<Long, Product> products;
@@ -42,6 +41,32 @@ public class MockProductService implements ProductService{
 	public List<Product> searchByCriteria(String criteria, String value) {
 		if (criteria == null  || value == null) return null;
 		return null;
+	}
+	
+	@Override
+	public Product getProductById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<String> validateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean activateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean deactivateProduct(Product product) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

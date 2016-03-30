@@ -1,4 +1,4 @@
-package com.softuni.webstore.product.dao;
+package com.softuni.webstore.dao;
 
 import org.junit.Assert;
 import org.junit.Test;

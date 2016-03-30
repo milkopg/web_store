@@ -1,12 +1,15 @@
 package com.softuni.webstore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.CustomerDao;
 import com.softuni.webstore.entity.Customer;
+import com.softuni.webstore.entity.User;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -22,6 +25,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public boolean editCustomer(Customer customer) {
 		return customerDao.editCustomer(customer);
+	}
+	
+	@Override
+	public Customer findCustomer(long id) {
+		return customerDao.findCustomer(id);
 	}
 
 	@Override
@@ -43,9 +51,26 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public List<String> validateCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> errors = new ArrayList<>();
+		if (customer == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Customer"));
+		if (customer.getBirthDate() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Birth Date"));
+		if (customer.getName() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Name"));
+		if (customer.getUser() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User"));
+		
+		errors.addAll(validateUser(customer.getUser()));
+		
+		return errors;
 	}
 
+	@Override
+	public List<String> validateUser(User user) {
+		List<String> errors = new ArrayList<>();
+		if (user.getId() == 0) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User id"));
+		if (user.getUsername() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Username"));
+		if (user.getPassword() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User Password"));
+		if (user.getRole() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User Role"));
+		
+		return errors;
+	}
 }
   

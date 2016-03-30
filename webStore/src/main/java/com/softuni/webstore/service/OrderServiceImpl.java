@@ -12,6 +12,7 @@ import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.OrderDao;
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
+import com.softuni.webstore.entity.OrderType;
 import com.softuni.webstore.log4j.LoggerManager;
 
 @Service
@@ -46,12 +47,25 @@ public class OrderServiceImpl implements OrderService{
 			detail.setQuantity(detail.getQuantity() * -1);
 		}
 		
+		
 		refundOrder.setComment("Refund");
 		refundOrder.setCustomer(originalOrder.getCustomer());
-		refundOrder.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND));
+		refundOrder.setOrderType(getOrderTypeRefund());
 		refundOrder.setPurchaseDate(Calendar.getInstance());
 		refundOrder.setTotalPrice(calculateTotalPrice(refundOrder));
 		return refundOrder;
+	}
+	
+	private OrderType getOrderTypeRefund() {
+		OrderType orderType = null;
+		if (orderTypeService == null) {
+			orderType = new OrderType();
+			orderType.setId(2);
+			orderType.setName(Constants.ORDER_TYPE_REFUND);
+		} else {
+			orderType = orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND);
+		}
+		return orderType;
 	}
 
 	@Override
@@ -60,11 +74,10 @@ public class OrderServiceImpl implements OrderService{
 		BigDecimal totalPrice = new BigDecimal(0);
 		for (OrderDetails detail : order.getOrderDetails()) {
 			try {
-				totalPrice.add(detail.getPrice().multiply(new BigDecimal(detail.getQuantity())));
+				totalPrice = totalPrice.add( detail.getPrice().multiply(new BigDecimal(detail.getQuantity())).multiply(detail.getCurrency().getRate()) );
 			} catch (Exception e) {
 				systemlog.error("calculateTotalPrice: cannot calculatePrice" + order);
 			}
-			 
 		}
 		return totalPrice;
 	}

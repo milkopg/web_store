@@ -45,6 +45,18 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 			return false;
 		}
 	}
+	
+	@Override
+	public Customer findCustomer(long id) {
+		Customer customer = null;
+		try {
+			customer = em.find(Customer.class, id);
+		} catch (Exception e) {
+			systemlog.error("Cannot find customer with id: " + id );
+		}
+		return customer;
+	}
+
 
 	@Override
 	public boolean activateCustomer(Customer customer) {
@@ -78,4 +90,5 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 		return null;
 	}
 
+	
 }

@@ -16,6 +16,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -30,6 +32,8 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_CUSTOMER")
 	private long id;
 	
+	@NotNull
+	@Size(min=5, max=40)
 	@Column(name="name")
 	private String name;
 	

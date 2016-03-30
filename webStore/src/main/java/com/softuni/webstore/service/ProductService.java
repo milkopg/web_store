@@ -8,8 +8,8 @@ public interface ProductService {
 	public boolean addProduct(Product product);
 	public boolean editProduct(Product product);
 	public boolean deleteProduct(long id);
-	public boolean activateProduct(long id);
-	public boolean deactivateProduct(long id);
+	public boolean activateProduct(Product product);
+	public boolean deactivateProduct(Product product);
 	public List<Product> searchByCriteria(String criteria, String value);
 	public Product getProductById(Long id);
 	public List<Product> getAllProducts();

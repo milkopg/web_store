@@ -1,10 +1,12 @@
 package com.softuni.webstore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.ProductDao;
 import com.softuni.webstore.entity.Product;
 
@@ -45,20 +47,26 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public boolean activateProduct(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean activateProduct(Product product) {
+		product.setActive(Boolean.TRUE);
+		return productDao.activateProduct(product);
 	}
 
 	@Override
-	public boolean deactivateProduct(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deactivateProduct(Product product) {
+		product.setActive(Boolean.FALSE);
+		return productDao.deactivateProduct(product);
 	}
 
 	@Override
 	public List<String> validateProduct(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> errors = new ArrayList<>();
+		if (product == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Product"));
+		if ((product.getCurrency() == null)  || (product.getCurrency().getRate() == null)) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Currency"));
+		if (product.getName() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Name"));
+		if (product.getQuantity() == 0) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Quantity"));
+		if (product.getSinglePrice() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Price"));
+		if (product.getType() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Type"));
+		return errors;
 	}
 }

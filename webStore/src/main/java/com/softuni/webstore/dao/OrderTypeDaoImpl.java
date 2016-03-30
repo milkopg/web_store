@@ -12,12 +12,7 @@ import com.softuni.webstore.log4j.LoggerManager;
 
 @Repository
 public class OrderTypeDaoImpl extends BaseDao implements OrderTypeDao{
-	Logger userlog = LoggerManager.getUserLogger();
-	Logger systemlog = LoggerManager.getSystemLogger();
-
-	@PersistenceContext
-	private EntityManager em;
-
+	
 	@Override
 	public OrderType getOrderTypeById(long id) {
 		OrderType orderType = null;
