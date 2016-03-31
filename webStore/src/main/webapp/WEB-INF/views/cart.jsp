@@ -3,7 +3,7 @@
 <ct:body>
 	<form:form method="POST" modelAttribute="order">
 		<div id="center" class="column">
-				<%-- <c:forEach var="o" varStatus="status" items="${order}"> --%>
+				<c:forEach var="o" varStatus="status" items="${order.orderDetails}">
 					<table border="1" class="table table-striped" >
 					  <tr>
 					    <th> <spring:message code="orderdetails.product.name"></spring:message></th>
@@ -12,13 +12,13 @@
 					    <th> <spring:message code="orderdetails.product.price"></spring:message></th>
 					  </tr>
 					  <tr>
-					    <td>${order.orderDetails[0].product.name} </td>
-					    <td>${order.orderDetails[0].product.description}</td> 
-					    <td>${order.orderDetails[0].product.quantity}</td>
-					    <td>${order.orderDetails[0].product.singlePrice}</td>
+					    <td>${o.product.name} </td>
+					    <td>${o.product.description}</td> 
+					    <td>${o.product.quantity}</td>
+					    <td>${o.product.singlePrice}</td>
 					  </tr>
 					</table>
-				<%-- </c:forEach> --%>
+				</c:forEach>
 					<div class="item">
 						<p class="line"> Shopping cart </p>
 						<p class="line"><span>Login:</span> <input type="text"></p>

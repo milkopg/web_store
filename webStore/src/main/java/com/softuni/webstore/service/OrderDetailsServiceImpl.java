@@ -1,24 +1,39 @@
 package com.softuni.webstore.service;
 
-import org.springframework.context.annotation.Scope;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 
+import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
 import com.softuni.webstore.entity.Product;
 
 @Service
-@Scope("session")
 public class OrderDetailsServiceImpl implements OrderDetailsService{
 
 	@Override
-	public boolean addProductToOrderDetails(OrderDetails orderDetails, Product product) {
+	public OrderDetails addProductToCart(Product product, HttpServletRequest request) {
+		OrderDetails orderDetails = new OrderDetails();
+		orderDetails.setProduct(product);
+		orderDetails.setPrice(product.getSinglePrice());
+		orderDetails.setCurrency(product.getCurrency());
+		orderDetails.setQuantity(1);
+		orderDetails.setOrder((Order) request.getSession().getAttribute("order"));;
+		orderDetails.getOrder().getOrderDetails().add(orderDetails);
+		return orderDetails;
+	}
+
+	@Override
+	public boolean removeProductFromCart(OrderDetails orderDetails, Product product) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean removeProductFromOrderDetails(OrderDetails orderDetails, Product product) {
+	public List<String> validateChart() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package com.softuni.webstore.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -63,6 +64,9 @@ public class Order {
 		this.id = id;
 	}
 	public List<OrderDetails> getOrderDetails() {
+		if (orderDetails == null) {
+			orderDetails = new ArrayList<>();
+		}
 		return orderDetails;
 	}
 	public void setOrderDetails(List<OrderDetails> orderDetails) {

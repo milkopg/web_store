@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
+import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
+import com.softuni.webstore.service.OrderDetailsService;
 import com.softuni.webstore.service.ProductService;
 
 @Controller
@@ -26,15 +28,22 @@ public class OrderContoller extends BaseController{
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	OrderDetailsService orderDetailsService;
+	
 	//@Transactional
+	//@ModelAttribute("order") Order order,
 	@RequestMapping(value="cart", method = RequestMethod.POST)
-	public String addToChart(Model model, @ModelAttribute("order") Order order, HttpServletRequest request) {
-		List<OrderDetails> details = new ArrayList<>();
-		
-		OrderDetails orderDetail = new OrderDetails();
-		orderDetail.setProduct(productService.getProductById(Long.parseLong(request.getParameter("productId"))));
-		details.add(orderDetail);
-		order.setOrderDetails(details);
+	public String addToCart(Model model,  @ModelAttribute("products") Product product, HttpServletRequest request) {
+		Order order = (Order) getSession().getAttribute("order");
+		Long productId = Long.parseLong(request.getParameter("productId")); 
+		if (order == null) {
+			order = new Order();
+			getSession().setAttribute("order", order);
+		} 
+		//OrderDetails orderDetails = orderDetailsService.addProductToCart(productService.getProductById(Long.parseLong(request.getParameter("productId"))));
+		order.getOrderDetails().add(orderDetailsService.addProductToCart(productService.getProductById(productId), request));
+		//orderDetail.setProduct(productService.getProductById(Long.parseLong(request.getParameter("productId"))));
 		
 		model.addAttribute(order);
 		return "cart";
