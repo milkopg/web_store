@@ -3,16 +3,37 @@
 	<ct:header></ct:header>
 	<ct:body>
 	<!-- <div id="container"> -->
-		<form:form method="POST" action="${contextPath}/cart" modelAttribute="products">
-			<div id="center" class="column">
+	<%-- action="${contextPath}/cart"  --%>
+	
+	
+	<div id="center" class="column">
 				<div class="stuff">
+				
+				<form:form method="GET" action="${contextPath }/performProductSearch">
+					<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
+					<input type="radio" name="criteriaGroup" value="name" checked="checked"> <spring:message code="product.criteria.name"></spring:message>
+					<input type="radio" name="criteriaGroup" value="type.name"><spring:message code="product.criteria.type"></spring:message>
+					<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
+					<input type="radio" name="criteriaGroup" value="price"><spring:message code="product.criteria.price"></spring:message>
+					<select name="operation">
+						<option value="=">=</option>
+						<option value=">">></option>
+						<option value="<"><</option>
+					</select><input type="text" name="criteriaValue">
+					
+					<input type="submit" value="<spring:message code="product.searchButton"></spring:message>">
+				</form:form>
+				
+				<form:form method="POST" action="${contextPath}/cart"  modelAttribute="products">
+					 	
+					 
 					<c:forEach var="product" varStatus="status" items="${products}">
 						<div class="item">
 								<img src="${images}/${product.pictureName }" class="image_small">
 								<a href="product_details?id=${product.id}" class="name">${fn:substring(product.name, 0,16)}</a>
 								 <span>${product.singlePrice } ${product.currency.name} </span>
 								 <input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
-								 <input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/addToChart'">
+								 <input type="submit" value="Add to Cart" name="${contextPath}/cart">
 								 <input type="hidden" name="productId" value="${product.id}">
 								<%-- <a href="#"><img src="${images}/zoom.gif" alt="" width="53" height="19"></a><a href="#"><img src="${images}/cart.gif" alt="" width="71" height="19"></a> --%>
 							</div>
@@ -59,9 +80,10 @@
 						<span>$2250</span>
 						<a href="#"><img src="${images}/zoom.gif" alt="" width="53" height="19"></a><a href="#"><img src="${images}/cart.gif" alt="" width="71" height="19"></a>
 					</div> --%>
-					</div>
-				</div>
-			</form:form>
+					
+				</form:form>
+			</div>
+			</div>
 			<ct:left></ct:left>
 			<ct:right></ct:right>
 	<!-- </div> -->

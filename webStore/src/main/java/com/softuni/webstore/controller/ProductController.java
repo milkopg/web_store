@@ -39,4 +39,13 @@ public class ProductController {
 		}
 		return new ModelAndView("product_details", "product", productService.getProductById(id));
 	}
+	
+	@RequestMapping(value="performProductSearch", method=RequestMethod.GET)
+	public ModelAndView performProductSearch(HttpServletRequest request) {
+		String criteria = request.getParameter("criteriaGroup");
+		String value = request.getParameter("criteriaValue");
+		String operation = request.getParameter("operation");
+		if (value == null) value = "";
+		return new ModelAndView("home", "products", productService.searchByCriteria(criteria, value, operation));
+	}
 }

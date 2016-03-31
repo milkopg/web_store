@@ -1,21 +1,21 @@
 <%@include file="master.jsp"%>
 <ct:header></ct:header>
 <ct:body>
-	<form:form>
+	<form:form method="POST" modelAttribute="order">
 		<div id="center" class="column">
 				<%-- <c:forEach var="o" varStatus="status" items="${order}"> --%>
 					<table border="1" class="table table-striped" >
 					  <tr>
-					    <th>Product</th>
-					    <th>Description</th> 
-					    <th>Quantity</th>
-					    <th>Price</th>
+					    <th> <spring:message code="orderdetails.product.name"></spring:message></th>
+					    <th> <spring:message code="orderdetails.product.description"></spring:message></th> 
+					    <th> <spring:message code="orderdetails.product.quantity"></spring:message></th>
+					    <th> <spring:message code="orderdetails.product.price"></spring:message></th>
 					  </tr>
 					  <tr>
-					    <td>Eve</td>
-					    <td>Jackson</td> 
-					    <td>94</td>
-					    <td>94</td>
+					    <td>${order.orderDetails[0].product.name} </td>
+					    <td>${order.orderDetails[0].product.description}</td> 
+					    <td>${order.orderDetails[0].product.quantity}</td>
+					    <td>${order.orderDetails[0].product.singlePrice}</td>
 					  </tr>
 					</table>
 				<%-- </c:forEach> --%>

@@ -10,7 +10,7 @@ public interface ProductService {
 	public boolean deleteProduct(long id);
 	public boolean activateProduct(Product product);
 	public boolean deactivateProduct(Product product);
-	public List<Product> searchByCriteria(String criteria, String value);
+	public List<Product> searchByCriteria(String criteria, String value, String operation);
 	public Product getProductById(Long id);
 	public List<Product> getAllProducts();
 	public List<String> validateProduct(Product product);

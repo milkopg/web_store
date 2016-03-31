@@ -32,8 +32,14 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> searchByCriteria(String criteria, String value) {
-		return productDao.searchByCriteria(criteria, value);
+	public List<Product> searchByCriteria(String criteria, String value, String operation) {
+		
+//		"product.criteria.name"></spring:message>
+//		value="type.name"><spring:message code="product.criteria.type"></spring:message>
+//		<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
+//		<input type="radio" name="criteriaGroup" value="price">
+//		if (criteria.equals(Constants.))
+		return productDao.searchByCriteria(criteria, value, operation);
 	}
 
 	@Override
