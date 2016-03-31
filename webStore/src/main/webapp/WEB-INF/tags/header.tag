@@ -6,7 +6,7 @@
 <div id="header">
 		<a href="${contextPath}/home" class="float"><img src="${images}/logo.jpg" alt="" width="171" height="73"></a>																																																		
 	  <div class="topblock1">
-			Currency:<br><select><option>US Dollar</option></select>
+			Currency:<br><select><option>Bulgarian Lev</option></select>
 		</div>
 	    <div class="topblock2">
 			Lanquage:<br>
