@@ -2,8 +2,10 @@
 <ct:header></ct:header>
 <ct:body>
 	<div id="center" class="column">
-		<form:form method="POST" modelAttribute="order" action="${contextPath}/processOrDelete">
-				<table border="1" class="table table-striped" >
+		<form:form id="cartForm" method="POST" modelAttribute="order" action="${contextPath}/processOrDelete">
+			<input type="hidden" name="productId" />
+			<input type="hidden" name="rowIndex" />
+				<table id="cartTable" border="1" class="table table-striped" >
 				  <tr>
 				    <th> <spring:message code="orderdetails.product.name"></spring:message></th>
 				    <th> <spring:message code="orderdetails.product.description"></spring:message></th> 
@@ -18,8 +20,8 @@
 					    <td>${fn:substring(o.product.description, 0,50)}</td> 
 					    <td>${o.quantity}</td>
 					    <td>${o.product.singlePrice}</td>
-					    <td><a href="${contextPath}/removeProduct/${o.product.id}"><spring:message code="orderdetails.product.delete"/></a></td>
-					    <td><input type="hidden" name="productId${status}" value="${o.product.id}" /></td>
+					    <%-- <td><a href="${contextPath}/removeProduct/${o.product.id}" onclick="submitter(this)"><spring:message code="orderdetails.product.delete"/></a></td> --%>
+					     <td><input type="submit" value="remove" class="btn-link" onclick="submitter(this)">Go</button></td>
 					    <%-- <td> <input type="checkbox" name="${o.deleted}" id="deleted" value="${order.orderDetails[status]}"> </td> --%>
 					  </tr>
 				</c:forEach>

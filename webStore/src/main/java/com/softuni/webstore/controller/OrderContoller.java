@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.softuni.webstore.entity.Order;
-import com.softuni.webstore.entity.OrderDetails;
 import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.OrderDetailsService;
@@ -33,32 +32,33 @@ public class OrderContoller extends BaseController{
 	//@Transactional
 	//@ModelAttribute("order") Order order,
 	@RequestMapping(value="cart", method = RequestMethod.POST)
-	public ModelAndView addToCart(Model model, HttpServletRequest request) {
+	public ModelAndView addToCart(Model model,  @RequestParam long productId, HttpServletRequest request) {
 		Order order = (Order) request.getSession().getAttribute("order");
 		if (order == null) {
 			order = new Order();
 			getSession().setAttribute("order", order);
 		} 
-		Long productId = Long.parseLong(request.getParameter("productId"));
 		order.getOrderDetails().add(orderDetailsService.addProductToCart(productService.getProductById(productId), request));
 		
 		model.addAttribute(order);
 		return new ModelAndView("cart", "order", order) ;
 	}
 	
-	 //@RequestParam(value = "processOrDelete") String processOrDelete,
-	@RequestMapping(value="removeProduct/*", method=RequestMethod.POST)
-	public String cartDeleteProduct(Model model, @ModelAttribute ("order") Order order, HttpServletRequest request) {
-		String path = request.getServletPath();
-		String [] folders = path.split("/");
-		Product product = productService.getProductById(Long.parseLong(folders[folders.length-1]));
-		orderDetailsService.removeProductFromCart(null, product);
-		return "cart";
-	}
+//	@RequestMapping(value="removeProduct/*", method=RequestMethod.POST)
+//	public String cartDeleteProduct(Model model, @ModelAttribute ("order") Order order, HttpServletRequest request) {
+//		String path = request.getServletPath();
+//		String [] folders = path.split("/");
+//		Product product = productService.getProductById(Long.parseLong(folders[folders.length-1]));
+//		//orderDetailsService.removeProductFromCart(order, rowIndex);
+//		return "cart";
+//	}
 	
-	@RequestMapping(value="processOrDelete", method=RequestMethod.POST,  params = { "process" })
-	public String processOrder(Model model,  @RequestParam String process, @ModelAttribute ("order") Order order, HttpServletRequest request) {
-		String index = request.getParameter("index");
-		return "cart";
+	//@RequestParam long productId, ,  
+	@RequestMapping(value="processOrDelete", method=RequestMethod.POST)
+	public ModelAndView processOrder(Model model,  @ModelAttribute ("order") Order order, HttpServletRequest request) {
+		int rowIndex = Integer.parseInt(request.getParameter("rowIndex"));
+		//Product product = productService.getProductById(1l);
+		orderDetailsService.removeProductFromCart(order, rowIndex);
+		return new ModelAndView("cart", "order", order);
 	}
 }

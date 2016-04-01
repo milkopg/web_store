@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softuni.webstore.entity.Order;
@@ -13,6 +14,9 @@ import com.softuni.webstore.entity.Product;
 @Service
 public class OrderDetailsServiceImpl implements OrderDetailsService{
 
+	@Autowired
+	ProductService productService;
+	
 	@Override
 	public OrderDetails addProductToCart(Product product, HttpServletRequest request) {
 		OrderDetails orderDetails = new OrderDetails();
@@ -25,13 +29,19 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	}
 
 	@Override
-	public boolean removeProductFromCart(OrderDetails orderDetails, Product product) {
-		// TODO Auto-generated method stub
-		return false;
+	public Order removeProductFromCart(Order order, int rowIndex) {
+		order.getOrderDetails().remove(rowIndex);
+		return order;
 	}
 
 	@Override
 	public List<String> validateChart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OrderDetails getOrderDetailByProductId(long productId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

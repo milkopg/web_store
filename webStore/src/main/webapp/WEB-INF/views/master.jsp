@@ -9,6 +9,7 @@
 <title>Webstore</title>
 <link href="${stylesCss}" rel="stylesheet" />
 <script src="${frontJS}"></script>
+<script src="${jQuery}"></script>
 
 </head>
 <body>
