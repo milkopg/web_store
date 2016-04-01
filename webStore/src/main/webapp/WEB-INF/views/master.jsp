@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Webstore</title>
 <link href="${stylesCss}" rel="stylesheet" />
-<link href="${images}" rel="stylesheet" />
+<script src="${frontJS}"></script>
 
 </head>
 <body>

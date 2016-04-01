@@ -1,8 +1,5 @@
 package com.softuni.webstore.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
@@ -34,18 +33,32 @@ public class OrderContoller extends BaseController{
 	//@Transactional
 	//@ModelAttribute("order") Order order,
 	@RequestMapping(value="cart", method = RequestMethod.POST)
-	public String addToCart(Model model,  @ModelAttribute("products") Product product, HttpServletRequest request) {
-		Order order = (Order) getSession().getAttribute("order");
-		Long productId = Long.parseLong(request.getParameter("productId")); 
+	public ModelAndView addToCart(Model model, HttpServletRequest request) {
+		Order order = (Order) request.getSession().getAttribute("order");
 		if (order == null) {
 			order = new Order();
 			getSession().setAttribute("order", order);
 		} 
-		//OrderDetails orderDetails = orderDetailsService.addProductToCart(productService.getProductById(Long.parseLong(request.getParameter("productId"))));
+		Long productId = Long.parseLong(request.getParameter("productId"));
 		order.getOrderDetails().add(orderDetailsService.addProductToCart(productService.getProductById(productId), request));
-		//orderDetail.setProduct(productService.getProductById(Long.parseLong(request.getParameter("productId"))));
 		
 		model.addAttribute(order);
+		return new ModelAndView("cart", "order", order) ;
+	}
+	
+	 //@RequestParam(value = "processOrDelete") String processOrDelete,
+	@RequestMapping(value="removeProduct/*", method=RequestMethod.POST)
+	public String cartDeleteProduct(Model model, @ModelAttribute ("order") Order order, HttpServletRequest request) {
+		String path = request.getServletPath();
+		String [] folders = path.split("/");
+		Product product = productService.getProductById(Long.parseLong(folders[folders.length-1]));
+		orderDetailsService.removeProductFromCart(null, product);
+		return "cart";
+	}
+	
+	@RequestMapping(value="processOrDelete", method=RequestMethod.POST,  params = { "process" })
+	public String processOrder(Model model,  @RequestParam String process, @ModelAttribute ("order") Order order, HttpServletRequest request) {
+		String index = request.getParameter("index");
 		return "cart";
 	}
 }

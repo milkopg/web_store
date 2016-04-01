@@ -2,10 +2,6 @@
 
 	<ct:header></ct:header>
 	<ct:body>
-	<!-- <div id="container"> -->
-	<%-- action="${contextPath}/cart"  --%>
-	
-	
 	<div id="center" class="column">
 				<div class="stuff">
 				
@@ -24,17 +20,16 @@
 					<input type="submit" value="<spring:message code="product.searchButton"></spring:message>">
 				</form:form>
 				
-				<form:form method="POST" action="${contextPath}/cart"  modelAttribute="products">
-					 	
+				<form:form id="cartForm" method="POST" action="${contextPath}/cart"  modelAttribute="products">
+					 	<input type="hidden" name="productId" />
 					 
 					<c:forEach var="product" varStatus="status" items="${products}">
-						<div class="item">
+					 	<div class="item">
 								<img src="${images}/${product.pictureName }" class="image_small">
 								<a href="product_details?id=${product.id}" class="name">${fn:substring(product.name, 0,16)}</a>
 								 <span>${product.singlePrice } ${product.currency.name} </span>
-								 <input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
-								 <input type="submit" value="Add to Cart" name="${contextPath}/cart">
-								 <input type="hidden" name="productId" value="${product.id}">
+							 	<input type="button" id="${product.id }" value="Add to Cart" name="addToCart" onclick="submitter(this)">
+								  
 								<%-- <a href="#"><img src="${images}/zoom.gif" alt="" width="53" height="19"></a><a href="#"><img src="${images}/cart.gif" alt="" width="71" height="19"></a> --%>
 							</div>
 					</c:forEach>
@@ -45,15 +40,13 @@
 						<span>$250</span>
 						<input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
 						<input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/cart'">
-						<input type="hidden" name="productId" value="${product.id}">
 					</div>
 					 <div class="item">
 						<img src="${images}/pic2.jpg" class="image_small">
 						<a href="index2.html" class="name">Name Product</a>
 						<span>$850</span>
 						<input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
-						<input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/addToChart'">
-						<input type="hidden" name="productId" value="${product.id}">
+						<input type="submit" value="Add to Cart"  onclick="location= '${contextPath}/addToChart/productId=${product.id}'">
 					</div>
 					<%-- 
 					<div class="item">

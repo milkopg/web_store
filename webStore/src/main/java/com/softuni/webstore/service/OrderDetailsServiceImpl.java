@@ -21,7 +21,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 		orderDetails.setCurrency(product.getCurrency());
 		orderDetails.setQuantity(1);
 		orderDetails.setOrder((Order) request.getSession().getAttribute("order"));;
-		orderDetails.getOrder().getOrderDetails().add(orderDetails);
 		return orderDetails;
 	}
 

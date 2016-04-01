@@ -7,6 +7,5 @@
  <spring:url value="/resources/css/style.css" var="stylesCss" />
  <spring:url value="/resources/js/front.js" var="frontJS" />
  <spring:url value="/resources/images" var="images" />
- <spring:url value="/resources/images" var="images" />
  <c:set var="contextPath" value="${pageContext.request.contextPath}" />
  
