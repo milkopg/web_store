@@ -21,31 +21,20 @@
 					    <td>${o.quantity}</td>
 					    <td>${o.product.singlePrice}</td>
 					    <%-- <td><a href="${contextPath}/removeProduct/${o.product.id}" onclick="submitter(this)"><spring:message code="orderdetails.product.delete"/></a></td> --%>
-					     <td><input type="submit" value="remove" class="btn-link" onclick="submitter(this)">Go</button></td>
+					     <td onclick="submitter(this)"><input type="submit" value="<spring:message code="orderdetails.product.delete"/>" class="btn-link"></td>
 					    <%-- <td> <input type="checkbox" name="${o.deleted}" id="deleted" value="${order.orderDetails[status]}"> </td> --%>
 					  </tr>
 				</c:forEach>
 				</table>
 				<br>
-						<div class="item">
-						<p class="line"> Shopping cart </p>
-						<p class="line"><span>Login:</span> <input type="text"></p>
-						<p class="line"><span>Password:</span> <input type="text"></p>
-						<p class="line center"><a href="#" class="reg">Registration</a> | <a href="#" class="reg">Forgot password?</a></p>
-						<p class="line center pad20"><a href="#"><img src="${images}/enter.gif" alt="" width="69" height="25"></a></p>
 						
-					</div>
-			<input type="submit" value='<spring:message code="orderdetails.product.delete"></spring:message>' name="deleteRow">
-			<input type="submit" value='<spring:message code="orderdetails.cart.process"></spring:message>' name="process">	
+			<input type="button" value='<spring:message code="orderdetails.product.continue"></spring:message>' name="continue" onclick="location='${contextPath}/home'">
+			<input type="button" value='<spring:message code="orderdetails.cart.process"></spring:message>' name="process" onclick="location='${contextPath}/login'">	
 			
 		</form:form>
-		<%-- 	<input type="submit" value='<spring:message code="orderdetails.product.delete"></spring:message>' name="processOrDelete" onclick="location= '${contextPath}/processOrDelete' ">
-		<input type="submit" value='<spring:message code="orderdetails.cart.process"></spring:message>' name="processOrDelete" onclick="location= '${contextPath}/processOrDelete' "> --%>	
 	</div>
-	
-				
-		
 	<ct:left></ct:left>
 	<ct:right></ct:right>
 </ct:body>
 <ct:footer></ct:footer>
+

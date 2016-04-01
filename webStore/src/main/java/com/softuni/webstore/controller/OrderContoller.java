@@ -41,6 +41,7 @@ public class OrderContoller extends BaseController{
 		order.getOrderDetails().add(orderDetailsService.addProductToCart(productService.getProductById(productId), request));
 		
 		model.addAttribute(order);
+		getSession().setAttribute("order", order);
 		return new ModelAndView("cart", "order", order) ;
 	}
 	
@@ -55,10 +56,11 @@ public class OrderContoller extends BaseController{
 	
 	//@RequestParam long productId, ,  
 	@RequestMapping(value="processOrDelete", method=RequestMethod.POST)
-	public ModelAndView processOrder(Model model,  @ModelAttribute ("order") Order order, HttpServletRequest request) {
-		int rowIndex = Integer.parseInt(request.getParameter("rowIndex"));
+	public ModelAndView processOrder(Model model, @RequestParam int rowIndex, HttpServletRequest request) {
+		Order order = (Order) request.getSession().getAttribute("order");
 		//Product product = productService.getProductById(1l);
 		orderDetailsService.removeProductFromCart(order, rowIndex);
+		getSession().setAttribute("order", order);
 		return new ModelAndView("cart", "order", order);
 	}
 }
