@@ -3,15 +3,12 @@ package com.softuni.webstore.controller;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Order;
-import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.OrderDetailsService;
 import com.softuni.webstore.service.OrderService;
@@ -73,10 +69,11 @@ public class OrderContoller extends BaseController{
 	@RequestMapping(value="processOrder", method=RequestMethod.POST)
 	public String processOrder(HttpServletRequest request) {
 		Order order = (Order) request.getSession().getAttribute("order");
+		order.setComment(request.getParameter("order.comment"));
 		if (order.getCustomer() == null) {
 			return "login";
 		}
-		fillOrderDetails(order);
+		fillOrderDetails(order, request);
 		if (orderService.addOrder(order)) {
 			getSession().removeAttribute("session");
 			return "order_success";
@@ -85,7 +82,7 @@ public class OrderContoller extends BaseController{
 		}
 	}
 
-	private void fillOrderDetails(Order order) {
+	private void fillOrderDetails(Order order, HttpServletRequest request) {
 		if (order == null) return;
 		order.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_SELL));
 		order.setPurchaseDate(new Date());

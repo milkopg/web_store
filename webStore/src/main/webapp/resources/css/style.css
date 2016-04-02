@@ -568,3 +568,9 @@ div.divider {
 	margin: 10px;
 	padding: 10px;
 }
+
+.comment {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 80%;
+}

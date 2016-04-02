@@ -31,6 +31,7 @@
 			</div>
 				
 			<div id="item">
+				<p><label><spring:message code="order.comment"></spring:message></label><input type="text" id="comment" name="order.comment" value="${order.comment }" style="width: 70%"></input></p>
 				<input type="button" value='<spring:message code="orderdetails.product.continue"></spring:message>' name="continue" onclick="location='${contextPath}/home'">
 				<input type="submit" value='<spring:message code="orderdetails.cart.process"></spring:message>' name="process">
 			</div>	
