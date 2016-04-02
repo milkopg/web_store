@@ -45,8 +45,7 @@ public class Order {
 	private Customer customer;
 	
 	@Column(name="purchase_date")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	//@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date purchaseDate;
 	
 	@Column(name="total_quantity")

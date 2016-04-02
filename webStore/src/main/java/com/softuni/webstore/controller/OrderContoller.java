@@ -78,6 +78,7 @@ public class OrderContoller extends BaseController{
 		}
 		fillOrderDetails(order);
 		if (orderService.addOrder(order)) {
+			getSession().removeAttribute("session");
 			return "order_success";
 		} else {
 			return "processOrder";
