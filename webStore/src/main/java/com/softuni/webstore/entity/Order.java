@@ -62,7 +62,7 @@ public class Order {
 	@Column(name="total_price")
 	private BigDecimal totalPrice;
 	
-	@Column(name="comment")
+	@Column(name="\"COMMENT\"")
 	private String comment;
 	
 	public long getId() {

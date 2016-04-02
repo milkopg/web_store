@@ -17,7 +17,7 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 @Entity
-@Table(name="t_currency")
+@Table(name="t_order_details")
 @OptimisticLocking(type=OptimisticLockType.VERSION)
 public class OrderDetails {
 	@Id

@@ -8,6 +8,7 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
+		
 	</appender>
 	
 	<appender name="user" class="org.apache.log4j.FileAppender">
@@ -29,6 +30,10 @@
 	<logger name="com.softuni.webstore.system">
 		<!-- <level value="ERROR"></level> -->
 		<appender-ref ref="system"/>
+	</logger>
+	
+	<logger name="org.hibernate.SQL">
+	    <level value="DEBUG" />
 	</logger>
 	
 	<logger name="com.softuni.webstore.user">
