@@ -1,7 +1,6 @@
 package com.softuni.webstore.entity;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,18 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.OptimisticLockType;
-import org.hibernate.annotations.OptimisticLocking;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="t_customer")
-@OptimisticLocking(type=OptimisticLockType.VERSION)
+//@OptimisticLocking(type=OptimisticLockType.VERSION)
 public class Customer {
 	@Id
 	@Column(name="id")
@@ -32,14 +25,14 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_CUSTOMER")
 	private long id;
 	
-	@NotNull
-	@Size(min=5, max=40)
+	//@NotNull
+	//@Size(min=5, max=40)
 	@Column(name="name")
 	private String name;
 	
 	@Column(name="birth_date")
-	@Temporal(TemporalType.DATE)
-	private Calendar birthDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date birthDate;
 	
 	@Column(name="address")
 	private String address;
@@ -50,9 +43,6 @@ public class Customer {
 	
 	@Column(name="active")
 	private boolean active;
-	
-	@Transient
-	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -67,10 +57,10 @@ public class Customer {
 		this.name = name;
 	}
 	
-	public Calendar getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Calendar birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 	public String getAddress() {
@@ -92,15 +82,9 @@ public class Customer {
 		this.active = active;
 	}
 	
-	public List<String> getErrors() {
-		return errors;
-	}
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
 	@Override
 	public String toString() {
-		return "Customer id: " + getId() + ", name: " + getName() + ", birth date: " + getBirthDate().toString() +
+		return "Customer id: " + getId() + ", name: " + getName() + ", birth date: " + getBirthDate() +
 				", address: " + getAddress() + ", user: " + getUser() + ", active: " + getActive();
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.CustomerDao;
 import com.softuni.webstore.entity.Customer;
+import com.softuni.webstore.entity.Role;
 import com.softuni.webstore.entity.User;
 
 @Service
@@ -53,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<String> validateCustomer(Customer customer) {
 		List<String> errors = new ArrayList<>();
 		if (customer == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Customer"));
-		if (customer.getBirthDate() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Birth Date"));
+		//if (customer.getBirthDate() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Birth Date"));
 		if (customer.getName() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Name"));
 		if (customer.getUser() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User"));
 		
@@ -65,12 +66,17 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<String> validateUser(User user) {
 		List<String> errors = new ArrayList<>();
-		if (user.getId() == 0) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User id"));
 		if (user.getUsername() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "Username"));
 		if (user.getPassword() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User Password"));
 		if (user.getRole() == null) errors.add(Constants.ERROR_MANDATORY.replace("{0}", "User Role"));
 		
 		return errors;
+	}
+
+	@Override
+	public boolean addRole(Customer customer, Role role) {
+		customer.getUser().setRole(role);
+		return true;
 	}
 }
   

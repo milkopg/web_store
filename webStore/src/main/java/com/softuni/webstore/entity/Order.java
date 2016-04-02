@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -54,8 +53,8 @@ public class Order {
 	@Column(name="comment")
 	private String comment;
 	
-	@Transient
-	private List<String> errors;
+//	@Transient
+//	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -103,12 +102,12 @@ public class Order {
 		this.comment = comment;
 	}
 	
-	public List<String> getErrors() {
-		return errors;
-	}
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
+//	public List<String> getErrors() {
+//		return errors;
+//	}
+//	public void setErrors(List<String> errors) {
+//		this.errors = errors;
+//	}
 	
 	@Override
 	public String toString() {

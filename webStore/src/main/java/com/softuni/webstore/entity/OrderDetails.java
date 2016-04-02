@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -44,9 +43,6 @@ public class OrderDetails {
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="currency_id")
 	private Currency currency;
-	
-	@Transient
-	private boolean deleted;
 	
 	public long getId() {
 		return id;
@@ -83,11 +79,5 @@ public class OrderDetails {
 	}
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
-	}
-	public boolean isDeleted() {
-		return deleted;
-	}
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
 	}
 }

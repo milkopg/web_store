@@ -60,7 +60,7 @@ CREATE TABLE "WEBSTORE"."T_CUSTOMER"
 (
 	"ID" NUMBER NOT NULL,
 	"NAME" VARCHAR2 (50 BYTE) NOT NULL,
-	"BIRTH_DATE" DATE NOT NULL,
+	"BIRTH_DATE",
 	"ADDRESS" VARCHAR2 (100 BYTE),
 	"USER_ID" NUMBER NOT NULL,
 	"ACTIVE" NUMBER NOT NULL
@@ -72,7 +72,7 @@ CREATE TABLE "WEBSTORE"."T_ORDER"
 	"CUSTOMER_ID" NUMBER NOT NULL,
 	"ORDER_TYPE_ID" NUMBER NOT NULL,
 	"TOTAL" NUMBER NOT NULL,
-	"PURCHASE_DATE" DATE NOT NULL,
+	"PURCHASE_DATE" DATE,
 	"COMMENT" VARCHAR2 (200 BYTE)
 );
 
@@ -155,6 +155,12 @@ INSERT INTO WEBSTORE.T_PRODUCT (ID, NAME, DESCRIPTION, PRODUCT_TYPE_ID, CURRENCY
 INSERT INTO WEBSTORE.T_PRODUCT (ID, NAME, DESCRIPTION, PRODUCT_TYPE_ID, CURRENCY_ID, SINGLE_PRICE, QUANTITY, PICTURE_NAME, ACTIVE) VALUES (2, 'Canon IXUS 275 HS 20.2 MP', 'Ultra-slim IXUS and Canon quality in your pocket,Get closer to the moments that matter with a 12x zoom,Capture stunning photos and movies with 20.2 MP and Intelligent IS,Share easily and shoot remotely using Wi-Fi and NFC,Play with your creativity using Creative shot', 1, 1, 300, 10,'pic2.jpg', 1);
 INSERT INTO WEBSTORE.T_PRODUCT (ID, NAME, DESCRIPTION, PRODUCT_TYPE_ID, CURRENCY_ID, SINGLE_PRICE, QUANTITY, PICTURE_NAME, ACTIVE) VALUES (3, 'Sony DSC W830 Cyber-shot 20.1 MP', 'Super HAD CCD sensor with 20.1 effective megapixels,720p MP4 movie mode the camera shoots 1280 x 720 high definition movies at 30 fps,8x optical zoom Carl Zeiss Vario Tessar lens,Equipped with sweep panorama, intelligent auto and picture effect,2.7-inch (230K dots) clear photo LCD display', 1, 1, 2000, 30, 'pic3.jpg', 1);
 INSERT INTO WEBSTORE.T_PRODUCT (ID, NAME, DESCRIPTION, PRODUCT_TYPE_ID, CURRENCY_ID, SINGLE_PRICE, QUANTITY, PICTURE_NAME, ACTIVE) VALUES (4, 'Nikon Coolpix S2900 20.1MP', '20.1 megapixels camera,5x optical zoom,2.7 inch TFT LCD, and 5-level brightness adjustment,Control : TTL auto flash with monitor preflashes,Shutter type : Mechanical and CCD electronic shutter', 1, 1, 200, 30, 'pic4.jpg', 1);
+
+
+INSERT INTO WEBSTORE.T_GENERATOR(GEN_KEY, GEN_VALUE) VALUES('WEBSTORE.T_CURRENCY', 2);
+INSERT INTO WEBSTORE.T_GENERATOR(GEN_KEY, GEN_VALUE) VALUES('WEBSTORE.T_ORDER_TYPE', 3);
+INSERT INTO WEBSTORE.T_GENERATOR(GEN_KEY, GEN_VALUE) VALUES('WEBSTORE.T_USER', 4);
+INSERT INTO WEBSTORE.T_GENERATOR(GEN_KEY, GEN_VALUE) VALUES('WEBSTORE.T_PRODUCT', 5);
 
    
 --------------------------------------------------------

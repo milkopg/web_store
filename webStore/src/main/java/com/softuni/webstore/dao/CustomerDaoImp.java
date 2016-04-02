@@ -22,6 +22,7 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 	@Override
 	public boolean addCustomer(Customer customer) {
 		try {
+			em.persist(customer.getUser());
 			em.persist(customer);
 			userlog.debug("Customer was added successful: " + customer);
 			return true;

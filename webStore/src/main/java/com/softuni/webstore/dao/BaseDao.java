@@ -14,9 +14,6 @@ public abstract class BaseDao {
 	protected Logger userlog = LoggerManager.getUserLogger();
 	protected Logger systemlog = LoggerManager.getSystemLogger();
 
-	@PersistenceContext
-	protected EntityManager em;
-	
 	public <T> T getSingleResult(TypedQuery<T> q) {
 		List<T> lst;
 

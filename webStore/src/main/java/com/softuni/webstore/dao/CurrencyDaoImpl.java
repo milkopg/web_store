@@ -1,5 +1,7 @@
 package com.softuni.webstore.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -8,7 +10,9 @@ import com.softuni.webstore.entity.Currency;
 
 @Repository
 public class CurrencyDaoImpl extends BaseDao implements CurrencyDao{
-
+	@PersistenceContext 
+	EntityManager em;
+	
 	@Override
 	public Currency getCurrencyById(long id) {
 		Currency currency = null;

@@ -3,6 +3,7 @@ package com.softuni.webstore.service;
 import java.util.List;
 
 import com.softuni.webstore.entity.Customer;
+import com.softuni.webstore.entity.Role;
 import com.softuni.webstore.entity.User;
 
 public interface CustomerService {
@@ -14,4 +15,5 @@ public interface CustomerService {
 	public List<Customer> searchCustomerByCriteria(String criteria, String value);
 	public List<String> validateCustomer(Customer customer);
 	public List<String> validateUser(User user);
+	public boolean addRole(Customer customer, Role role);
 }
