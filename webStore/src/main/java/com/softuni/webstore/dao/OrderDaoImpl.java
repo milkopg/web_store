@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.softuni.webstore.entity.Order;
+import com.softuni.webstore.entity.OrderDetails;
 import com.softuni.webstore.log4j.LoggerManager;
 
 @Repository
@@ -28,6 +29,11 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 	public boolean addOrder(Order order) {
 		try {
 			em.persist(order);
+			
+			for (OrderDetails orderDetail: order.getOrderDetails()) {
+				em.persist(orderDetail);
+			}
+			
 			userlog.debug("Order was added successful: " + order);
 			return true;
 		} catch (Exception e) {

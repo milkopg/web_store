@@ -29,8 +29,8 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	
 	@Override
-	public Customer findCustomer(long id) {
-		return customerDao.findCustomer(id);
+	public Customer getCustomerById(long id) {
+		return customerDao.getCustomerById(id);
 	}
 
 	@Override
@@ -77,6 +77,11 @@ public class CustomerServiceImpl implements CustomerService{
 	public boolean addRole(Customer customer, Role role) {
 		customer.getUser().setRole(role);
 		return true;
+	}
+
+	@Override
+	public Customer getCustomerByUsername(String username) {
+		return customerDao.getCustomerByUsername(username);
 	}
 }
   

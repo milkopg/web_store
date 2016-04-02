@@ -9,6 +9,7 @@
 						<tr>
 							<td><p class="line">Name:</p></td>
 							<td><input type="text" id="name" name="name" value="${customer.name}"></td>
+							<td><font color="red"> <form:errors path="name"></form:errors></font><br/></td>
 						</tr>
 						<tr>
 							<td><p class="line">Birth Date:</p></td>

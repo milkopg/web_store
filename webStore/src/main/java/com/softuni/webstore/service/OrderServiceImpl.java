@@ -1,12 +1,11 @@
 package com.softuni.webstore.service;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.softuni.webstore.constants.Constants;
@@ -17,7 +16,6 @@ import com.softuni.webstore.entity.OrderType;
 import com.softuni.webstore.log4j.LoggerManager;
 
 @Service
-@Scope("session")
 public class OrderServiceImpl implements OrderService{
 	
 	Logger systemlog = LoggerManager.getSystemLogger();
@@ -53,7 +51,7 @@ public class OrderServiceImpl implements OrderService{
 		refundOrder.setComment("Refund");
 		refundOrder.setCustomer(originalOrder.getCustomer());
 		refundOrder.setOrderType(getOrderTypeRefund());
-		refundOrder.setPurchaseDate(Calendar.getInstance());
+		refundOrder.setPurchaseDate(new Date());
 		refundOrder.setTotalPrice(calculateTotalPrice(refundOrder));
 		return refundOrder;
 	}
@@ -83,6 +81,20 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return totalPrice;
 	}
+	
+	@Override
+	public int calculateTotalQuantity(Order order) {
+		if (order == null) return 0;
+		int totalQuantity = 0;
+		for (OrderDetails detail : order.getOrderDetails()) {
+			try {
+				totalQuantity += detail.getQuantity();
+			} catch (Exception e) {
+				systemlog.error("calculateTotalQuantity: cannot calculate quantity" + order);
+			}
+		}
+		return totalQuantity;
+	}
 
 	@Override
 	public List<Order> searchOrderByCriteria(String criteria, String value) {
@@ -95,5 +107,7 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

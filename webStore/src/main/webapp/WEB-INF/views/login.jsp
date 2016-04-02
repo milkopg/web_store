@@ -4,24 +4,26 @@
 		<div id="center" class="column">
 		  	<div id="content">
 		  	<h2 id="header2"> Shopping cart details</h2>
-		  	<form:form method="POST" action="${contextPath}/performLogin" modelAttribute="user">
+		  	<form:form method="POST" action="${contextPath}/doLogin" modelAttribute="customer">
 		  		<table>
 		  			<tr>
 		  				<td><p class="line">Login:</td>
-		  				<td><p class="line"><span><input type="text"></span> </p></td>
+		  				<td><p class="line"><span><input type="text" id="username" name="user.username" value="${customer.user.username }"></span> </p></td>
 		  			</tr>
 		  			<tr>
 		  				<td><p class="line"><span>Password:</span></td>
-		  				<td><p class="line"><span><input type="text"></span> </p></td>
+		  				<td><p class="line"><span><input type="password" id="password" name="user.password" value="${customer.user.password }"></span> </p></td>
 		  			</tr>
 		  			<tr>
-		  				<td><p><a href="#"><img src="${images}/enter.gif" alt="" width="69" height="25"></a></p></td>
+		  				<td><input type="submit" id="btn1" name="submit" value="Login" class="button"></td>
 		  			</tr>
+		  			
 		  			<tr>
 		  				<td><a href="${contextPath }/register" class="reg">Registration</a></td>
 		  				<td><a href="#" class="reg">Forgot password?</a></td>
 		  			</tr>
 		  		</table>
+		  		
 		  	</form:form>
 		  		<%-- </table>
 		  			<tr>

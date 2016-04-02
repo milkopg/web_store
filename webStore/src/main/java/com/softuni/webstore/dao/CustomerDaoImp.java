@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import com.softuni.webstore.entity.Currency;
 import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.log4j.LoggerManager;
 
@@ -48,7 +50,7 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 	}
 	
 	@Override
-	public Customer findCustomer(long id) {
+	public Customer getCustomerById(long id) {
 		Customer customer = null;
 		try {
 			customer = em.find(Customer.class, id);
@@ -56,6 +58,15 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 			systemlog.error("Cannot find customer with id: " + id );
 		}
 		return customer;
+	}
+	
+	@Override
+	public Customer getCustomerByUsername(String username) {
+		TypedQuery<Customer> q;
+		
+		q = em.createQuery("SELECT o FROM Customer o where o.user.username = :username", Customer.class);
+		q.setParameter("username", username);
+		return getSingleResult(q);
 	}
 
 

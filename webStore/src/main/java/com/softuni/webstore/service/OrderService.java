@@ -10,6 +10,7 @@ public interface OrderService {
 	public boolean editOrder(Order order);
 	public Order createRefundOrder(Order originalOrder);
 	public BigDecimal calculateTotalPrice(Order order);
+	public int calculateTotalQuantity(Order order);
 	public List<Order> searchOrderByCriteria(String criteria, String value);
 	public List<String> validateOrder(Order order);
 }

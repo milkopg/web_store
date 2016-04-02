@@ -2,7 +2,7 @@ package com.softuni.webstore.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="t_order")
@@ -44,17 +45,25 @@ public class Order {
 	private Customer customer;
 	
 	@Column(name="purchase_date")
-	@Temporal(value=TemporalType.TIMESTAMP)
-	private Calendar purchaseDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	//@Temporal(TemporalType.TIMESTAMP)
+	private Date purchaseDate;
 	
+	@Column(name="total_quantity")
+	private int totalQuantity;
+	
+	public int getTotalQuantity() {
+		return totalQuantity;
+	}
+	public void setTotalQuantity(int totalQuantity) {
+		this.totalQuantity = totalQuantity;
+	}
+
 	@Column(name="total_price")
 	private BigDecimal totalPrice;
 	
 	@Column(name="comment")
 	private String comment;
-	
-//	@Transient
-//	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -83,10 +92,10 @@ public class Order {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public Calendar getPurchaseDate() {
+	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
-	public void setPurchaseDate(Calendar purchaseDate) {
+	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
 	public BigDecimal getTotalPrice() {
@@ -101,13 +110,6 @@ public class Order {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-//	public List<String> getErrors() {
-//		return errors;
-//	}
-//	public void setErrors(List<String> errors) {
-//		this.errors = errors;
-//	}
 	
 	@Override
 	public String toString() {

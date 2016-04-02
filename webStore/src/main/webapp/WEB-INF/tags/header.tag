@@ -1,5 +1,4 @@
 <h1>${title}</h1>
-<hl>
 
 <%@include file="../views/taglibs.jsp"%>
 
@@ -19,7 +18,7 @@
 		</div>
 		<div class="topblock2">
 			<img src="${images}/shopping.gif" alt="" width="24" height="24" class="shopping">																																																																									
-		 	<p>Shopping cart</p> <p><strong>0</strong> <span>items</span></p>
+		 	<p>Shopping cart</p> <p><strong> <c:out value="${fn:length(sessionScope.order.orderDetails)}"></c:out></strong> <span>items</span></p>
 		</div>
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,15 +27,17 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_CUSTOMER")
 	private long id;
 	
-	//@NotNull
-	//@Size(min=5, max=40)
+	@NotNull
+	@Size(min=5, max=40)
 	@Column(name="name")
 	private String name;
 	
+	@NotNull
 	@Column(name="birth_date")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date birthDate;
 	
+	@Size(min=0, max=90)
 	@Column(name="address")
 	private String address;
 	

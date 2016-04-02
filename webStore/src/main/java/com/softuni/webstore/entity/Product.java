@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -41,9 +40,6 @@ public class Product {
 	@JoinColumn(name="product_type_id")
 	private ProductType type;
 	
-	@Transient
-	private List<String> productTypesList;
-	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="currency_id")
 	private Currency currency;
@@ -59,9 +55,6 @@ public class Product {
 	
 	@Column(name="active")
 	private boolean active;
-	
-	@Transient
-	private List<String> errors;
 	
 	public long getId() {
 		return id;
@@ -123,12 +116,6 @@ public class Product {
 		this.active = active;
 	}
 	
-	public List<String> getErrors() {
-		return errors;
-	}
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
 	@Override
 	public String toString() {
 		return "Product  id: " + getId() + ", name: " + getName() + ", product type: " + getType().getName() + 
