@@ -27,7 +27,6 @@
 							<li><span>Seddiam</span>1234</li>
 							<li class="color"><span>Nonumy eirmod</span>1234</li>
 						</ul>
-						<input type="number" min="1" max="10" maxlength="2" value="1" name="${product.quantity }">
 						<input type="submit" value="Add to Cart" onclick="location= '${contextPath}/cart">
 						<input type="hidden" name="productId" value="${product.id}">
 					</div>

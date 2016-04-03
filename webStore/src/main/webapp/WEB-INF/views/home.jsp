@@ -20,7 +20,7 @@
 					<input type="submit" value="<spring:message code="product.searchButton"></spring:message>">
 				</form:form>
 				
-				<form:form id="cartForm" method="POST" action="${contextPath}/cart"  modelAttribute="products">
+				<form:form id="cartForm" method="POST" action="${contextPath}/addToCart"  modelAttribute="products">
 					 	<input type="hidden" name="productId" />
 					 
 					<c:forEach var="product" varStatus="status" items="${products}">

@@ -574,3 +574,8 @@ div.divider {
 	margin-bottom: 10px;
 	width: 80%;
 }
+
+#cartTable {
+	width: 90%;
+	margin-top: 10px;
+}

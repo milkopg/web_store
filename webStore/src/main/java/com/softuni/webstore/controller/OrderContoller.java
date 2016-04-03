@@ -41,7 +41,7 @@ public class OrderContoller extends BaseController{
 	
 	//@Transactional
 	//@ModelAttribute("order") Order order,
-	@RequestMapping(value="cart", method = RequestMethod.POST)
+	@RequestMapping(value="addToCart", method = RequestMethod.POST)
 	public ModelAndView addToCart(Model model,  @RequestParam long productId, HttpServletRequest request) {
 		Order order = (Order) request.getSession().getAttribute("order");
 		if (order == null) {
@@ -56,20 +56,37 @@ public class OrderContoller extends BaseController{
 		return new ModelAndView("cart", "order", order) ;
 	}
 	
-//	@RequestMapping(value="removeProduct/*", method=RequestMethod.POST)
-//	public String cartDeleteProduct(Model model, @ModelAttribute ("order") Order order, HttpServletRequest request) {
+	
+	@RequestMapping(value="cart", method=RequestMethod.GET)
+	public ModelAndView showCart (Model model, HttpServletRequest request) {
+		Order order = (Order) request.getSession().getAttribute("order");
+		return new ModelAndView("cart", "order", order);
+	}
+	
+//	@RequestMapping(value="removeProcuctFromCart", method=RequestMethod.POST)
+//	public String cartDeleteProduct(Model model, @RequestParam int rowIndex, HttpServletRequest request) {
 //		String path = request.getServletPath();
-//		String [] folders = path.split("/");
-//		Product product = productService.getProductById(Long.parseLong(folders[folders.length-1]));
+//		//String [] folders = path.split("/");
+//		Order order = (Order) request.getSession().getAttribute("order");
+//		orderDetailsService.removeProductFromCart(order, rowIndex);
+//		//Product product = productService.getProductById(Long.parseLong(folders[folders.length-1]));
 //		//orderDetailsService.removeProductFromCart(order, rowIndex);
 //		return "cart";
 //	}
 	
 	@Transactional  
 	@RequestMapping(value="processOrder", method=RequestMethod.POST)
-	public String processOrder(HttpServletRequest request) {
+	public String processOrder(HttpServletRequest request, @RequestParam int rowIndex) {
 		Order order = (Order) request.getSession().getAttribute("order");
 		order.setComment(request.getParameter("order.comment"));
+		
+		//If user press delete button from cart
+		if ("Delete".equals(request.getParameter("delete"))) {
+			orderDetailsService.removeProductFromCart(order, rowIndex);
+			return "cart";
+		}
+		
+		//if user is not logged/ it will be replaced with security if
 		if (order.getCustomer() == null) {
 			return "login";
 		}
@@ -78,7 +95,7 @@ public class OrderContoller extends BaseController{
 			getSession().removeAttribute("session");
 			return "order_success";
 		} else {
-			return "processOrder";
+			return "cart";
 		}
 	}
 
