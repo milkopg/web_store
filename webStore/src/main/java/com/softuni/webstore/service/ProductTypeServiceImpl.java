@@ -1,5 +1,7 @@
 package com.softuni.webstore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class ProductTypeServiceImpl implements ProductTypeService{
 	@Override
 	public ProductType getProductTypeByName(String name) {
 		return productTypeDao.getProductTypeByName(name);
+	}
+
+	@Override
+	public List<ProductType> getProductTypes() {
+		return productTypeDao.getProductTypes();
 	}
 }

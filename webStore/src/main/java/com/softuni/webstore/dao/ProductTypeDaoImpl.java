@@ -1,5 +1,7 @@
 package com.softuni.webstore.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -33,6 +35,14 @@ public class ProductTypeDaoImpl extends BaseDao implements ProductTypeDao{
 		q = em.createQuery("SELECT o FROM ProductType o where o.name = :name", ProductType.class);
 		q.setParameter("name", name);
 		return getSingleResult(q);
+	}
+
+	@Override
+	public List<ProductType> getProductTypes() {
+		TypedQuery<ProductType> q;
+		
+		q = em.createQuery("SELECT o FROM ProductType o", ProductType.class);
+		return q.getResultList();
 	}
 
 }

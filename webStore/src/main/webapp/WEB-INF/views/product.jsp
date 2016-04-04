@@ -2,7 +2,7 @@
 <ct:header></ct:header>
 <ct:body>
 	<div id="center" class="column">
-		<form:form id="editProductForm" method="POST" modelAttribute="product" action="${contextPath}/do_product_edit">
+		<form:form id="editProductForm" method="POST" modelAttribute="product" action="${contextPath}/do_product">
 			<input type="hidden" name="id" value="${product.id}"/>
 			<input type="hidden" name="pictureName" value="${product.pictureName}"/>
 				<table id="cartTable" border="1" style="width: 95%">
@@ -21,7 +21,9 @@
 				  <tr>
 				  	  <td> <spring:message code="product.type"></spring:message></td>
  			  	   	  <td> <select id="type" name="type.id">
-				  			<option value="${product.type.id }">${product.type.name }</option>
+ 			  	   	  		<c:forEach items="${product.types }" var="type" varStatus="status">
+ 			  	   	  			<option value="${type.id }"  <c:if test="${type.id == product.type.id})"> selected</c:if>>${type.name }</option>
+ 			  	   	  		</c:forEach>
 				  		</select>
 				  	</td>
 				  <tr>
@@ -40,16 +42,24 @@
 				  		</select>
 				  	</td>
 				  </tr>
-				  <tr>
+<%-- 				  <tr>
 				    <td> <spring:message code="product.delete"></spring:message></td>
 				    <td><input type="checkbox" name="delete" id="delete"></td>
 				 </tr>
-				 <tr>
+ --%>				 <tr>
 				    <td> <spring:message code="product.active"></spring:message></td>
-				    <td><input type="checkbox" name="active" id="active"></td>
+				    <td><input type="checkbox" id="active" value="${product.active}"  <c:if test="${product.active}">checked="checked"</c:if>></td>
 				 </tr>
 				</table>
-				<input type="submit" value=" <spring:message code="product.update"></spring:message>">
+				<c:choose>
+					<c:when test="${product.id==0}">
+						<input type="submit" value='<spring:message code="product.create"></spring:message>'>
+					</c:when>
+					<c:otherwise>
+						<input type="submit" value='<spring:message code="product.edit"></spring:message>'>
+					</c:otherwise>
+				</c:choose>
+				
 				
 				<br>
 		</form:form>

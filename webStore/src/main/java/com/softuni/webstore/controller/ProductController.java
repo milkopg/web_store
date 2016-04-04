@@ -66,16 +66,30 @@ public class ProductController {
 	@RequestMapping(value="product_edit", method = RequestMethod.GET)
 	public ModelAndView editProducts(@RequestParam long id) {
 		Product product = productService.getProductById(id);
-		ModelAndView model = new ModelAndView("product_edit", "product", product);
+		product.setTypes(productTypeService.getProductTypes());
+		ModelAndView model = new ModelAndView("product", "product", product);
 		return model;
 	}
 	
 	@Transactional
-	@RequestMapping(value="do_product_edit", method = RequestMethod.POST)
+	@RequestMapping(value="do_product", method = RequestMethod.POST)
 	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, @RequestParam ("id") long id,  @RequestParam ("currency.id") long currencyId,  @RequestParam ("type.id") long typeId, BindingResult result, HttpServletRequest request) {
 		product.setCurrency(currencyService.getCurrencyById(currencyId));
 		product.setType(productTypeService.getProductTypeById(typeId)); 
-		productService.editProduct(product);
-		return new ModelAndView("product_edit", "product", product);
+		if (id == 0)  {
+			productService.addProduct(product);
+		} else {
+			productService.editProduct(product);
+		}
+		return new ModelAndView("product", "product", product);
+	}
+	
+	@Transactional
+	@RequestMapping(value="product_create", method = RequestMethod.GET)
+	public ModelAndView createProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+		product.setCurrency(currencyService.getCurrencyById(1l));
+		product.setType(productTypeService.getProductTypeById(1));
+		product.setTypes(productTypeService.getProductTypes());
+		return new ModelAndView("product", "product", product);
 	}
 }

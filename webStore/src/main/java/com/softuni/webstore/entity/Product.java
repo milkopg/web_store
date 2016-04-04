@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -39,6 +40,9 @@ public class Product {
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="product_type_id")
 	private ProductType type;
+	
+	@Transient
+	private List<ProductType> types;
 	
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="currency_id")
@@ -85,6 +89,12 @@ public class Product {
 		return Arrays.asList(UtilityString.capEachWord(getType().getName()).split(" "));
 	}
 
+	public List<ProductType> getTypes() {
+		return types;
+	}
+	public void setTypes(List<ProductType> types) {
+		this.types = types;
+	}
 	public BigDecimal getSinglePrice() {
 		return singlePrice;
 	}
