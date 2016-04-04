@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
+import com.softuni.webstore.service.CurrencyService;
 import com.softuni.webstore.service.ProductService;
+import com.softuni.webstore.service.ProductTypeService;
 
 @Controller
 public class ProductController {
@@ -26,6 +28,12 @@ public class ProductController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	CurrencyService currencyService;
+	
+	@Autowired
+	ProductTypeService productTypeService;
 	
 	@RequestMapping(value="home", method = RequestMethod.GET)
 	public ModelAndView loadProducts() {
@@ -62,8 +70,11 @@ public class ProductController {
 		return model;
 	}
 	
+	@Transactional
 	@RequestMapping(value="do_product_edit", method = RequestMethod.POST)
-	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, BindingResult result,  HttpServletRequest request) {
+	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, @RequestParam ("id") long id,  @RequestParam ("currency.id") long currencyId,  @RequestParam ("type.id") long typeId, BindingResult result, HttpServletRequest request) {
+		product.setCurrency(currencyService.getCurrencyById(currencyId));
+		product.setType(productTypeService.getProductTypeById(typeId)); 
 		productService.editProduct(product);
 		return new ModelAndView("product_edit", "product", product);
 	}

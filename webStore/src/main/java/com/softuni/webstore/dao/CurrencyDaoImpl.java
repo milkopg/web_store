@@ -10,6 +10,7 @@ import com.softuni.webstore.entity.Currency;
 
 @Repository
 public class CurrencyDaoImpl extends BaseDao implements CurrencyDao{
+	
 	@PersistenceContext 
 	EntityManager em;
 	
