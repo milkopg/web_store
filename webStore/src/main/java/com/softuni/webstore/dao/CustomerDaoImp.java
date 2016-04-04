@@ -97,6 +97,14 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 	}
 
 	@Override
+	public List<Customer> getAllCustomers() {
+		TypedQuery<Customer> q;
+		
+		q = em.createQuery("SELECT o FROM Customer o", Customer.class);
+		return q.getResultList();
+	}
+
+	@Override
 	public List<Customer> searchCustomerByCriteria(String criteria, String value) {
 		// TODO Auto-generated method stub
 		return null;

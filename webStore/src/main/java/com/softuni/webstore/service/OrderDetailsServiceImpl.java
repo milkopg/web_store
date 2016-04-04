@@ -18,13 +18,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	ProductService productService;
 	
 	@Override
-	public OrderDetails addProductToCart(Product product, HttpServletRequest request) {
+	public OrderDetails addProductToCart(Product product, Order order) {
 		OrderDetails orderDetails = new OrderDetails();
 		orderDetails.setProduct(product);
 		orderDetails.setPrice(product.getSinglePrice());
 		orderDetails.setCurrency(product.getCurrency());
 		orderDetails.setQuantity(1);
-		orderDetails.setOrder((Order) request.getSession().getAttribute("order"));;
+		orderDetails.setOrder(order);;
 		return orderDetails;
 	}
 
@@ -44,5 +44,11 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	public OrderDetails getOrderDetailByProductId(long productId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean decreaseProductQuantityAfterPurchasing(OrderDetails orderDetails) {
+		orderDetails.getProduct().setQuantity(orderDetails.getProduct().getQuantity() - 1);
+		return productService.editProduct(orderDetails.getProduct());
 	}
 }

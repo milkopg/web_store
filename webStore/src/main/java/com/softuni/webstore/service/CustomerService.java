@@ -14,6 +14,7 @@ public interface CustomerService {
 	public boolean activate (Customer customer);
 	public boolean deactivateCustomer(Customer customer);
 	public List<Customer> searchCustomerByCriteria(String criteria, String value);
+	public List<Customer> getAllCustomers();
 	public List<String> validateCustomer(Customer customer);
 	public List<String> validateUser(User user);
 	public boolean addRole(Customer customer, Role role);

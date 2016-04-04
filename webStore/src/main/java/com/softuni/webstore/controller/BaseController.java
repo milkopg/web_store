@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.softuni.webstore.entity.Order;
+
 public abstract class BaseController {
 	public HttpSession getSession() {
 	    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -19,5 +21,9 @@ public abstract class BaseController {
 	
 	public void setAttribute(String name, Object value) {
 		getSession().setAttribute(name, value);
+	}
+	
+	public Order getOrder() {
+		return (Order) getSession().getAttribute("order");
 	}
 }

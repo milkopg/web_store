@@ -83,5 +83,10 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer getCustomerByUsername(String username) {
 		return customerDao.getCustomerByUsername(username);
 	}
+
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerDao.getAllCustomers();
+	}
 }
   

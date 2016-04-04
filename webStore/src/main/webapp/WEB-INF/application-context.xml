@@ -51,7 +51,7 @@
 	<context:component-scan base-package="com.softuni.webstore" />
 	<context:annotation-config/>
 
-	<!-- <beans:import resource="security.xml"/> -->
+	<beans:import resource="security.xml"/>
 	
 	<!-- Persistence Configuration -->
 	<beans:bean id="jpaVendorAdapter"

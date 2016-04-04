@@ -1,5 +1,8 @@
 package com.softuni.webstore.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -12,11 +15,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.entity.Order;
+import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.CustomerService;
 import com.softuni.webstore.service.RoleService;
@@ -38,39 +43,57 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value="register", method = RequestMethod.GET)
-	public String register() {
+	public ModelAndView register(@ModelAttribute("customer") Customer customer) {
 		//model.addAttribute("customer", new Customer());
-		//return new ModelAndView("register", "customer", model);
-		return "register";
+		return new ModelAndView("register", "customer", customer);
+		//return "register";
 	}
 	
 	@Transactional
 	@RequestMapping(value="doRegister", method = RequestMethod.POST)
-	public String doRegister(@ModelAttribute("customer") @Valid Customer customer, BindingResult result,  HttpServletRequest request) {
+	public String doRegister(@ModelAttribute("customer") @Valid Customer customer, @RequestParam ("id") long id, BindingResult result,  HttpServletRequest request) {
 		customerService.addRole(customer, roleService.getRoleByName(Constants.ROLE_USER));
 		
 		if (!result.hasErrors()) {
-			customerService.addCustomer(customer);
-			customerService.activate(customer);
+			if (id == 0)  {
+				customerService.addCustomer(customer);
+				customerService.activate(customer);
+			} else  {
+				customerService.editCustomer(customer);
+			}
 			return "register_success";
 		} else {
 			return "register";
 		}
 	}
 	
-	@RequestMapping(value="doLogin", method = RequestMethod.POST)
-	public String doLogin(@ModelAttribute("customer") @Valid Customer customer, BindingResult result,  HttpServletRequest request) {
-		if (!result.hasErrors()) {
-			Customer customerFromDb = customerService.getCustomerByUsername(customer.getUser().getUsername());
-			Order order = (Order) request.getSession().getAttribute("order");
-			if (order != null) {
-				order.setCustomer(customerFromDb);
-			}
-			if  (customerFromDb == null) return "login";
-			//return "login_success";
-			return "cart";
-		} else {
-			return "login";
-		}
+//	@RequestMapping(value="doLogin", method = RequestMethod.POST)
+//	public String doLogin(@ModelAttribute("customer") @Valid Customer customer,  BindingResult result,  HttpServletRequest request) {
+//		if (!result.hasErrors()) {
+//			Customer customerFromDb = customerService.getCustomerByUsername(customer.getUser().getUsername());
+//			Order order = (Order) request.getSession().getAttribute("order");
+//			if (order != null) {
+//				order.setCustomer(customerFromDb);
+//			}
+//			if  (customerFromDb == null) return "login";
+//			//return "login_success";
+//			return "cart";
+//		} else {
+//			return "login";
+//		}
+//	}
+	
+	@RequestMapping(value="account_table", method = RequestMethod.GET)
+	public ModelAndView customer_table() {
+		List<Customer> accounts = customerService.getAllCustomers();
+		ModelAndView model = new ModelAndView("account_table", "accounts", accounts);
+		return model;
+	}
+	
+	@RequestMapping(value="account_edit", method = RequestMethod.GET)
+	public ModelAndView editProducts(@RequestParam long id) {
+		Customer customer = customerService.getCustomerById(id);
+		ModelAndView model = new ModelAndView("register", "customer", customer);
+		return model;
 	}
 }

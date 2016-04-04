@@ -2,7 +2,7 @@
 
 <ct:header></ct:header>
 <div id="container">
-		<form:form method="POST" action="${contextPath}/cart" modelAttribute="product">
+		<form:form method="POST" action="${contextPath}/addToCart" modelAttribute="product">
 			<div id="center" class="column">
 		  	<div id="content">
 				<div id="about">

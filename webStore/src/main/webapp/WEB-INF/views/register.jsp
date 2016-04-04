@@ -5,6 +5,8 @@
 		<div class="content">
 				<img src="/webstore/resources/images/top_bg.gif" alt="" width="100%" height="12">
 				<form:form method="POST" action="${contextPath}/doRegister"  modelAttribute="customer">
+					<input type="hidden" id="id" name="id" value="${customer.id}">
+					<input type="hidden" id="userId" name="user.id" value="${customer.user.id}">
 					<table>
 						<tr>
 							<td><p class="line">Name:</p></td>
@@ -13,7 +15,7 @@
 						</tr>
 						<tr>
 							<td><p class="line">Birth Date:</p></td>
-							<td><input type="date" id="birthDate" name ="birthDate" value="${customer.birthDate}" style="width: 173px"></td>
+							<td><input type="date" id="birthDate" name ="birthDate" value="<fmt:formatDate pattern="yyyy-mm-dd" value="${account.birthDate}" />" style="width: 173px"></td>
 						</tr>
 						<tr>
 							<td><p class="line">Address:</p></td>
@@ -27,13 +29,23 @@
 							<td><p class="line">Password:</p></td>
 							<td><input type="password" id="password" name = "user.password" value="${customer.user.password}"></td>
 						</tr>
-						<tr>
-							<td><p class="line">Repeat Password:</p></td>
-							<td><input type="password" id="retypePassword"  name="retypePassword" value="${customer.user.retypePassword}"></td>
-						</tr>
+						<c:if test="${customer.id==0}">
+							<tr>
+								<td><p class="line">Repeat Password:</p></td>
+								<td><input type="password" id="retypePassword"  name="retypePassword" value="${customer.user.retypePassword}"></td>
+							</tr>
+						</c:if>
+						
 						
 					</table>
-					<input type="submit" id="btn1" name="submit" value="Register" class="button">
+				<c:choose>
+					<c:when test="${customer.id == 0}">
+						<input type="submit" class="name" value='<spring:message code="account.register"></spring:message>'>
+					</c:when>
+					<c:otherwise>
+						<input type="submit" class="name"  value='<spring:message code="account.edit"></spring:message>'>
+					</c:otherwise>
+				</c:choose>
 					<img src="/webstore/resources/images/bot_bg.gif" alt="" width="100%" height="10"><br>
 				</form:form>
 				

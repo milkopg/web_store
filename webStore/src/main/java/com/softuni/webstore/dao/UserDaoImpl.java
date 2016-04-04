@@ -6,8 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 import com.softuni.webstore.entity.User;
 
+@Repository
 public class UserDaoImpl extends BaseDao implements UserDao {
 
 	@PersistenceContext
@@ -31,7 +34,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public User getUserByName(String name) {
 		TypedQuery<User> q;
 		
-		q = em.createQuery("SELECT o FROM User o WHERE o.name = :name ORDER BY o.id", User.class);
+		q = em.createQuery("SELECT o FROM User o WHERE o.username = :name ORDER BY o.id", User.class);
 		q.setParameter("name", name);
 		return getSingleResult(q);
 	}

@@ -11,5 +11,6 @@ public interface CustomerDao {
 	public Customer getCustomerByUsername(String username);
 	public boolean activateCustomer (Customer customer);
 	public boolean deactivateCustomer(Customer customer);
+	public List<Customer> getAllCustomers();
 	public List<Customer> searchCustomerByCriteria(String criteria, String value);
 }

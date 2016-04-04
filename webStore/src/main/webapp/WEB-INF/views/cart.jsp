@@ -19,7 +19,8 @@
 				    <td>${fn:substring(o.product.description, 0,50)}</td> 
 				    <td>${o.quantity}</td>
 				    <td>${o.product.singlePrice}</td>
-			     	<td onclick="submitter(this)"><input type="submit" name="delete" value="<spring:message code="orderdetails.product.delete"/>" class="btn-link"></td>
+				    <td><a href="${contextPath}/deleteProductFromCart?rowIndex=${status.index}"><spring:message code="orderdetails.product.delete"/></a></td>
+			     	<%-- <td onclick="submitter(this)"><input type="submit" name="delete" value="<spring:message code="orderdetails.product.delete"/>" class="btn-link"></td> --%>
 				  </tr>
 				  </c:forEach>
 				</table>

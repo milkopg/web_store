@@ -19,7 +19,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
-import com.softuni.webstore.utility.UtilityString;
+import com.softuni.webstore.utility.StringUtils;
 
 @Entity
 @Table(name="t_product")
@@ -86,7 +86,7 @@ public class Product {
 	}
 	
 	public List<String> getProductTypesList() {
-		return Arrays.asList(UtilityString.capEachWord(getType().getName()).split(" "));
+		return Arrays.asList(StringUtils.capEachWord(getType().getName()).split(" "));
 	}
 
 	public List<ProductType> getTypes() {

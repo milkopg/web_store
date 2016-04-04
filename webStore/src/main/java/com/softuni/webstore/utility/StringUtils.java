@@ -1,6 +1,6 @@
 package com.softuni.webstore.utility;
 
-public class UtilityString {
+public class StringUtils {
 	public static String capEachWord(String source){
 		if (source == null) return null;
 	    String result = "";

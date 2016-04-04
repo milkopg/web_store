@@ -8,11 +8,11 @@
 		  		<table>
 		  			<tr>
 		  				<td><p class="line">Login:</td>
-		  				<td><p class="line"><span><input type="text" id="username" name="user.username" value="${customer.user.username }"></span> </p></td>
+		  				<td><p class="line"><span><input type="text" id="username" name="username" value="${customer.user.username }"></span> </p></td>
 		  			</tr>
 		  			<tr>
 		  				<td><p class="line"><span>Password:</span></td>
-		  				<td><p class="line"><span><input type="password" id="password" name="user.password" value="${customer.user.password }"></span> </p></td>
+		  				<td><p class="line"><span><input type="password" id="password" name="password" value="${customer.user.password }"></span> </p></td>
 		  			</tr>
 		  			<tr>
 		  				<td><input type="submit" id="btn1" name="submit" value="Login" class="button"></td>
