@@ -5,10 +5,11 @@
 		<form:form id="editProductForm" method="POST" modelAttribute="product" action="${contextPath}/do_product">
 			<input type="hidden" name="id" value="${product.id}"/>
 			<input type="hidden" name="pictureName" value="${product.pictureName}"/>
-				<table id="cartTable" border="1" style="width: 95%">
+				<table id="cartTable" style="width: 95%" frame="box">
 				  <tr>
 				    <td> <spring:message code="product.name"></spring:message></td>
-				     <td><input type="text" name = "name" value="${product.name}" style="width: 100%"></td>
+				    <td><input type="text" name = "name" value="${product.name}" style="width: 100%"></td>
+				    <td><font color="red"><form:errors path="name"></form:errors></font><br/></td>
 				  </tr>
 				  <tr>
 				    <td> <spring:message code="product.picture"></spring:message></td>
@@ -16,7 +17,8 @@
 				</tr>
 				  <tr>
 				  	  <td> <spring:message code="product.description"></spring:message></td>
-				  	  <td><input type="text" name = "description" value="${product.description}" style="width: 100%"></td> 
+				  	  <td><input type="text" name = "description" value="${product.description}" style="width: 100%"></td>
+				  	  <td><font color="red"><form:errors path="description"></form:errors></font><br/></td> 
 				  <tr>
 				  <tr>
 				  	  <td> <spring:message code="product.type"></spring:message></td>
@@ -30,10 +32,12 @@
 				  <tr>
 				  	<td> <spring:message code="product.quantity"></spring:message></td>
 				  	<td><input type="text" name = "quantity" value="${product.quantity}" style="width: 100%"></td>
+				  	<td><font color="red"><form:errors path="quantity"></form:errors></font><br/></td>
 				  </tr>
 				  <tr>
 				  	<td> <spring:message code="product.price"></spring:message></td>
 				  	<td><input type="text" name = "singlePrice" value="${product.singlePrice}" style="width: 100%"></td>
+				  	<td><font color="red"><form:errors path="singlePrice"></form:errors></font><br/></td>
 				  </tr>
 				  <tr>
 				  	<td> <spring:message code="product.currency"></spring:message></td>

@@ -28,7 +28,7 @@ public class Customer {
 	private long id;
 	
 	@NotNull
-	@Size(min=5, max=40)
+	@Size(min=4, max=40)
 	@Column(name="name")
 	private String name;
 	
@@ -37,10 +37,12 @@ public class Customer {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date birthDate;
 	
-	@Size(min=0, max=90)
+	@NotNull
+	@Size(min=1, max=90)
 	@Column(name="address")
 	private String address;
 	
+	@NotNull
 	@ManyToOne(optional=false, cascade={CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
 	private User user;

@@ -48,10 +48,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="performProductSearch", method=RequestMethod.GET)
-	public ModelAndView performProductSearch(HttpServletRequest request) {
-		String criteria = request.getParameter("criteriaGroup");
-		String value = request.getParameter("criteriaValue");
-		String operation = request.getParameter("operation");
+	public ModelAndView performProductSearch( @RequestParam ("criteriaGroup") String criteria,  @RequestParam ("criteriaValue") String value, @RequestParam ("operation") String operation , HttpServletRequest request) {
 		if (value == null) value = "";
 		return new ModelAndView("home", "products", productService.searchByCriteria(criteria, value, operation));
 	}
@@ -73,9 +70,12 @@ public class ProductController {
 	
 	@Transactional
 	@RequestMapping(value="do_product", method = RequestMethod.POST)
-	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, @RequestParam ("id") long id,  @RequestParam ("currency.id") long currencyId,  @RequestParam ("type.id") long typeId, BindingResult result, HttpServletRequest request) {
+	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, @RequestParam ("id") long id,  @RequestParam ("currency.id") long currencyId,  @RequestParam ("type.id") long typeId, HttpServletRequest request) {
 		product.setCurrency(currencyService.getCurrencyById(currencyId));
-		product.setType(productTypeService.getProductTypeById(typeId)); 
+		product.setType(productTypeService.getProductTypeById(typeId));
+		product.setPictureName("pic1.jpg");
+		
+		if (result.hasErrors())  return new ModelAndView("product", "product_create", product);
 		if (id == 0)  {
 			productService.addProduct(product);
 		} else {

@@ -18,7 +18,7 @@
 		</div>
 		<div class="topblock2">
 			<img src="${images}/shopping.gif" alt="" width="24" height="24" class="shopping">																																																																									
-		 	<a href="${contextPath}/cart"><spring:message code="cart.name"></spring:message></a> <p><strong> <a href="${contextPath}/cart">${fn:length(sessionScope.order.orderDetails)} items</a></strong></p>
+		 	<a href="${contextPath}/cart"><spring:message code="cart.name"></spring:message></a> <p><strong> <a href="${contextPath}/cart">${fn:length(sessionScope.order.orderDetails)} items</a></strong></p> <a href="${contextPath}/login?logout=true"><spring:message code="account.logout"></spring:message></a>
 		</div>
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>

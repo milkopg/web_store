@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
@@ -31,9 +33,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_PRODUCT")
 	private long id;
 	
+	@Size (min=4, max=40)
 	@Column(name="name")
 	private String name;
 	
+	@Size (min=4, max=400)
 	@Column(name="description")
 	private String description;
 	
@@ -48,9 +52,11 @@ public class Product {
 	@JoinColumn(name="currency_id")
 	private Currency currency;
 	
+	@Min(value=0)
 	@Column(name="single_price")
 	private BigDecimal singlePrice;
 	
+	@Min(value=0)
 	@Column(name="quantity")
 	private int quantity;
 	

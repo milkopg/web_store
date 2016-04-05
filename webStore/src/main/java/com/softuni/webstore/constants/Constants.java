@@ -6,8 +6,18 @@ public class Constants {
 	public static final String ORDER_TYPE_SUPPLY = "supply";
 	public static final String ORDER_TYPE_SELL = "sell";
 	public static final String ORDER_TYPE_REFUND = "refund";
-	/*public static final String OPERATION_EQUALS = "=";
-	public static final String OPERATION_LIKE = "%";*/
+	public static final String OPERATION_CRITERIA = "criteriaGroup";
+	public static final String OPERATION_CRITERIA_NAME = "name";
+	public static final String OPERATION_CRITERIA_TYPE_NAME = "type.name";
+	public static final String OPERATION_CRITERIA_QUANTITY = "quantity";
+	public static final String OPERATION_CRITERIA_PRICE = "price";
+	public static final String OPERATION_EQUALS = "=";
+	public static final String OPERATION_PLACEHOLDER_LIKE = "%";
+	public static final String OPERATION_PLACEHOLDER_EMPTY = "";
+	public static final String OPERATION_LIKE = "LIKE";
+	public static final String OPERATION_BIGGER_THAN = ">";
+	public static final String OPERATION_SMALLER_THAN = "<";
+	
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_ADMIN = "ROLE_AMIN";
 	

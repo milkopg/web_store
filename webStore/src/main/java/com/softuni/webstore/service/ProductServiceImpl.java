@@ -1,5 +1,6 @@
 package com.softuni.webstore.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +33,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> searchByCriteria(String criteria, String value, String operation) {
-		
-//		"product.criteria.name"></spring:message>
-//		value="type.name"><spring:message code="product.criteria.type"></spring:message>
-//		<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
-//		<input type="radio" name="criteriaGroup" value="price">
-//		if (criteria.equals(Constants.))
-		return productDao.searchByCriteria(criteria, value, operation);
+	public List<Product> searchByCriteria(String criteria, Object value, String operation) {
+		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_TYPE_NAME.equals(criteria))) {
+			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+		} else {
+			return productDao.searchByCriteria(criteria, new BigDecimal(value.toString()), operation);
+		}
 	}
 
 	@Override

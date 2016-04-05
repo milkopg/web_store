@@ -63,12 +63,12 @@ public class ProductDaoImpl extends BaseDao implements ProductDao{
 	}
 
 	@Override
-	public List<Product> searchByCriteria(String criteria, String value, String operation) {
+	public List<Product> searchByCriteria(String criteria, Object value, String operation) {
 		TypedQuery<Product> q;
 		
 		try {
-			q = em.createQuery("SELECT o FROM Product o WHERE o."+ criteria + " LIKE :value   ORDER BY o.id", Product.class);
-			q.setParameter("value", "%" + value + "%");
+			q = em.createQuery("SELECT o FROM Product o WHERE o."+ criteria + " " + operation + " :value   ORDER BY o.id", Product.class);
+			q.setParameter("value", value);
 			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
 			return q.getResultList();
 		} catch (Exception e) {
