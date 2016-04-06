@@ -46,7 +46,7 @@ public class OrderTest {
 	public void testCalculateRefundOrder()  {
 		Order originalOrder = new Order();
 		originalOrder.setOrderDetails(initDetailsListForTest());
-		Order refundOrder = getService().createRefundOrder(originalOrder);
+		Order refundOrder = getService().generateRefundOrder(originalOrder);
 		Assert.assertEquals(new BigDecimal(-14000), getService().calculateTotalPrice(refundOrder));
 	}
 	
@@ -54,7 +54,7 @@ public class OrderTest {
 	public void testRefundOrderType() {
 		Order originalOrder = new Order();
 		originalOrder.setOrderDetails(initDetailsListForTest());
-		Order refundOrder = getService().createRefundOrder(originalOrder);
+		Order refundOrder = getService().generateRefundOrder(originalOrder);
 		Assert.assertEquals(2, refundOrder.getOrderType().getId());
 		Assert.assertEquals(Constants.ORDER_TYPE_REFUND, refundOrder.getOrderType().getName());
 	}

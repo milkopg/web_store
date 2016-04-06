@@ -49,6 +49,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	@Override
 	public boolean decreaseProductQuantityAfterPurchasing(OrderDetails orderDetails) {
 		orderDetails.getProduct().setQuantity(orderDetails.getProduct().getQuantity() - 1);
-		return productService.editProduct(orderDetails.getProduct());
+		return true;//productService.editProduct(orderDetails.getProduct());
 	}
 }

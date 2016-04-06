@@ -1,6 +1,7 @@
 package com.softuni.webstore.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.OrderDao;
+import com.softuni.webstore.dao.OrderTypeDao;
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
 import com.softuni.webstore.entity.OrderType;
 import com.softuni.webstore.log4j.LoggerManager;
+import com.softuni.webstore.utility.UserUtils;
 
 @Service
 public class OrderServiceImpl implements OrderService{
+	
+	@Autowired
+	OrderTypeDao orderTypeDao;
 	
 	Logger systemlog = LoggerManager.getSystemLogger();
 
@@ -25,6 +31,10 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	OrderTypeService orderTypeService;
+	
+	@Autowired
+	CustomerService customerService;
+	
 
 	@Override
 	public boolean addOrder(Order order) {
@@ -35,39 +45,47 @@ public class OrderServiceImpl implements OrderService{
 	public boolean editOrder(Order order) {
 		return orderDao.editOrder(order);
 	}
+	
+	@Override
+	public Order getOrderById(long id) {
+		return orderDao.getOrderById(id);
+	}
 
 	@Override
-	public Order createRefundOrder(Order originalOrder) {
+	public Order generateRefundOrder(Order originalOrder) {
 		if (originalOrder == null) return null;
 		
 		Order refundOrder = new Order();
-		refundOrder.setOrderDetails(originalOrder.getOrderDetails());
 		
-		for (OrderDetails detail : refundOrder.getOrderDetails()) {
-			detail.setQuantity(detail.getQuantity() * -1);
-		}
-		
-		
-		refundOrder.setComment("Refund");
 		refundOrder.setCustomer(originalOrder.getCustomer());
-		refundOrder.setOrderType(getOrderTypeRefund());
+		refundOrder.setComment("Refund id: " + originalOrder.getId() + ", done by user:" + customerService.getCustomerByUsername(UserUtils.getUser().getUsername()).getName());
+		refundOrder.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND));
 		refundOrder.setPurchaseDate(new Date());
-		refundOrder.setTotalPrice(calculateTotalPrice(refundOrder));
+		refundOrder.setTotalPrice(originalOrder.getTotalPrice());
+		refundOrder.setTotalQuantity(originalOrder.getTotalQuantity() * -1);
+		refundOrder.setOrderDetails(generateRefundOrderDetails(originalOrder, refundOrder));
+		
+//		editOrder(originalOrder);
+//		addOrder(refundOrder);
 		return refundOrder;
 	}
 	
-	private OrderType getOrderTypeRefund() {
-		OrderType orderType = null;
-		if (orderTypeService == null) {
-			orderType = new OrderType();
-			orderType.setId(2);
-			orderType.setName(Constants.ORDER_TYPE_REFUND);
-		} else {
-			orderType = orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND);
+	@Override
+	public List<OrderDetails> generateRefundOrderDetails(Order originalOrder, Order refundOrder) {
+		List<OrderDetails> details = new ArrayList<>();
+		for (OrderDetails originalDetail : originalOrder.getOrderDetails()) {
+			OrderDetails detail = new OrderDetails();
+			detail.setCurrency(originalDetail.getCurrency());
+			detail.setPrice(originalDetail.getPrice());
+			detail.setProduct(originalDetail.getProduct());
+			detail.setQuantity(originalDetail.getQuantity()*-1);
+			detail.setOrder(refundOrder);
+			details.add(detail);
 		}
-		return orderType;
+		return details;
 	}
 
+	
 	@Override
 	public BigDecimal calculateTotalPrice(Order order) {
 		if (order == null) return null;
@@ -108,6 +126,11 @@ public class OrderServiceImpl implements OrderService{
 		return null;
 	}
 
-	
+	@Override
+	public List<Order> getOrders() {
+		return orderDao.getOrders();
+	}
+
+
 
 }
