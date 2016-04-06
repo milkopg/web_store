@@ -84,7 +84,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 	public List<Order> getOrders() {
 		TypedQuery<Order> q;
 		
-		q = em.createQuery("SELECT o FROM Order o", Order.class);
+		q = em.createQuery("SELECT o FROM Order o ORDER BY o.id", Order.class);
 		return q.getResultList();
 	}
 

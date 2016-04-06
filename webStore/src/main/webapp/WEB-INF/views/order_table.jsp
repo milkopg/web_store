@@ -3,7 +3,7 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form id="editProductForm" method="POST" modelAttribute="orders">
-			<p><form:errors/></p>
+			<p><form:errors path="*"/></p>
 			<spring:hasBindErrors name="orders">
 	            <c:forEach items="${errors.globalErrors}" var="errorMessage">
 	                <div id="errors" class="errors">
@@ -11,14 +11,9 @@
 	                </div>
 	            </c:forEach>
     		</spring:hasBindErrors>
-    		
     		<c:if test="${not empty msg}">
 			    <div class="alert alert-${css} alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" 
-	                                aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-				<strong>${msg}</strong>
+					<strong>${msg}</strong>
 			    </div>
 			</c:if>
     		

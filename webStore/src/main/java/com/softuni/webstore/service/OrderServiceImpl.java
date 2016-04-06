@@ -61,12 +61,10 @@ public class OrderServiceImpl implements OrderService{
 		refundOrder.setComment("Refund id: " + originalOrder.getId() + ", done by user:" + customerService.getCustomerByUsername(UserUtils.getUser().getUsername()).getName());
 		refundOrder.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND));
 		refundOrder.setPurchaseDate(new Date());
-		refundOrder.setTotalPrice(originalOrder.getTotalPrice());
+		refundOrder.setTotalPrice(originalOrder.getTotalPrice().multiply(new BigDecimal("-1")));
 		refundOrder.setTotalQuantity(originalOrder.getTotalQuantity() * -1);
 		refundOrder.setOrderDetails(generateRefundOrderDetails(originalOrder, refundOrder));
-		
-//		editOrder(originalOrder);
-//		addOrder(refundOrder);
+
 		return refundOrder;
 	}
 	
