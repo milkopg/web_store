@@ -14,7 +14,7 @@ public interface OrderService {
 	public List<OrderDetails> generateRefundOrderDetails(Order originalOrder, Order refundOrder);
 	public BigDecimal calculateTotalPrice(Order order);
 	public int calculateTotalQuantity(Order order);
-	public List<Order> searchOrderByCriteria(String criteria, String value);
+	public List<Order> searchByCriteria(String criteria, Object value, String operation);
 	public List<String> validateOrder(Order order);
 	public List<Order> getOrders();
 }

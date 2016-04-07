@@ -2,20 +2,25 @@
 <ct:header></ct:header>
 <ct:body>
 	<div id="center" class="column">
-		<form:form id="editProductForm" method="POST" modelAttribute="orders">
-			<p><form:errors path="*"/></p>
-			<spring:hasBindErrors name="orders">
-	            <c:forEach items="${errors.globalErrors}" var="errorMessage">
-	                <div id="errors" class="errors">
-	                        <c:out value="${errorMessage.defaultMessage}" />
-	                </div>
-	            </c:forEach>
-    		</spring:hasBindErrors>
-    		<c:if test="${not empty msg}">
+		<form:form id="editProductForm" method="GET" modelAttribute="orders" action="${contextPath}/performOrderSearch">
+			<c:if test="${not empty msg}">
 			    <div class="alert alert-${css} alert-dismissible" role="alert">
 					<strong>${msg}</strong>
 			    </div>
 			</c:if>
+    	
+			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
+					<input type="radio" name="criteriaGroup" value="customer.name" checked="checked"> <spring:message code="order.criteria.customer.name"></spring:message>
+					<input type="radio" name="criteriaGroup" value="totalPrice"><spring:message code="order.criteria.totalPrice"></spring:message>
+					<input type="radio" name="criteriaGroup" value="totalQuantity"><spring:message code="order.criteria.totalQuantity"></spring:message>
+					<input type="radio" name="criteriaGroup" value="purchaseDate"><spring:message code="order.criteria.purchaseDate"></spring:message>
+					<select name="operation">
+						<option value="LIKE">=</option>
+						<option value=">">></option>
+						<option value="<"><</option>
+					</select><input type="text" name="criteriaValue">
+					
+			<input type="submit" value="<spring:message code="order.searchButton"></spring:message>">	
     		
 			<input type="hidden" name="orderId" />
 			<input type="hidden" name="rowIndex" />
@@ -40,8 +45,6 @@
 				    <td>${order.purchaseDate}</td>
 				    <td>${order.comment}</td>
 				    <td><a href="order_refund?id=${order.id}" class="name"><spring:message code="order.refund"></spring:message> </a></td>
-			     	<%-- <td onclick="submitter(this)"><input type="submit" name="edit" value="<spring:message code="product.edit"/>" class="btn-link"></td>
-			     	<td onclick="submitter(this)"><input type="submit" name="delete" value="<spring:message code="product.delete"/>" class="btn-link"></td> --%>
 				  </tr>
 				  </c:forEach>
 				</table>

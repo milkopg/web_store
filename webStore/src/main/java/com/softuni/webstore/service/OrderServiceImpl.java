@@ -1,6 +1,8 @@
 package com.softuni.webstore.service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,6 @@ import com.softuni.webstore.dao.OrderDao;
 import com.softuni.webstore.dao.OrderTypeDao;
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
-import com.softuni.webstore.entity.OrderType;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.utility.UserUtils;
 
@@ -113,15 +114,37 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Order> searchOrderByCriteria(String criteria, String value) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> validateOrder(Order order) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
+		if (Constants.OPERATION_CRITERIA_NAME.equals(criteria)) {
+			return orderDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+		} else if (Constants.OPERATION_CRITERIA_TOTAL_PRICE.equals(criteria)) {
+			try {
+				return orderDao.searchByCriteria(criteria, new BigDecimal(value.toString()), operation);
+			} catch (NumberFormatException e) {
+				systemlog.error("Cannot parse price" + e.getMessage());
+				return null;
+			}
+		} else if ((Constants.OPERATION_CRITERIA_TOTAL_QUANTITY.equals(criteria))) {
+			try {
+				return orderDao.searchByCriteria(criteria, Integer.parseInt(value.toString()), operation);
+			} catch (NumberFormatException e) {
+				systemlog.error("Cannot parse quantity " + e.getMessage());
+				return null;
+			}
+			
+		} else {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//sdf.parse("2016-04-06"); new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-06");
+				Date date = sdf.parse(value.toString());
+				if (Constants.OPERATION_LIKE.equals(operation)) {
+					operation = Constants.OPERATION_BIGGER_THAN;
+				}
+				return orderDao.searchByCriteria(criteria, date , operation);
+			} catch (ParseException e) {
+				systemlog.error("Cannot parse Date:" + e.getMessage());
+				return null;
+			}
+		}
 	}
 
 	@Override
@@ -129,6 +152,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.getOrders();
 	}
 
-
-
+	@Override
+	public List<String> validateOrder(Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

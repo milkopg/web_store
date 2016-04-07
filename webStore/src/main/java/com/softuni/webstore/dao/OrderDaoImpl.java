@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
-import com.softuni.webstore.entity.OrderType;
-import com.softuni.webstore.entity.ProductType;
 import com.softuni.webstore.log4j.LoggerManager;
 
 @Repository
@@ -73,11 +71,20 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 		}
 	}
 
-
 	@Override
-	public List<Order> searchOrderByCriteria(String criteria, String value) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
+		TypedQuery<Order> q;
+		
+		try {
+			q = em.createQuery("SELECT o FROM Order o WHERE o."+ criteria + " " + operation + " :value   ORDER BY o.id", Order.class);
+			q.setParameter("value", value);
+			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
+			return q.getResultList();
+		} catch (Exception e) {
+			userlog.error("Cannot search by criteria: " + criteria + ", and value: " + value);
+			userlog.error("Cannot search by criteria: " + criteria + ", value: " + value + e.getMessage());
+			return null;
+		}
 	}
 
 	@Override
@@ -87,6 +94,4 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 		q = em.createQuery("SELECT o FROM Order o ORDER BY o.id", Order.class);
 		return q.getResultList();
 	}
-
-
 }

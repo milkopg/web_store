@@ -51,9 +51,6 @@ public class OrderContoller extends BaseController{
 	@Autowired
 	MessageSource message;
 	
-
-	//@Transactional
-	//@ModelAttribute("order") Order order,
 	@RequestMapping(value="addToCart", method = RequestMethod.POST)
 	public ModelAndView addToCart(Model model,  @RequestParam long productId, HttpServletRequest request) {
 		Order order = getOrder();
@@ -132,5 +129,11 @@ public class OrderContoller extends BaseController{
 		orderService.addOrder(orderService.generateRefundOrder(originalOrder));
 		orderService.editOrder(originalOrder);
 		return new ModelAndView("order_table", "orders", orders);
+	}
+	
+	@RequestMapping(value="performOrderSearch", method=RequestMethod.GET)
+	public ModelAndView performProductSearch( @RequestParam ("criteriaGroup") String criteria,  @RequestParam ("criteriaValue") String value, @RequestParam ("operation") String operation , HttpServletRequest request) {
+		if (value == null) value = "";
+		return new ModelAndView("order_table", "orders", orderService.searchByCriteria(criteria, value.trim(), operation));
 	}
 }
