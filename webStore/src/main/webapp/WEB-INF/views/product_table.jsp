@@ -3,6 +3,11 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form id="editProductForm" method="POST" modelAttribute="products" action="${contextPath}/product_update">
+			<c:if test="${not empty msg}">
+			    <div>
+					<strong style="color: red; font-size: 16px">${msg}</strong>
+			    </div>
+			</c:if>
 			<input type="hidden" name="productId" />
 			<input type="hidden" name="rowIndex" />
 				<table id="cartTable" border="1" class="table table-striped" >

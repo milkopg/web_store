@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,7 @@ import com.softuni.webstore.service.ProductService;
 import com.softuni.webstore.service.ProductTypeService;
 
 @Controller
-public class ProductController {
+public class ProductController extends BaseController{
 	Logger systemLogger = LoggerManager.getSystemLogger();
 	
 	@Autowired
@@ -34,6 +35,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductTypeService productTypeService;
+	
+	@Autowired
+	MessageSource message;
 	
 	@RequestMapping(value="home", method = RequestMethod.GET)
 	public ModelAndView loadProducts() {
@@ -76,12 +80,14 @@ public class ProductController {
 		product.setPictureName("pic1.jpg");
 		
 		if (result.hasErrors())  return new ModelAndView("product", "product_create", product);
+		ModelAndView model = new ModelAndView("product", "product", null);
 		if (id == 0)  {
 			productService.addProduct(product);
+			return model.addObject("msg", message.getMessage("product.create.success", null, getLocale()));
 		} else {
 			productService.editProduct(product);
+			return model.addObject("msg", message.getMessage("product.edit.success", null, getLocale()));
 		}
-		return new ModelAndView("product", "product", product);
 	}
 	
 	@Transactional

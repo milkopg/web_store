@@ -45,13 +45,11 @@
 							<td><input type="password" id="password" name = "user.password" value="${customer.user.password}"></td>
 							<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
 						</tr>
-						<c:if test="${customer.id==0}">
-							<tr>
-								<td><p class="line"><spring:message code="account.retypePassword"></spring:message>:</p></td>
-								<td><input type="password" id="retypePassword"  name="user.retypePassword" value="${customer.user.retypePassword}"></td>
-								<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
-							</tr>
-						</c:if>
+						<tr>
+							<td><p class="line"><spring:message code="account.retypePassword"></spring:message>:</p></td>
+							<td><input type="password" id="retypePassword"  name="user.retypePassword" value="${customer.user.retypePassword}"></td>
+							<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
+						</tr>
 						
 						
 					</table>

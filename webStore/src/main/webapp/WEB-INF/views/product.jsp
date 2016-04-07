@@ -3,6 +3,11 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form id="editProductForm" method="POST" modelAttribute="product" action="${contextPath}/do_product">
+			<c:if test="${not empty msg}">
+			    <div>
+					<strong style="color: red; font-size: 16px">${msg}</strong>
+			    </div>
+			</c:if>
 			<input type="hidden" name="id" value="${product.id}"/>
 			<input type="hidden" name="pictureName" value="${product.pictureName}"/>
 				<table id="cartTable" style="width: 95%" frame="box">
@@ -52,7 +57,7 @@
 				 </tr>
  --%>				 <tr>
 				    <td> <spring:message code="product.active"></spring:message></td>
-				    <td><input type="checkbox" id="active" value="${product.active}"  <c:if test="${product.active}">checked="checked"</c:if>></td>
+				    <td><input type="checkbox" id="active"  name="active" value="${product.active}"  <c:if test="${product.active}">checked="checked"</c:if>></td>
 				 </tr>
 				</table>
 				<c:choose>
