@@ -21,6 +21,7 @@ import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.CustomerService;
 import com.softuni.webstore.service.RoleService;
+import com.softuni.webstore.utility.UserUtils;
 
 @Controller
 public class UserController extends BaseController{
@@ -87,9 +88,15 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value="account_edit", method = RequestMethod.GET)
-	public ModelAndView editProducts(@RequestParam long id) {
+	public ModelAndView accountsEdit(@RequestParam long id) {
 		Customer customer = customerService.getCustomerById(id);
 		ModelAndView model = new ModelAndView("register", "customer", customer);
 		return model;
+	}
+	
+	@RequestMapping(value="account", method = RequestMethod.GET)
+	public ModelAndView accountEdit() {
+		Customer customer = customerService.getCustomerByUsername(UserUtils.getUser().getUsername());;
+		return new ModelAndView("register", "customer", customer);
 	}
 }

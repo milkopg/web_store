@@ -18,18 +18,46 @@
 		</div>
 		<div class="topblock2">
 			<img src="${images}/shopping.gif" alt="" width="24" height="24" class="shopping">																																																																									
-		 	<a href="${contextPath}/cart"><spring:message code="cart.name"></spring:message></a> <p><strong> <a href="${contextPath}/cart">${fn:length(sessionScope.order.orderDetails)} items</a></strong></p> <a href="${contextPath}/login?logout=true"><spring:message code="account.logout"></spring:message></a>
-		</div>
+		 	<a href="${contextPath}/cart"><spring:message code="cart.name"></spring:message></a> <p><strong> <a href="${contextPath}/cart">${fn:length(sessionScope.order.orderDetails)} items</a></strong></p>
+		 	<c:choose>
+		 		<c:when test="${empty pageContext.request.userPrincipal }">
+		 			<a href="${contextPath}/login"><spring:message code="account.login"></spring:message></a>
+		 		</c:when>
+		 		<c:otherwise>
+		 			<div>
+		 				<strong>Hi, ${pageContext.request.userPrincipal.name}</strong>
+		 			</div>
+		 				<a href="${contextPath}/logout" style="margin-left: 35px"><spring:message code="account.logout"></spring:message></a>
+		 			
+		 		</c:otherwise>
+		 	</c:choose>
+		 </div>
+		 <sec:authorize access="hasRole('ROLE_ADMIN')">
+			 <div>
+				<ul>
+				  <li style="display: inline"><a href="${contextPath}/product_table" style="font-size: 16px">Products</a></li>
+				  <li style="display: inline; "><a href="${contextPath}/account_table" style="font-size: 16px">Users</a></li>
+				  <li style="display: inline"><a href="${contextPath}/order_table" style="font-size: 16px">Orders</a></li>
+				</ul>
+			</div>
+		</sec:authorize>
+	 		<%-- <sec:authorize access="hasRole('ROLE_BANK_EMPLOYEE')">
+				<input type="button" onclick="location= '${contextPath}/account'" value="Register Account">
+			</sec:authorize>
+		 	 <a href="${contextPath}/login?logout=true"><spring:message code="account.logout"></spring:message></a> --%>
+		
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>
 			<li><a href="${contextPath}/home"><img src="${images}/but1_a.gif" alt="" width="90" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but2.gif" alt="" width="129" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but3.gif" alt="" width="127" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but2.gif" alt="" width="129" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but3.gif" alt="" width="127" height="29"></a></li>
 			<li><a href="${contextPath }/account"><img src="${images}/but4.gif" alt="" width="113" height="29"></a></li>
 			<li><a href="${contextPath }/cart"><img src="${images}/but5.gif" alt="" width="132" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but6.gif" alt="" width="105" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but7.gif" alt="" width="82" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but8.gif" alt="" width="112" height="29"></a></li>
-			<li><a href="index2.html"><img src="${images}/but9.gif" alt="" width="71" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but6.gif" alt="" width="105" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but7.gif" alt="" width="82" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but8.gif" alt="" width="112" height="29"></a></li>
+			<li><a href="#"><img src="${images}/but9.gif" alt="" width="71" height="29"></a></li>
 		</ul>
+		
+		
 	</div>
