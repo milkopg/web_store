@@ -4,11 +4,10 @@
 	<div id="center" class="column">
 		<form:form id="editProductForm" method="GET" modelAttribute="orders" action="${contextPath}/performOrderSearch">
 			<c:if test="${not empty msg}">
-			    <div class="alert alert-${css} alert-dismissible" role="alert">
-					<strong>${msg}</strong>
+			    <div>
+					<strong style="color: red; font-size: 16px">${msg}</strong>
 			    </div>
 			</c:if>
-    	
 			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
 					<input type="radio" name="criteriaGroup" value="customer.name" checked="checked"> <spring:message code="order.criteria.customer.name"></spring:message>
 					<input type="radio" name="criteriaGroup" value="totalPrice"><spring:message code="order.criteria.totalPrice"></spring:message>

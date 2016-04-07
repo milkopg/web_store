@@ -33,7 +33,7 @@ public class User {
 	private String username;
 	
 	@NotNull
-	@Size (min=1, max=20)
+	@Size (min=1, max=50)
 	@Column(name="password")
 	private String password;
 	

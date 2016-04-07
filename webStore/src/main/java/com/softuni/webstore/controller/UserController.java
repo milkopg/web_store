@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.log4j.LoggerManager;
+import com.softuni.webstore.security.MD5;
 import com.softuni.webstore.service.CustomerService;
 import com.softuni.webstore.service.RoleService;
 import com.softuni.webstore.utility.UserUtils;
@@ -34,6 +36,9 @@ public class UserController extends BaseController{
 	@Autowired
 	RoleService roleService;
 	
+	@Autowired
+	MessageSource message;
+	
 	@RequestMapping(value="login", method = RequestMethod.GET)
 	public String login() {
 		return "login";
@@ -41,44 +46,31 @@ public class UserController extends BaseController{
 	
 	@RequestMapping(value="register", method = RequestMethod.GET)
 	public ModelAndView register(@ModelAttribute("customer") Customer customer) {
-		//model.addAttribute("customer", new Customer());
 		return new ModelAndView("register", "customer", customer);
-		//return "register";
 	}
 	
 	@Transactional
 	@RequestMapping(value="doRegister", method = RequestMethod.POST)
-	public String doRegister(@Valid @ModelAttribute ("customer") Customer customer, BindingResult result,  @RequestParam ("id") long id,  HttpServletRequest request) {
+	public ModelAndView doRegister(@Valid @ModelAttribute ("customer") Customer customer, BindingResult result,  @RequestParam ("id") long id,  HttpServletRequest request) {
 		customerService.addRole(customer, roleService.getRoleByName(Constants.ROLE_USER));
 		
 		if (!result.hasErrors()) {
+			if (customer.getUser().getUsername() == null || "".equals(customer.getUser().getUsername())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.empty.username", null, getLocale()));
+			if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
+				
 			if (id == 0)  {
+				customer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
 				customerService.addCustomer(customer);
 				customerService.activate(customer);
 			} else  {
+				customer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
 				customerService.editCustomer(customer);
 			}
-			return "register_success";
+			return new ModelAndView("register", "customer", new Customer()).addObject("msg", message.getMessage("account.register.success", null, getLocale()));
 		} else {
-			return "register";
+			return new ModelAndView("register");
 		}
 	}
-	
-//	@RequestMapping(value="doLogin", method = RequestMethod.POST)
-//	public String doLogin(@ModelAttribute("customer") @Valid Customer customer,  BindingResult result,  HttpServletRequest request) {
-//		if (!result.hasErrors()) {
-//			Customer customerFromDb = customerService.getCustomerByUsername(customer.getUser().getUsername());
-//			Order order = (Order) request.getSession().getAttribute("order");
-//			if (order != null) {
-//				order.setCustomer(customerFromDb);
-//			}
-//			if  (customerFromDb == null) return "login";
-//			//return "login_success";
-//			return "cart";
-//		} else {
-//			return "login";
-//		}
-//	}
 	
 	@RequestMapping(value="account_table", method = RequestMethod.GET)
 	public ModelAndView customer_table() {

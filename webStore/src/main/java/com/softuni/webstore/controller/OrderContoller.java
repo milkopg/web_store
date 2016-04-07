@@ -70,14 +70,14 @@ public class OrderContoller extends BaseController{
 	
 	@Transactional  
 	@RequestMapping(value="processOrder", method=RequestMethod.POST)
-	public String processOrder(HttpServletRequest request) {
+	public ModelAndView processOrder(HttpServletRequest request) {
 		Order order = getOrder();
-		if (order == null) return "login";
+		if (order == null) return new ModelAndView("login");
 		order.setComment(request.getParameter("order.comment"));
 		
 		Customer customer = customerService.getCustomerByUsername(UserUtils.getUser().getUsername());
 
-		if (customer == null) return "login";
+		if (customer == null) return new ModelAndView("login");
 		else {
 			order.setCustomer(customer);
 		}
@@ -91,9 +91,9 @@ public class OrderContoller extends BaseController{
 		if (orderService.addOrder(order)) {
 			getSession().removeAttribute("session");
 			getSession().invalidate();
-			return "order_success";
+			return new ModelAndView("cart").addObject("msg", message.getMessage("order.success", null, getLocale()));
 		} else {
-			return "cart";
+			return new ModelAndView("cart");
 		}
 	}
 	
