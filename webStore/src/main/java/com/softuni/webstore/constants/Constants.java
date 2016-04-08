@@ -11,6 +11,7 @@ public class Constants {
 	public static final String OPERATION_CRITERIA_CUSTOMER_NAME = "customer.name";
 	public static final String OPERATION_CRITERIA_NAME = "name";
 	public static final String OPERATION_CRITERIA_TYPE_NAME = "type.name";
+	public static final String OPERATION_CRITERIA_TYPE_ID = "type.id";
 	public static final String OPERATION_CRITERIA_QUANTITY = "quantity";
 	public static final String OPERATION_CRITERIA_PRICE = "price";
 	public static final String OPERATION_CRITERIA_TOTAL_QUANTITY = "totalQuantity";

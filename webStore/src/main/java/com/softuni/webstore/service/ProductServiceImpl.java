@@ -40,7 +40,10 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> searchByCriteria(String criteria, Object value, String operation) {
 		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_TYPE_NAME.equals(criteria))) {
 			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
-		} else {
+		} else if (Constants.OPERATION_CRITERIA_TYPE_ID.equals(criteria))  {
+			return productDao.searchByCriteria(criteria, new Long(value.toString()), operation);
+		} 
+		else {
 			BigDecimal bigDecimalValue = null;
 			try {
 				bigDecimalValue = new BigDecimal(value.toString());

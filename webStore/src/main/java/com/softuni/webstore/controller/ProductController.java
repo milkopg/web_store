@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,11 +41,7 @@ public class ProductController extends BaseController{
 	
 	@RequestMapping(value="home", method = RequestMethod.GET)
 	public ModelAndView loadProducts() {
-		List<Product> products = productService.getAllProducts();
-		ModelMap model = new ModelMap();
-		model.addAttribute("products", products);
-		model.addAttribute("types", productTypeService.getProductTypes());
-		return  new ModelAndView("home", model); 
+		return  new ModelAndView("home", "products", productService.getAllProducts());
 	}
 	
 	@RequestMapping(value="product_details", method = RequestMethod.GET)

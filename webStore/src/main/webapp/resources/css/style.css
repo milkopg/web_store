@@ -171,7 +171,7 @@ body {
 
 .blocks {
 	width: 218px;
-	background-image: url(images/bg.gif);
+	background-image: url(../images/bg.gif);
 	background-position: top left;
 	background-repeat: repeat-y;
 	margin: 0 0 2px 0
@@ -220,7 +220,7 @@ body {
 	font-size: 12px;
 	font-weight: normal;
 	color: #272727;
-	background-image: url(images/date.gif);
+	background-image: url(../images/date.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
 }
@@ -296,7 +296,7 @@ body {
 }
 
 .topblock1 {
-	background-image: url(images/block1bg.gif);
+	background-image: url(../images/block1bg.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
 	width: 159px;
@@ -324,7 +324,7 @@ body {
 }
 
 .topblock2 {
-	background-image: url(images/block2bg.gif);
+	background-image: url(../images/block2bg.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
 	width: 179px;
@@ -389,7 +389,7 @@ body {
 
 .moreph {
 	display: block;
-	background-image: url(images/morebg.gif);
+	background-image: url(../images/morebg.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
 	width: 92px;
@@ -401,7 +401,7 @@ body {
 }
 
 .comments {
-	background-image: url(images/bulb.jpg);
+	background-image: url(../images/bulb.jpg);
 	background-position: top left;
 	background-repeat: no-repeat;
 	padding: 0 0 5px 29px;
@@ -459,7 +459,7 @@ body {
 }
 
 #about input[type="submit"] {
-	background-image: url(images/add.gif);
+	background-image: url(../images/add.gif);
 	background-position: top left;
 	background-repeat: no-repeat;
 	border: 0px;
@@ -510,14 +510,14 @@ body {
 }
 
 .button  {
-	background-image: url('/resources/images/enter.png');
+	background-image: url('../images/enter.png');
 	width: 60px;
 	margin-bottom: 10px;
 	text-align: center;
 }
 
 div#submitForm input {
-  background: url('/resources/images/enter.png'') no-repeat scroll 0 0 transparent;
+  background: url('../images/enter.png'') no-repeat scroll 0 0 transparent;
   color: #000000;
   cursor: pointer;
   font-weight: bold;
@@ -531,7 +531,7 @@ div#submitForm input {
 }
 
 div.divider {
-	background: #ffffff url('/resources/images/divider.png') repeat-x top left;	
+	background: #ffffff url('../images/divider.png') repeat-x top left;	
 	height: 5px;
 	margin: 8px 0 8px -16px;
 	width: 589px;
@@ -578,4 +578,8 @@ div.divider {
 #cartTable {
 	width: 90%;
 	margin-top: 10px;
+}
+
+.margin_left60 {
+	margin-left: 60px;
 }

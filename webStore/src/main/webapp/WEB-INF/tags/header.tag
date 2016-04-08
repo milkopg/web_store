@@ -44,14 +44,14 @@
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>
 			<li><a href="${contextPath}/home"><img src="${images}/but1_a.gif" alt="" width="90" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but2.gif" alt="" width="129" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but3.gif" alt="" width="127" height="29"></a></li>
+			<li><a href="${contextPath}/performProductSearch?criteriaGroup=type.id&operation=LIKE&criteriaValue=2"><img src="${images}/but2.gif" alt="" width="129" height="29"></a></li>
+			<li><a href="${contextPath}/performProductSearch?criteriaGroup=type.id&operation=LIKE&criteriaValue=3"><img src="${images}/but3.gif" alt="" width="127" height="29"></a></li>
 			<li><a href="${contextPath }/account"><img src="${images}/but4.gif" alt="" width="113" height="29"></a></li>
 			<li><a href="${contextPath }/cart"><img src="${images}/but5.gif" alt="" width="132" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but6.gif" alt="" width="105" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but7.gif" alt="" width="82" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but8.gif" alt="" width="112" height="29"></a></li>
-			<li><a href="#"><img src="${images}/but9.gif" alt="" width="71" height="29"></a></li>
+			<li><a href="${contextPath }/maps"><img src="${images}/but6.gif" alt="" width="105" height="29"></a></li>
+			<li><a href="${contextPath }/faq"><img src="${images}/but7.gif" alt="" width="82" height="29"></a></li>
+			<li><a href="${contextPath }/contact"><img src="${images}/but8.gif" alt="" width="112" height="29"></a></li>
+			<li><a href="${contextPath }/rss"><img src="${images}/but9.gif" alt="" width="71" height="29"></a></li>
 		</ul>
 		
 		

@@ -12,6 +12,10 @@
 		<security:form-login login-page="/login" default-target-url="/home" login-processing-url="/doLogin"/>
 		<security:csrf disabled="true"/>
 		<security:intercept-url pattern="/login" access="permitAll"/>
+		<security:intercept-url pattern="/maps" access="permitAll"/>
+		<security:intercept-url pattern="/faq" access="permitAll"/>
+		<security:intercept-url pattern="/contact" access="permitAll"/>
+		<security:intercept-url pattern="/rss" access="permitAll"/>
 		<security:intercept-url pattern="/register" access="permitAll"/>
 		<security:intercept-url pattern="/product_details" access="permitAll"/>
 		<security:intercept-url pattern="/home" access="permitAll"/>
