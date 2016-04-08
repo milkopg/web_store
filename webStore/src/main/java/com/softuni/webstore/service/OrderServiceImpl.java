@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
-		if (Constants.OPERATION_CRITERIA_NAME.equals(criteria)) {
+		if (Constants.OPERATION_CRITERIA_CUSTOMER_NAME.equals(criteria)) {
 			return orderDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
 		} else if (Constants.OPERATION_CRITERIA_TOTAL_PRICE.equals(criteria)) {
 			try {

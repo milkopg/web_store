@@ -35,17 +35,12 @@
 		 <sec:authorize access="hasRole('ROLE_ADMIN')">
 			 <div>
 				<ul>
-				  <li style="display: inline"><a href="${contextPath}/product_table" style="font-size: 16px">Products</a></li>
-				  <li style="display: inline; "><a href="${contextPath}/account_table" style="font-size: 16px">Users</a></li>
-				  <li style="display: inline"><a href="${contextPath}/order_table" style="font-size: 16px">Orders</a></li>
+				  <li style="display: inline"><a href="${contextPath}/product_table" style="font-size: 16px"> <spring:message code="menu.admin.products"></spring:message> </a></li>
+				  <li style="display: inline; "><a href="${contextPath}/account_table" style="font-size: 16px"><spring:message code="menu.admin.users"></spring:message> </a></li>
+				  <li style="display: inline"><a href="${contextPath}/order_table" style="font-size: 16px"><spring:message code="menu.admin.orders"></spring:message> </a></li>
 				</ul>
 			</div>
 		</sec:authorize>
-	 		<%-- <sec:authorize access="hasRole('ROLE_BANK_EMPLOYEE')">
-				<input type="button" onclick="location= '${contextPath}/account'" value="Register Account">
-			</sec:authorize>
-		 	 <a href="${contextPath}/login?logout=true"><spring:message code="account.logout"></spring:message></a> --%>
-		
 		<ul id="menu">
 			<li><img src="${images}/li.gif" alt="" width="19" height="29"></li>
 			<li><a href="${contextPath}/home"><img src="${images}/but1_a.gif" alt="" width="90" height="29"></a></li>

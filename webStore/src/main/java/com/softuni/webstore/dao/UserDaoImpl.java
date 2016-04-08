@@ -34,7 +34,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public User getUserByName(String name) {
 		TypedQuery<User> q;
 		
-		q = em.createQuery("SELECT o FROM User o WHERE o.username = :name ORDER BY o.id", User.class);
+		q = em.createQuery("SELECT o.user FROM Customer o WHERE o.user.username = :name and o.active = 1 ORDER BY o.id", User.class);
 		q.setParameter("name", name);
 		return getSingleResult(q);
 	}

@@ -15,11 +15,13 @@ import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="t_customer")
-//@OptimisticLocking(type=OptimisticLockType.VERSION)
+@OptimisticLocking(type=OptimisticLockType.VERSION)
 public class Customer {
 	@Id
 	@Column(name="id")

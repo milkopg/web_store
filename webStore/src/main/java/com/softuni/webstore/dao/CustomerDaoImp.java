@@ -64,7 +64,7 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 	public Customer getCustomerByUsername(String username) {
 		TypedQuery<Customer> q;
 		
-		q = em.createQuery("SELECT o FROM Customer o where o.user.username = :username", Customer.class);
+		q = em.createQuery("SELECT o FROM Customer o where o.user.username = :username AND o.active = 1", Customer.class);
 		q.setParameter("username", username);
 		return getSingleResult(q);
 	}

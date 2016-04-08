@@ -29,7 +29,7 @@ public class CurrencyDaoImpl extends BaseDao implements CurrencyDao{
 	public Currency getCurrencyByName(String name) {
 		TypedQuery<Currency> q;
 		
-		q = em.createQuery("SELECT o FROM Currency o where o.name = :name", Currency.class);
+		q = em.createQuery("SELECT o FROM Currency o where o.name = :name WHERE o.active = true", Currency.class);
 		q.setParameter("name", name);
 		return getSingleResult(q);
 	}

@@ -8,7 +8,8 @@ public class Constants {
 	public static final String ORDER_TYPE_REFUND = "refund";
 	public static final String ORDER_TYPE_REFUNDED = "refunded";
 	public static final String OPERATION_CRITERIA = "criteriaGroup";
-	public static final String OPERATION_CRITERIA_NAME = "customer.name";
+	public static final String OPERATION_CRITERIA_CUSTOMER_NAME = "customer.name";
+	public static final String OPERATION_CRITERIA_NAME = "name";
 	public static final String OPERATION_CRITERIA_TYPE_NAME = "type.name";
 	public static final String OPERATION_CRITERIA_QUANTITY = "quantity";
 	public static final String OPERATION_CRITERIA_PRICE = "price";

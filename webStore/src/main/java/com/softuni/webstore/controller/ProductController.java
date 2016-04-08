@@ -77,9 +77,10 @@ public class ProductController extends BaseController{
 	public ModelAndView doEditProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, @RequestParam ("id") long id,  @RequestParam ("currency.id") long currencyId,  @RequestParam ("type.id") long typeId, HttpServletRequest request) {
 		product.setCurrency(currencyService.getCurrencyById(currencyId));
 		product.setType(productTypeService.getProductTypeById(typeId));
+		product.setTypes(productTypeService.getProductTypes());
 		product.setPictureName("pic1.jpg");
 		
-		if (result.hasErrors())  return new ModelAndView("product", "product_create", product);
+		if (result.hasErrors())  return new ModelAndView("product", "product", product);
 		ModelAndView model = new ModelAndView("product", "product", null);
 		if (id == 0)  {
 			productService.addProduct(product);
@@ -92,7 +93,7 @@ public class ProductController extends BaseController{
 	
 	@Transactional
 	@RequestMapping(value="product_create", method = RequestMethod.GET)
-	public ModelAndView createProduct(@ModelAttribute("product") @Valid Product product, BindingResult result, HttpServletRequest request) {
+	public ModelAndView createProduct(@ModelAttribute("product") Product product) {
 		product.setCurrency(currencyService.getCurrencyById(1l));
 		product.setType(productTypeService.getProductTypeById(1));
 		product.setTypes(productTypeService.getProductTypes());

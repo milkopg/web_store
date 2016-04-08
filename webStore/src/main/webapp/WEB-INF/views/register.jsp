@@ -27,8 +27,8 @@
 						</tr>
 						<tr>
 							<td><p class="line"><spring:message code="account.birthdate"></spring:message>:</p></td>
-							<td><input type="date" id="birthDate" name ="birthDate" value="<fmt:formatDate pattern="yyyy-mm-dd" value="${account.birthDate}" />" style="width: 173px"></td>
-							<td><font color="red"><form:errors path="birthDate"></form:errors></font><br/></td>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${account.birthDate}" />
+							<td><input type="text" id="birthDate" name ="birthDate" value="${fn:substring(customer.birthDate, 0,10)}" style="width: 173px" placeholder="yyyy-MM-dd" maxlength="10"></td>
 						</tr>
 						<tr>
 							<td><p class="line"><spring:message code="account.address"></spring:message>:</p></td>
@@ -40,18 +40,27 @@
 							<td><input type="text" id="user.username" name="user.username" value="${customer.user.username}"></td>
 							<td><font color="red"><form:errors path="user.username"></form:errors></font><br/></td>
 						</tr>
-						<tr>
-							<td><p class="line"><spring:message code="account.password"></spring:message>:</p></td>
-							<td><input type="password" id="password" name = "user.password" value="${customer.user.password}"></td>
-							<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
-						</tr>
-						<tr>
-							<td><p class="line"><spring:message code="account.retypePassword"></spring:message>:</p></td>
-							<td><input type="password" id="retypePassword"  name="user.retypePassword" value="${customer.user.retypePassword}"></td>
-							<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
-						</tr>
-						
-						
+						<c:choose>
+							<c:when test="${customer.id == 0}">
+								<tr>
+									<td><p class="line"><spring:message code="account.password"></spring:message>:</p></td>
+									<td><input type="password" id="password" name = "user.password" value="${customer.user.password}"></td>
+									<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
+								</tr>
+								<tr>
+									<td><p class="line"><spring:message code="account.retypePassword"></spring:message>:</p></td>
+									<td><input type="password" id="retypePassword"  name="user.retypePassword" value="${customer.user.retypePassword}"></td>
+									<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
+								</tr>
+							</c:when>
+						</c:choose>
+						 <sec:authorize access="hasRole('ROLE_ADMIN')">
+					 		<tr>
+								<td><p class="line"><spring:message code="account.active"></spring:message>:</p></td>
+								<td><input type="checkbox" id="active" name="active" <c:if test="${customer.active}">checked="checked"</c:if> > </td>
+								<td></td>
+							</tr>
+						</sec:authorize>
 					</table>
 				<c:choose>
 					<c:when test="${customer.id == 0}">
@@ -59,6 +68,7 @@
 					</c:when>
 					<c:otherwise>
 						<input type="submit" class="name"  value='<spring:message code="account.edit"></spring:message>'>
+						<input type="button" class="name" value='<spring:message code="account.changePassword"></spring:message>' onclick="location= '${contextPath}/account_change_password?id=${customer.id}'">
 					</c:otherwise>
 				</c:choose>
 					<img src="/webstore/resources/images/bot_bg.gif" alt="" width="100%" height="10"><br>

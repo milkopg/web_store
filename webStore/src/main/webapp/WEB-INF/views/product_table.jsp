@@ -3,6 +3,13 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form id="editProductForm" method="POST" modelAttribute="products" action="${contextPath}/product_update">
+			 <sec:authorize access="hasRole('ROLE_ADMIN')">
+				 <div style="margin-bottom: 20px">
+					<ul>
+					  <li style="display: inline"><a href="${contextPath}/product_create" style="font-size: 16px"> <spring:message code="menu.admin.products.createProduct"></spring:message> </a></li>
+					</ul>
+				</div>
+			</sec:authorize>
 			<c:if test="${not empty msg}">
 			    <div>
 					<strong style="color: red; font-size: 16px">${msg}</strong>

@@ -55,20 +55,20 @@ public class UserController extends BaseController{
 		customerService.addRole(customer, roleService.getRoleByName(Constants.ROLE_USER));
 		
 		if (!result.hasErrors()) {
-			if (customer.getUser().getUsername() == null || "".equals(customer.getUser().getUsername())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.empty.username", null, getLocale()));
-			if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
-				
 			if (id == 0)  {
+				if (customer.getUser().getUsername() == null || "".equals(customer.getUser().getUsername())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.empty.username", null, getLocale()));
+				if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
 				customer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
 				customerService.addCustomer(customer);
 				customerService.activate(customer);
 			} else  {
-				customer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
+				customer.getUser().setPassword(customerService.getCustomerById(id).getUser().getPassword());
+				customer.getUser().setRetypePassword(customerService.getCustomerById(id).getUser().getRetypePassword());
 				customerService.editCustomer(customer);
 			}
 			return new ModelAndView("register", "customer", new Customer()).addObject("msg", message.getMessage("account.register.success", null, getLocale()));
 		} else {
-			return new ModelAndView("register");
+			return accountEdit().addObject("msg", message.getMessage("account.error.date", null, getLocale()));
 		}
 	}
 	
@@ -82,13 +82,47 @@ public class UserController extends BaseController{
 	@RequestMapping(value="account_edit", method = RequestMethod.GET)
 	public ModelAndView accountsEdit(@RequestParam long id) {
 		Customer customer = customerService.getCustomerById(id);
+		customer.getUser().setRetypePassword(customer.getUser().getPassword());
 		ModelAndView model = new ModelAndView("register", "customer", customer);
 		return model;
 	}
 	
 	@RequestMapping(value="account", method = RequestMethod.GET)
 	public ModelAndView accountEdit() {
-		Customer customer = customerService.getCustomerByUsername(UserUtils.getUser().getUsername());;
+		Customer customer = customerService.getCustomerByUsername(UserUtils.getUser().getUsername());
+		if (customer != null) {
+			customer.getUser().setRetypePassword(customer.getUser().getPassword());
+		}
 		return new ModelAndView("register", "customer", customer);
+	}
+	
+	@RequestMapping(value="account_change_password", method = RequestMethod.GET)
+	public ModelAndView accountChangePassword(@RequestParam ("id") long id) {
+		Customer customer = customerService.getCustomerById(id);
+		customer.getUser().setPassword(null);
+		return new ModelAndView("account_change_password", "customer", customer);
+	}
+	
+	@Transactional
+	@RequestMapping(value="do_account_change_password", method = RequestMethod.POST)
+	public ModelAndView doAccountChangePassword(@ModelAttribute ("customer") Customer customer, @RequestParam ("id") long id) {
+		if (customer.getUser() == null || "".equals(customer.getUser().getPassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.empty.password", null, getLocale()));
+		if (customer.getUser() == null || "".equals(customer.getUser().getRetypePassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.empty.retypePassword", null, getLocale()));
+		if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
+		Customer dbCustomer = customerService.getCustomerById(id);
+		dbCustomer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
+		dbCustomer.getUser().setRetypePassword(dbCustomer.getUser().getPassword());
+		if (customerService.editCustomer(dbCustomer)) {
+			setNullPasswordOfUser(customer);
+			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.success", null, getLocale()));
+		} else {
+			setNullPasswordOfUser(customer);
+			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.unsuccess", null, getLocale()));
+		}
+	}
+	
+	public void setNullPasswordOfUser(Customer customer) {
+		customer.getUser().setPassword("");
+		customer.getUser().setRetypePassword("");
 	}
 }

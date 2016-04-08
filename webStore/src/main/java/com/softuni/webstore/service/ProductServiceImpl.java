@@ -4,16 +4,20 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.dao.ProductDao;
 import com.softuni.webstore.entity.Product;
+import com.softuni.webstore.log4j.LoggerManager;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
+	private Logger systemlog = LoggerManager.getSystemLogger();
+	
 	@Autowired
 	ProductDao productDao;
 	
@@ -37,7 +41,13 @@ public class ProductServiceImpl implements ProductService{
 		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_TYPE_NAME.equals(criteria))) {
 			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
 		} else {
-			return productDao.searchByCriteria(criteria, new BigDecimal(value.toString()), operation);
+			BigDecimal bigDecimalValue = null;
+			try {
+				bigDecimalValue = new BigDecimal(value.toString());
+			} catch (NumberFormatException nfe) {
+				systemlog.error("Cannot parse value to BigDecimal: " + value);
+			}
+			return productDao.searchByCriteria(criteria, bigDecimalValue , operation);
 		}
 	}
 
