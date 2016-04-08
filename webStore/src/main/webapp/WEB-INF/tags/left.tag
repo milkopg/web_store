@@ -3,31 +3,18 @@
 	  	<div class="block">
 		<img src="${images}/title1.gif" alt="" width="168" height="42"><br>
 			<ul id="navigation">
-				<li class="color"><a href="#">Dolor sit amet</a></li>
-				<li><a href="#">Consetetur sadipscing</a></li>
-				<li class="color"><a href="#">Seddiam</a></li>
-				<li><a href="#">Nonumy eirmod</a></li>
-				<li class="color"><a href="#">Dolor sit amet</a></li>
-				<li><a href="#">Lorem ipsum dolor</a></li>
-				<li class="color"><a href="#">Dolor sit amet</a></li>
-				<li><a href="#">Seddiam</a></li>
-				<li class="color"><a href="#">Nonumy eirmod</a></li>
-				<li><a href="#">Consetetur sadipscing</a></li>
-				<li class="color"><a href="#">Lorem ipsum dolor</a></li>
-				<li><a href="#">Nonumy eirmod</a></li>
-				<li class="color"><a href="#">Dolor sit amet</a></li>
-				<li><a href="#">Seddiam</a></li>
-				<li class="color"><a href="#">Lorem ipsum dolor</a></li>
-				<li><a href="#">Nonumy eirmod</a></li>
-				<li class="color"><a href="#">Seddiam</a></li>
-				<li><a href="#">Consetetur sadipscing</a></li>
-				<li class="color"><a href="#">Nonumy eirmod</a></li>
-				<li><a href="#">Dolor sit amet</a></li>
-				<li class="color"><a href="#">Seddiam</a></li>
-				<li><a href="#">Nonumy eirmod</a></li>
-				<li class="color"><a href="#">Lorem ipsum dolor</a></li>
-				<li><a href="#">Dolor sit amet</a></li>
-				<li class="color"><a href="#">Seddiam</a></li>
+				<form:form method="GET" modelAttribute="products">
+					<c:forEach var="type" varStatus="status" items="${types }">
+						<c:choose>
+							<c:when test="${status.index % 2 == 0 }">
+								<li class="color"><a href="${contextPath}/performProductSearch?productTypeId=${type.id}">${type.name}</a></li>	
+							</c:when>
+							<c:otherwise>
+								<li><a href="${contextPath}/performProductSearch/productTypeId=${type.id}">${type.name}</a></li>	
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</form:form>
 			</ul>
 		</div>
 		<a href="#"><img src="${images}/banner1.jpg" alt="" width="172" height="200"></a>
