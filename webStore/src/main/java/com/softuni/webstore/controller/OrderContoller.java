@@ -114,15 +114,14 @@ public class OrderContoller extends BaseController{
 	@RequestMapping(value="order_refund", method=RequestMethod.GET)
 	public ModelAndView refundOrder (@RequestParam ("id") long id) {
 		Order originalOrder = orderService.getOrderById(id); 
-		List<Order> orders = orderService.getOrders();
 		if (!Constants.ORDER_TYPE_SELL.equals(originalOrder.getOrderType().getName())) {
-			return new ModelAndView("order_table", "orders", orders).addObject("msg",  message.getMessage("order.refund.alreadyRefunded", null, getLocale()));
+			return new ModelAndView("order_table", "orders", orderService.getOrders()).addObject("msg",  message.getMessage("order.refund.alreadyRefunded", null, getLocale()));
 		} 
 		originalOrder.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUNDED));
 
 		orderService.addOrder(orderService.generateRefundOrder(originalOrder));
 		orderService.editOrder(originalOrder);
-		return new ModelAndView("order_table", "orders", orders).addObject("msg", message.getMessage("order.refund.success", null, getLocale()));
+		return new ModelAndView("order_table", "orders", orderService.getOrders()).addObject("msg", message.getMessage("order.refund.success", null, getLocale()));
 	}
 	
 	@RequestMapping(value="performOrderSearch", method=RequestMethod.GET)
