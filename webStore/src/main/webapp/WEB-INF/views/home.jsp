@@ -9,7 +9,6 @@
 					<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
 					<input type="radio" name="criteriaGroup" value="name" checked="checked"> <spring:message code="product.criteria.name"></spring:message>
 					<input type="radio" name="criteriaGroup" value="type.name"><spring:message code="product.criteria.type"></spring:message>
-					<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
 					<input type="radio" name="criteriaGroup" value="singlePrice"><spring:message code="product.criteria.price"></spring:message>
 					<select name="operation">
 						<option value="LIKE">=</option>

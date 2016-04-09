@@ -3,8 +3,6 @@ package com.softuni.webstore.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.sasl.AuthenticationException;
-
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;

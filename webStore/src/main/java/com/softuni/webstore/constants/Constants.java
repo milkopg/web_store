@@ -10,12 +10,15 @@ public class Constants {
 	public static final String OPERATION_CRITERIA = "criteriaGroup";
 	public static final String OPERATION_CRITERIA_CUSTOMER_NAME = "customer.name";
 	public static final String OPERATION_CRITERIA_NAME = "name";
+	public static final String OPERATION_CRITERIA_USERNAME = "username";
 	public static final String OPERATION_CRITERIA_TYPE_NAME = "type.name";
 	public static final String OPERATION_CRITERIA_TYPE_ID = "type.id";
 	public static final String OPERATION_CRITERIA_QUANTITY = "quantity";
 	public static final String OPERATION_CRITERIA_PRICE = "price";
 	public static final String OPERATION_CRITERIA_TOTAL_QUANTITY = "totalQuantity";
 	public static final String OPERATION_CRITERIA_TOTAL_PRICE = "totalPrice";
+	public static final String OPERATION_CRITERIA_BIRTHDATE = "birthDate";
+	public static final String OPERATION_CRITERIA_ACTIVE = "active";
 	public static final String OPERATION_PLACEHOLDER_LIKE = "%";
 	public static final String OPERATION_PLACEHOLDER_EMPTY = "";
 	public static final String OPERATION_EQUALS = "=";

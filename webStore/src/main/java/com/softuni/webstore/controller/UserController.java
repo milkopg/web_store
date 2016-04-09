@@ -21,6 +21,7 @@ import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.security.MD5;
+import com.softuni.webstore.security.User;
 import com.softuni.webstore.service.CustomerService;
 import com.softuni.webstore.service.RoleService;
 import com.softuni.webstore.utility.UserUtils;
@@ -68,6 +69,9 @@ public class UserController extends BaseController{
 			}
 			return new ModelAndView("register", "customer", new Customer()).addObject("msg", message.getMessage("account.register.success", null, getLocale()));
 		} else {
+			if (id == 0) {
+				return register(customer);
+			} 
 			return accountEdit().addObject("msg", message.getMessage("account.error.date", null, getLocale()));
 		}
 	}
@@ -89,7 +93,8 @@ public class UserController extends BaseController{
 	
 	@RequestMapping(value="account", method = RequestMethod.GET)
 	public ModelAndView accountEdit() {
-		Customer customer = customerService.getCustomerByUsername(UserUtils.getUser().getUsername());
+		User user = UserUtils.getUser();
+		Customer customer = customerService.getCustomerByUsername(user == null ? null : user.getUsername());
 		if (customer != null) {
 			customer.getUser().setRetypePassword(customer.getUser().getPassword());
 		}
@@ -119,6 +124,12 @@ public class UserController extends BaseController{
 			setNullPasswordOfUser(customer);
 			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.unsuccess", null, getLocale()));
 		}
+	}
+	
+	@RequestMapping(value="performAccountSearchAdmin", method=RequestMethod.GET)
+	public ModelAndView performProductSearchAdmin( @RequestParam ("criteriaGroup") String criteria,  @RequestParam ("criteriaValue") String value, @RequestParam ("operation") String operation , HttpServletRequest request) {
+		if (value == null) value = "";
+		return new ModelAndView("account_table", "accounts", customerService.searchCriteria(criteria, value, operation));
 	}
 	
 	public void setNullPasswordOfUser(Customer customer) {

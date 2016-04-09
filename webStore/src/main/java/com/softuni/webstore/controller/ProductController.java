@@ -55,6 +55,12 @@ public class ProductController extends BaseController{
 		return new ModelAndView("home", "products", productService.searchByCriteria(criteria, value, operation));
 	}
 	
+	@RequestMapping(value="performProductSearchAdmin", method=RequestMethod.GET)
+	public ModelAndView performProductSearchAdmin( @RequestParam ("criteriaGroup") String criteria,  @RequestParam ("criteriaValue") String value, @RequestParam ("operation") String operation , HttpServletRequest request) {
+		if (value == null) value = "";
+		return new ModelAndView("product_table", "products", productService.searchByCriteria(criteria, value, operation));
+	}
+	
 	@RequestMapping(value="product_table", method = RequestMethod.GET)
 	public ModelAndView product_table() {
 		List<Product> products = productService.getAllProducts();

@@ -1,8 +1,12 @@
 package com.softuni.webstore.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +15,12 @@ import com.softuni.webstore.dao.CustomerDao;
 import com.softuni.webstore.entity.Customer;
 import com.softuni.webstore.entity.Role;
 import com.softuni.webstore.entity.User;
+import com.softuni.webstore.log4j.LoggerManager;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
+	
+	private Logger systemlog = LoggerManager.getSystemLogger();
 	
 	@Autowired
 	CustomerDao customerDao;
@@ -46,8 +53,32 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public List<Customer> searchCustomerByCriteria(String criteria, String value) {
-		return customerDao.searchCustomerByCriteria(criteria, value);
+	public List<Customer> searchCriteria(String criteria, Object value, String operation) {
+		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_USERNAME.equals(criteria))) {
+			return customerDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+		} else if (Constants.OPERATION_CRITERIA_BIRTHDATE.equals(criteria))  {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//sdf.parse("2016-04-06"); new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-06");
+				Date date = sdf.parse(value.toString());
+				if (Constants.OPERATION_LIKE.equals(operation)) {
+					operation = Constants.OPERATION_BIGGER_THAN;
+				}
+				return customerDao.searchByCriteria(criteria, date , operation);
+			} catch (ParseException e) {
+				systemlog.error("Cannot parse Date:" + e.getMessage());
+				return null;
+			}
+		} else if (Constants.OPERATION_CRITERIA_ACTIVE.equals(criteria)) {
+			String valueString = value.toString();
+			if ("1".equals(valueString) || "true".equals(valueString)) {
+				value = new Boolean(true);
+			} else if ("0".equals(valueString) || "false".equals(valueString)) {
+				value = new Boolean(false);
+			}
+			return customerDao.searchByCriteria(criteria, value , operation);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

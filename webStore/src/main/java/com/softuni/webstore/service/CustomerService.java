@@ -13,7 +13,7 @@ public interface CustomerService {
 	public Customer getCustomerByUsername(String username);
 	public boolean activate (Customer customer);
 	public boolean deactivateCustomer(Customer customer);
-	public List<Customer> searchCustomerByCriteria(String criteria, String value);
+	public List<Customer> searchCriteria(String criteria, Object value, String operation);
 	public List<Customer> getAllCustomers();
 	public List<String> validateCustomer(Customer customer);
 	public List<String> validateUser(User user);

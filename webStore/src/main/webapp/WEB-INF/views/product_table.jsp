@@ -2,6 +2,21 @@
 <ct:header></ct:header>
 <ct:body>
 	<div id="center" class="column">
+		<form:form method="GET" action="${contextPath }/performProductSearchAdmin">
+			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
+			<input type="radio" name="criteriaGroup" value="name" checked="checked"> <spring:message code="product.criteria.name"></spring:message>
+			<input type="radio" name="criteriaGroup" value="type.name"><spring:message code="product.criteria.type"></spring:message>
+			<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
+			<input type="radio" name="criteriaGroup" value="singlePrice"><spring:message code="product.criteria.price"></spring:message>
+			<select name="operation">
+				<option value="LIKE">=</option>
+				<option value=">">></option>
+				<option value="<"><</option>
+			</select><input type="text" name="criteriaValue">
+			
+			<input type="submit" value="<spring:message code="product.searchButton"></spring:message>">
+		</form:form>
+		
 		<form:form id="editProductForm" method="POST" modelAttribute="products" action="${contextPath}/product_update">
 			 <sec:authorize access="hasRole('ROLE_ADMIN')">
 				 <div style="margin-bottom: 20px">

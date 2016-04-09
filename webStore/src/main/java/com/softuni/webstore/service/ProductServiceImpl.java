@@ -42,13 +42,20 @@ public class ProductServiceImpl implements ProductService{
 			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
 		} else if (Constants.OPERATION_CRITERIA_TYPE_ID.equals(criteria))  {
 			return productDao.searchByCriteria(criteria, new Long(value.toString()), operation);
-		} 
-		else {
+		} else if (Constants.OPERATION_CRITERIA_QUANTITY.equals(criteria)) {
+			Integer integerValue = null;
+			try {
+				integerValue = Integer.parseInt(value.toString());
+			} catch (NumberFormatException nfe) {
+				systemlog.error("Cannot parse value Quantity to Integer: " + value);
+			}
+			return productDao.searchByCriteria(criteria, integerValue , operation);
+		} else {
 			BigDecimal bigDecimalValue = null;
 			try {
 				bigDecimalValue = new BigDecimal(value.toString());
 			} catch (NumberFormatException nfe) {
-				systemlog.error("Cannot parse value to BigDecimal: " + value);
+				systemlog.error("Cannot parse value Price to BigDecimal: " + value);
 			}
 			return productDao.searchByCriteria(criteria, bigDecimalValue , operation);
 		}
