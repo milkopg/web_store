@@ -1,12 +1,9 @@
 package com.softuni.webstore.service;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softuni.webstore.dao.OrderDetailsDao;
 import com.softuni.webstore.entity.Order;
 import com.softuni.webstore.entity.OrderDetails;
 import com.softuni.webstore.entity.Product;
@@ -15,7 +12,7 @@ import com.softuni.webstore.entity.Product;
 public class OrderDetailsServiceImpl implements OrderDetailsService{
 
 	@Autowired
-	ProductService productService;
+	OrderDetailsDao orderDetailsDao;
 	
 	@Override
 	public OrderDetails addProductToCart(Product product, Order order) {
@@ -32,5 +29,10 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	public Order removeProductFromCart(Order order, int rowIndex) {
 		order.getOrderDetails().remove(rowIndex);
 		return order;
+	}
+
+	@Override
+	public OrderDetails getOrderDetailsByProductId(long id) {
+		return orderDetailsDao.getOrderDetailsByProductId(id);
 	}
 }

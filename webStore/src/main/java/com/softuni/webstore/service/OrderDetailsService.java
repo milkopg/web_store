@@ -7,4 +7,5 @@ import com.softuni.webstore.entity.Product;
 public interface OrderDetailsService {
 	public OrderDetails addProductToCart(Product product, Order order);
 	public Order removeProductFromCart(Order order, int rowIndex);
+	public OrderDetails getOrderDetailsByProductId(long id);
 }

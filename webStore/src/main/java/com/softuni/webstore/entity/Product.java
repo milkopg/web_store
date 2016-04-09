@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OptimisticLockType;
@@ -52,6 +53,7 @@ public class Product {
 	@JoinColumn(name="currency_id")
 	private Currency currency;
 	
+	@NotNull
 	@Min(value=0)
 	@Column(name="single_price")
 	private BigDecimal singlePrice;

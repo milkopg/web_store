@@ -36,14 +36,13 @@
 				  <tr>
 				  <tr>
 				  	<td> <spring:message code="product.quantity"></spring:message></td>
-				  	<td><input type="text" name = "quantity" value="${product.quantity}" style="width: 100%"></td>
+				  	<td><input type="number" name = "quantity" value="${product.quantity}" style="width: 100%" min="0"></td>
 				  	<td><font color="red"><form:errors path="quantity"></form:errors></font><br/></td>
 				  </tr>
 				  <tr>
 				  	<td> <spring:message code="product.price"></spring:message></td>
-				  	<td><input type="text" name = "singlePrice" value="${product.singlePrice}" style="width: 100%"></td>
+				  	<td><input type="number" name = "singlePrice" step="any" value="${product.singlePrice}" style="width: 100%" min="0" ></td>
 				  	<td><font color="red"><form:errors path="singlePrice"></form:errors></font><br/></td>
-				  </tr>
 				  <tr>
 				  	<td> <spring:message code="product.currency"></spring:message></td>
 				  	<td> <select id="currency" name="currency.id">

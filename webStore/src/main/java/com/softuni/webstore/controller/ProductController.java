@@ -21,6 +21,7 @@ import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.CurrencyService;
+import com.softuni.webstore.service.OrderDetailsService;
 import com.softuni.webstore.service.ProductService;
 import com.softuni.webstore.service.ProductTypeService;
 
@@ -36,6 +37,9 @@ public class ProductController extends BaseController{
 	
 	@Autowired
 	ProductTypeService productTypeService;
+	
+	@Autowired
+	OrderDetailsService orderDetailsService;
 	
 	@Autowired
 	MessageSource message;
@@ -103,5 +107,17 @@ public class ProductController extends BaseController{
 		product.setType(productTypeService.getProductTypeById(1));
 		product.setTypes(productTypeService.getProductTypes());
 		return new ModelAndView("product", "product", product);
+	}
+	
+	@Transactional
+	@RequestMapping(value="product_delete", method = RequestMethod.GET)
+	public ModelAndView deleteProduct(@RequestParam long id) {
+		if (orderDetailsService.getOrderDetailsByProductId(id) != null) {
+			return product_table().addObject("msg", message.getMessage("account.admin.delete.notsuccess", null, getLocale()));
+		}
+		if (productService.deleteProduct(id)) {
+			return product_table().addObject("msg", message.getMessage("account.admin.delete.success", null, getLocale()));
+		} 
+		return product_table();
 	}
 }

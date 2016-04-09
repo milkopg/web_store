@@ -3,6 +3,11 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form method="GET" action="${contextPath }/performProductSearchAdmin">
+			<c:if test="${not empty msg}">
+			    <div>
+					<strong style="color: red; font-size: 16px">${msg}</strong>
+			    </div>
+			</c:if>
 			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
 			<input type="radio" name="criteriaGroup" value="name" checked="checked"> <spring:message code="product.criteria.name"></spring:message>
 			<input type="radio" name="criteriaGroup" value="type.name"><spring:message code="product.criteria.type"></spring:message>
@@ -26,11 +31,6 @@
 					</ul>
 				</div>
 			</sec:authorize>
-			<c:if test="${not empty msg}">
-			    <div>
-					<strong style="color: red; font-size: 16px">${msg}</strong>
-			    </div>
-			</c:if>
 			<input type="hidden" name="productId" />
 			<input type="hidden" name="rowIndex" />
 				<table id="cartTable" border="1" class="table table-striped" >
