@@ -7,6 +7,7 @@ import com.softuni.webstore.entity.Customer;
 public interface CustomerDao {
 	public boolean addCustomer(Customer customer);
 	public boolean editCustomer (Customer customer);
+	public boolean deleteCustomer(long id);
 	public Customer getCustomerById (long id);
 	public Customer getCustomerByUsername(String username);
 	public boolean activateCustomer (Customer customer);

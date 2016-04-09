@@ -32,7 +32,7 @@
 		 		</c:otherwise>
 		 	</c:choose>
 		 </div>
-		 <sec:authorize access="hasRole('ROLE_ADMIN')">
+		 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 			 <div>
 				<ul>
 				  <li style="display: inline"><a href="${contextPath}/product_table" style="font-size: 16px"> <spring:message code="menu.admin.products"></spring:message> </a></li>

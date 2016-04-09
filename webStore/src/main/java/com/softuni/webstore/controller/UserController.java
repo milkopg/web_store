@@ -3,6 +3,7 @@ package com.softuni.webstore.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.security.MD5;
 import com.softuni.webstore.security.User;
 import com.softuni.webstore.service.CustomerService;
+import com.softuni.webstore.service.OrderService;
 import com.softuni.webstore.service.RoleService;
 import com.softuni.webstore.utility.UserUtils;
 
@@ -36,6 +38,9 @@ public class UserController extends BaseController{
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	OrderService orderService;
 	
 	@Autowired
 	MessageSource message;
@@ -73,7 +78,7 @@ public class UserController extends BaseController{
 				customer.getUser().setRetypePassword(customerService.getCustomerById(id).getUser().getRetypePassword());
 				customerService.editCustomer(customer);
 			}
-			return new ModelAndView("register", "customer", new Customer()).addObject("msg", message.getMessage("account.register.success", null, getLocale()));
+			return new ModelAndView("login").addObject("msg", message.getMessage("account.register.success", null, getLocale()));
 		} else {
 			if (id == 0) {
 				return register(customer);
@@ -116,7 +121,8 @@ public class UserController extends BaseController{
 	
 	@Transactional
 	@RequestMapping(value="do_account_change_password", method = RequestMethod.POST)
-	public ModelAndView doAccountChangePassword(@ModelAttribute ("customer") Customer customer, @RequestParam ("id") long id) {
+	public ModelAndView doAccountChangePassword(@ModelAttribute ("customer") Customer customer,
+			@RequestParam ("id") long id, HttpServletRequest request, HttpServletResponse response) {
 		if (customer.getUser() == null || "".equals(customer.getUser().getPassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.empty.password", null, getLocale()));
 		if (customer.getUser() == null || "".equals(customer.getUser().getRetypePassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.empty.retypePassword", null, getLocale()));
 		if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("account_change_password").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
@@ -125,7 +131,9 @@ public class UserController extends BaseController{
 		dbCustomer.getUser().setRetypePassword(dbCustomer.getUser().getPassword());
 		if (customerService.editCustomer(dbCustomer)) {
 			setNullPasswordOfUser(customer);
-			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.success", null, getLocale()));
+			getSession().invalidate();
+			UserUtils.logout(request, response);;
+			return new ModelAndView("login").addObject("msg", message.getMessage("action.success", null, getLocale()));
 		} else {
 			setNullPasswordOfUser(customer);
 			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.unsuccess", null, getLocale()));
@@ -141,5 +149,17 @@ public class UserController extends BaseController{
 	public void setNullPasswordOfUser(Customer customer) {
 		customer.getUser().setPassword("");
 		customer.getUser().setRetypePassword("");
+	}
+	
+	@Transactional
+	@RequestMapping(value="account_delete", method = RequestMethod.GET)
+	public ModelAndView accountDelete(@RequestParam ("id") long id) {
+		if (orderService.getOrderByCustomerId(id) != null) {
+			return customer_table().addObject("msg", message.getMessage("account.admin.delete.notsuccess", null, getLocale()));
+		}
+		if (customerService.deleteCustomer(id)) {
+			return customer_table().addObject("msg", message.getMessage("account.admin.delete.success", null, getLocale()));
+		} 
+		return customer_table();
 	}
 }

@@ -84,10 +84,6 @@ public class OrderContoller extends BaseController{
 		
 		fillOrderDetails(order, request);
 		
-		for (OrderDetails orderDetail: order.getOrderDetails()) {
-			orderDetailsService.decreaseProductQuantityAfterPurchasing(orderDetail);
-		}
-		
 		if (orderService.addOrder(order)) {
 			getSession().removeAttribute("session");
 			getSession().invalidate();

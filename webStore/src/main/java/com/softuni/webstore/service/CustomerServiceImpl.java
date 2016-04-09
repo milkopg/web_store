@@ -39,6 +39,11 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer getCustomerById(long id) {
 		return customerDao.getCustomerById(id);
 	}
+	
+	@Override
+	public boolean deleteCustomer(long id) {
+		return customerDao.deleteCustomer(id);
+	}
 
 	@Override
 	public boolean activate(Customer customer) {

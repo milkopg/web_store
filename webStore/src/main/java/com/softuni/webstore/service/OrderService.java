@@ -10,6 +10,7 @@ public interface OrderService {
 	public boolean addOrder(Order order);
 	public boolean editOrder(Order order);
 	public Order getOrderById(long id);
+	public Order getOrderByCustomerId (long id);
 	public Order generateRefundOrder(Order originalOrder);
 	public List<OrderDetails> generateRefundOrderDetails(Order originalOrder, Order refundOrder);
 	public BigDecimal calculateTotalPrice(Order order);

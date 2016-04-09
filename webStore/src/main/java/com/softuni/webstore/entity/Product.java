@@ -33,7 +33,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="TABLE_GEN_PRODUCT")
 	private long id;
 	
-	@Size (min=4, max=40)
+	@Size (min=4, max=50)
 	@Column(name="name")
 	private String name;
 	

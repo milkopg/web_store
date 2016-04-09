@@ -9,6 +9,7 @@ import com.softuni.webstore.entity.User;
 public interface CustomerService {
 	public boolean addCustomer(Customer customer);
 	public boolean editCustomer (Customer customer);
+	public boolean deleteCustomer(long id);
 	public Customer getCustomerById (long id);
 	public Customer getCustomerByUsername(String username);
 	public boolean activate (Customer customer);

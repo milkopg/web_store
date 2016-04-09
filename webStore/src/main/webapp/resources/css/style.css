@@ -1,8 +1,17 @@
 
 @CHARSET "UTF-8";
 
+span {
+	font-size: 16px;
+}
+
+label {
+	font-size: 16px;
+}
+
 p {
 	color: red;
+	font-size: 12px;
 }
 
 * {
@@ -583,3 +592,4 @@ div.divider {
 .margin_left60 {
 	margin-left: 60px;
 }
+

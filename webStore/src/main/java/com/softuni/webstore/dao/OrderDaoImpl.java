@@ -32,6 +32,8 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 			em.persist(order);
 			
 			for (OrderDetails orderDetail: order.getOrderDetails()) {
+				orderDetail.getProduct().setQuantity(orderDetail.getProduct().getQuantity() - 1);
+				em.merge(orderDetail.getProduct());
 				em.persist(orderDetail);
 			}
 			
@@ -70,13 +72,22 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 			return null;
 		}
 	}
+	
+	@Override
+	public Order getOrderCustomerId(long id) {
+		TypedQuery<Order> q;
+		
+		q = em.createQuery("SELECT o FROM Order o WHERE o.customer.id = :id", Order.class);
+		q.setParameter("id", id);
+		return getSingleResult(q);
+	}
 
 	@Override
 	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
 		TypedQuery<Order> q;
 		
 		try {
-			q = em.createQuery("SELECT o FROM Order o WHERE o."+ criteria + " " + operation + " :value   ORDER BY o.id", Order.class);
+			q = em.createQuery("SELECT o FROM Order o WHERE lower (o."+ criteria + ") " + operation + " :value   ORDER BY o.id", Order.class);
 			q.setParameter("value", value);
 			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
 			return q.getResultList();

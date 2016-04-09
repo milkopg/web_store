@@ -3,6 +3,11 @@
 <ct:body>
 	<div id="center" class="column">
 		<form:form method="GET" action="${contextPath }/performAccountSearchAdmin">
+			<c:if test="${not empty msg}">
+			    <div>
+					<strong style="color: red; font-size: 16px">${msg}</strong>
+			    </div>
+			</c:if>
 			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
 			<input type="radio" name="criteriaGroup" value="name" checked="checked"> <spring:message code="account.criteria.name"></spring:message>
 			<input type="radio" name="criteriaGroup" value="birthDate"><spring:message code="account.criteria.birthDate"></spring:message>
@@ -34,7 +39,7 @@
 				    <td>${account.address}</td>
 				    <td>${account.user.username}</td>
 				    <td><a href="account_edit?id=${account.id}" class="name"><spring:message code="account.link_edit"></spring:message> </a></td>
-				    <td><a href="acount_delete?id=${account.id}" class="name"><spring:message code="account.link_delete"></spring:message> </a></td>
+				    <td><a href="account_delete?id=${account.id}" class="name"><spring:message code="account.link_delete"></spring:message> </a></td>
 				  </tr>
 				  </c:forEach>
 				</table>

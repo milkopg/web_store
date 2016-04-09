@@ -32,10 +32,10 @@
 		<appender-ref ref="system"/>
 	</logger>
 	
-	<logger name="org.hibernate.SQL">
+	<!-- <logger name="org.hibernate.SQL">
 	    <level value="DEBUG" />
 	</logger>
-	
+	 -->
 	<logger name="com.softuni.webstore.user">
 		<level value="DEBUG"></level>
 		<appender-ref ref="user"/>

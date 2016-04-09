@@ -51,6 +51,11 @@ public class OrderServiceImpl implements OrderService{
 	public Order getOrderById(long id) {
 		return orderDao.getOrderById(id);
 	}
+	
+	@Override
+	public Order getOrderByCustomerId(long id) {
+		return orderDao.getOrderCustomerId(id);
+	}
 
 	@Override
 	public Order generateRefundOrder(Order originalOrder) {
@@ -59,7 +64,7 @@ public class OrderServiceImpl implements OrderService{
 		Order refundOrder = new Order();
 		
 		refundOrder.setCustomer(originalOrder.getCustomer());
-		refundOrder.setComment("Refund id: " + originalOrder.getId() + ", done by user:" + customerService.getCustomerByUsername(UserUtils.getUser().getUsername()).getName());
+		refundOrder.setComment("Refund id: " + originalOrder.getId() + " by user: " + customerService.getCustomerByUsername(UserUtils.getUser().getUsername()).getName());
 		refundOrder.setOrderType(orderTypeService.getOrderTypeByName(Constants.ORDER_TYPE_REFUND));
 		refundOrder.setPurchaseDate(new Date());
 		refundOrder.setTotalPrice(originalOrder.getTotalPrice().multiply(new BigDecimal("-1")));
@@ -78,6 +83,7 @@ public class OrderServiceImpl implements OrderService{
 			detail.setPrice(originalDetail.getPrice());
 			detail.setProduct(originalDetail.getProduct());
 			detail.setQuantity(originalDetail.getQuantity()*-1);
+			detail.getProduct().setQuantity(detail.getProduct().getQuantity() + detail.getQuantity());
 			detail.setOrder(refundOrder);
 			details.add(detail);
 		}
@@ -116,7 +122,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
 		if (Constants.OPERATION_CRITERIA_CUSTOMER_NAME.equals(criteria)) {
-			return orderDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+			return orderDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value.toString().toLowerCase() + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
 		} else if (Constants.OPERATION_CRITERIA_TOTAL_PRICE.equals(criteria)) {
 			try {
 				return orderDao.searchByCriteria(criteria, new BigDecimal(value.toString()), operation);
@@ -157,4 +163,6 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

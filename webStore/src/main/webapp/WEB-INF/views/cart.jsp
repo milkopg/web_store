@@ -1,4 +1,5 @@
 <%@include file="master.jsp"%>
+
 <ct:header></ct:header>
 <ct:body>
 	<div id="center" class="column">
@@ -8,8 +9,8 @@
 					<strong style="color: red; font-size: 16px">${msg}</strong>
 			    </div>
 			</c:if>  
-			<input type="hidden" name="productId" />
-			<input type="hidden" name="rowIndex" />
+			<input type="hidden" name="productId" value=""/>
+			<input type="hidden" name="rowIndex" value=""/>
 				<table id="cartTable" border="1" class="table table-striped" >
 				  <tr>
 				    <th> <spring:message code="orderdetails.product.name"></spring:message></th>
@@ -32,7 +33,7 @@
 				
 				<br>
 			<div id="order_total">
-				<p><span>Total quantity: </span><span>${order.totalQuantity }</span></p>
+				<p><span id="fontSize16">Total quantity: </span><span>${order.totalQuantity }</span></p>
 				<p><span>Total price: </span><span>${order.totalPrice}</span></p>
 			</div>
 				

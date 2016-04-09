@@ -53,6 +53,9 @@
 									<td><font color="red"><form:errors path="user.password"></form:errors></font><br/></td>
 								</tr>
 							</c:when>
+							<c:otherwise>
+								<input type="hidden" id="password" name = "user.password" value="${customer.user.password}">
+							</c:otherwise>
 						</c:choose>
 						 <sec:authorize access="hasRole('ROLE_ADMIN')">
 					 		<tr>

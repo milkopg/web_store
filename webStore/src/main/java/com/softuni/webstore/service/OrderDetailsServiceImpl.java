@@ -33,22 +33,4 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 		order.getOrderDetails().remove(rowIndex);
 		return order;
 	}
-
-	@Override
-	public List<String> validateChart() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OrderDetails getOrderDetailByProductId(long productId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean decreaseProductQuantityAfterPurchasing(OrderDetails orderDetails) {
-		orderDetails.getProduct().setQuantity(orderDetails.getProduct().getQuantity() - 1);
-		return true;//productService.editProduct(orderDetails.getProduct());
-	}
 }

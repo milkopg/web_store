@@ -49,6 +49,19 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 	}
 	
 	@Override
+	public boolean deleteCustomer(long id) {
+		Customer customer = null;
+		try {
+			customer = em.find(Customer.class, id);
+			em.remove(customer);
+			return true;
+		} catch (Exception e) {
+			systemlog.error("Cannot remove customer with id: " + id + e.getLocalizedMessage());
+			return false;
+		}
+	}
+	
+	@Override
 	public Customer getCustomerById(long id) {
 		Customer customer = null;
 		try {
@@ -119,6 +132,8 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 			return null;
 		}
 	}
+
+	
 
 	
 }
