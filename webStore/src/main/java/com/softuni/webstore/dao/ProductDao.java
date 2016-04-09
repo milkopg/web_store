@@ -10,7 +10,7 @@ public interface ProductDao {
 	public boolean deleteProduct(long id);
 	public boolean activateProduct(Product product);
 	public boolean deactivateProduct(Product product);
-	public List<Product> searchByCriteria(String criteria, Object value, String operation);
+	public List<Product> searchByCriteria(String criteria, Object value, String operation, boolean showActive);
 	public Product getProductById(Long id);
 	public List<Product> getAllProducts();
 }

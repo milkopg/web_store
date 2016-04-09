@@ -17,15 +17,9 @@
 						<p>${product.description}</p>
 						<p><strong>Short features:</strong></p>
 						<ul id="features">
-							<li class="color"><span>Dolor sit amet</span>1234</li>
-							<li><span>Consetetur sadipscing</span>1234</li>
-							<li class="color"><span>Seddiam</span>1234</li>
-							<li><span>Nonumy eirmod</span>1234</li>
-							<li class="color"><span>Dolor sit amet</span>1234</li>
-							<li><span>Lorem ipsum dolor</span>1234</li>
-							<li class="color"><span>Dolor sit amet</span>1234</li>
-							<li><span>Seddiam</span>1234</li>
-							<li class="color"><span>Nonumy eirmod</span>1234</li>
+							<c:forEach var="desc" varStatus="status"  items="${fn:split(product.description, ',')}">
+								<li><span>${desc }</span></li>
+							</c:forEach>
 						</ul>
 						<input type="submit" value="Add to Cart" onclick="location= '${contextPath}/cart">
 						<input type="hidden" name="productId" value="${product.id}">

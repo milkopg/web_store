@@ -18,7 +18,7 @@
 				  </tr>
 				  <tr>
 				    <td> <spring:message code="product.picture"></spring:message></td>
-					<td><img alt="" id="pictureName" name="pictureName"  src="${images}/${product.pictureName}"/></td>
+					<td><img alt="" id="pictureName" name="pictureName" class="image_small" src="${images}/${product.pictureName}"/></td>
 				</tr>
 				  <tr>
 				  	  <td> <spring:message code="product.description"></spring:message></td>
@@ -51,13 +51,9 @@
 				  		</select>
 				  	</td>
 				  </tr>
-<%-- 				  <tr>
-				    <td> <spring:message code="product.delete"></spring:message></td>
-				    <td><input type="checkbox" name="delete" id="delete"></td>
-				 </tr>
- --%>				 <tr>
+				 <tr>
 				    <td> <spring:message code="product.active"></spring:message></td>
-				    <td><input type="checkbox" id="active"  name="active" value="${product.active}"  <c:if test="${product.active}">checked="checked"</c:if>></td>
+				    <td><input type="checkbox" id="active"  name="active" <c:if test="${product.active}">checked="checked"</c:if>></td>
 				 </tr>
 				</table>
 				<c:choose>

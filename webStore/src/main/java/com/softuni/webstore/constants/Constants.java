@@ -10,7 +10,7 @@ public class Constants {
 	public static final String OPERATION_CRITERIA = "criteriaGroup";
 	public static final String OPERATION_CRITERIA_CUSTOMER_NAME = "customer.name";
 	public static final String OPERATION_CRITERIA_NAME = "name";
-	public static final String OPERATION_CRITERIA_USERNAME = "username";
+	public static final String OPERATION_CRITERIA_USERNAME = "user.username";
 	public static final String OPERATION_CRITERIA_TYPE_NAME = "type.name";
 	public static final String OPERATION_CRITERIA_TYPE_ID = "type.id";
 	public static final String OPERATION_CRITERIA_QUANTITY = "quantity";

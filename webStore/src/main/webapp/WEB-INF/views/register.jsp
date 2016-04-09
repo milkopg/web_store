@@ -27,8 +27,8 @@
 						</tr>
 						<tr>
 							<td><p class="line"><spring:message code="account.birthdate"></spring:message>:</p></td>
-							<fmt:formatDate pattern="yyyy-MM-dd" value="${account.birthDate}" />
-							<td><input type="text" id="birthDate" name ="birthDate" value="${fn:substring(customer.birthDate, 0,10)}" style="width: 173px" placeholder="yyyy-MM-dd" maxlength="10"></td>
+							<td><input type="text" id="birthDate" name ="birthDate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${customer.birthDate}" />" style="width: 173px" placeholder="yyyy-MM-dd" maxlength="10"></td>
+							<td><font color="red"><form:errors path="birthDate"></form:errors></font><br/></td>
 						</tr>
 						<tr>
 							<td><p class="line"><spring:message code="account.address"></spring:message>:</p></td>

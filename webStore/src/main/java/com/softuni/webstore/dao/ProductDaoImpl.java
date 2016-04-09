@@ -63,11 +63,11 @@ public class ProductDaoImpl extends BaseDao implements ProductDao{
 	}
 
 	@Override
-	public List<Product> searchByCriteria(String criteria, Object value, String operation) {
+	public List<Product> searchByCriteria(String criteria, Object value, String operation, boolean showActive) {
 		TypedQuery<Product> q;
-		
+		String showActiveSQL = showActive ? "AND o.active = 1" : "";
 		try {
-			q = em.createQuery("SELECT o FROM Product o WHERE o."+ criteria + " " + operation + " :value  AND o.active = 1  ORDER BY o.id", Product.class);
+			q = em.createQuery("SELECT o FROM Product o WHERE lower(o."+ criteria + ") " + operation + " :value " + showActiveSQL + " ORDER BY o.id", Product.class);
 			q.setParameter("value", value);
 			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
 			return q.getResultList();
@@ -83,7 +83,7 @@ public class ProductDaoImpl extends BaseDao implements ProductDao{
 		TypedQuery<Product> q;
 		
 		try {
-			q = em.createQuery("SELECT o FROM Product o WHERE o.active = 1 ORDER BY o.id", Product.class);
+			q = em.createQuery("SELECT o FROM Product o ORDER BY o.id", Product.class);
 			return q.getResultList();
 		} catch (Exception e) {
 			systemlog.error("Cannot getAllProducts: " + e.getMessage());

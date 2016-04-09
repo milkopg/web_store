@@ -30,7 +30,7 @@
 				 <c:forEach var="account" varStatus="status" items="${accounts}">
 				  <tr>
 				    <td>${account.name}</td>
-				    <td> <fmt:formatDate pattern="yyy-MM-dd" value="${account.birthDate}" /></td> 
+				    <td> <fmt:formatDate pattern="yyyy-MM-dd" value="${account.birthDate}" /></td> 
 				    <td>${account.address}</td>
 				    <td>${account.user.username}</td>
 				    <td><a href="account_edit?id=${account.id}" class="name"><spring:message code="account.link_edit"></spring:message> </a></td>

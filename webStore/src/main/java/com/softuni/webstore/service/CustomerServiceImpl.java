@@ -55,10 +55,10 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<Customer> searchCriteria(String criteria, Object value, String operation) {
 		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_USERNAME.equals(criteria))) {
-			return customerDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+			return customerDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value.toString().toLowerCase() + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
 		} else if (Constants.OPERATION_CRITERIA_BIRTHDATE.equals(criteria))  {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//sdf.parse("2016-04-06"); new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-06");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = sdf.parse(value.toString());
 				if (Constants.OPERATION_LIKE.equals(operation)) {
 					operation = Constants.OPERATION_BIGGER_THAN;
@@ -66,18 +66,18 @@ public class CustomerServiceImpl implements CustomerService{
 				return customerDao.searchByCriteria(criteria, date , operation);
 			} catch (ParseException e) {
 				systemlog.error("Cannot parse Date:" + e.getMessage());
-				return null;
+				return customerDao.searchByCriteria(criteria, value , operation);
 			}
 		} else if (Constants.OPERATION_CRITERIA_ACTIVE.equals(criteria)) {
 			String valueString = value.toString();
-			if ("1".equals(valueString) || "true".equals(valueString)) {
+			if ("1".equals(valueString) || "true".equalsIgnoreCase(valueString)) {
 				value = new Boolean(true);
-			} else if ("0".equals(valueString) || "false".equals(valueString)) {
+			} else if ("0".equals(valueString) || "false".equalsIgnoreCase(valueString)) {
 				value = new Boolean(false);
 			}
 			return customerDao.searchByCriteria(criteria, value , operation);
 		} else {
-			return null;
+			return customerDao.searchByCriteria(criteria, value , operation);
 		}
 	}
 

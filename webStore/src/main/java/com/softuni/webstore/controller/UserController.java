@@ -57,8 +57,14 @@ public class UserController extends BaseController{
 		
 		if (!result.hasErrors()) {
 			if (id == 0)  {
-				if (customer.getUser().getUsername() == null || "".equals(customer.getUser().getUsername())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.empty.username", null, getLocale()));
-				if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) return new ModelAndView("register").addObject("msg", message.getMessage("account.error.password", null, getLocale())); 
+				ModelAndView model = new ModelAndView("register");
+				if (customer.getUser().getUsername() == null || "".equals(customer.getUser().getUsername())) model.addObject("msg", message.getMessage("account.error.empty.username", null, getLocale()));
+				if (!customer.getUser().getPassword().equals(customer.getUser().getRetypePassword())) model.addObject("msg", message.getMessage("account.error.password", null, getLocale()));
+				if (customerService.getCustomerByUsername(customer.getUser().getUsername()) != null) model.addObject("msg", message.getMessage("account.error.username.used", null, getLocale()));
+				
+				if (model.getModelMap().size() > 0 && model.getModelMap().get("msg") != null) {
+					return model;
+				}
 				customer.getUser().setPassword(MD5.crypt(customer.getUser().getPassword()));
 				customerService.addCustomer(customer);
 				customerService.activate(customer);

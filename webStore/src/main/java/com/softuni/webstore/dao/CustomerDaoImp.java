@@ -108,7 +108,7 @@ public class CustomerDaoImp extends BaseDao implements CustomerDao {
 		TypedQuery<Customer> q;
 		
 		try {
-			q = em.createQuery("SELECT o FROM Customer o WHERE o."+ criteria + " " + operation + " :value  AND o.user.id > 1  ORDER BY o.id", Customer.class);
+			q = em.createQuery("SELECT o FROM Customer o WHERE lower(o."+ criteria + ") " + operation + " :value  AND o.user.id > 1  ORDER BY o.id", Customer.class);
 			q.setParameter("value", value);
 			userlog.debug("search by criteria: " + criteria + ", and value: " + value + " is succesfull");
 

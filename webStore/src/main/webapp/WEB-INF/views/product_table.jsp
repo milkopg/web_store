@@ -8,6 +8,7 @@
 			<input type="radio" name="criteriaGroup" value="type.name"><spring:message code="product.criteria.type"></spring:message>
 			<input type="radio" name="criteriaGroup" value="quantity"><spring:message code="product.criteria.quantity"></spring:message>
 			<input type="radio" name="criteriaGroup" value="singlePrice"><spring:message code="product.criteria.price"></spring:message>
+			<input type="radio" name="criteriaGroup" value="active"><spring:message code="product.criteria.active"></spring:message>
 			<select name="operation">
 				<option value="LIKE">=</option>
 				<option value=">">></option>
@@ -38,6 +39,7 @@
 				    <th> <spring:message code="product.description"></spring:message></th> 
 				    <th> <spring:message code="product.quantity"></spring:message></th>
 				    <th> <spring:message code="product.price"></spring:message></th>
+				    <th> <spring:message code="product.active"></spring:message></th>
 				    <th> <spring:message code="product.edit"></spring:message></th>
 				    <th> <spring:message code="product.delete"></spring:message></th>
 				 </tr>
@@ -51,10 +53,9 @@
 				    <td>${fn:substring(product.description, 0,50)}</td> 
 				    <td>${product.quantity}</td>
 				    <td>${product.singlePrice}</td>
+				    <td><input type="checkbox" disabled="disabled" <c:if test="${product.active}">checked="checked"</c:if> name = "active"></td>
 				    <td><a href="product_edit?id=${product.id}" class="name"><spring:message code="product.edit"></spring:message> </a></td>
 				    <td><a href="product_delete?id=${product.id}" class="name"><spring:message code="product.delete"></spring:message> </a></td>
-			     	<%-- <td onclick="submitter(this)"><input type="submit" name="edit" value="<spring:message code="product.edit"/>" class="btn-link"></td>
-			     	<td onclick="submitter(this)"><input type="submit" name="delete" value="<spring:message code="product.delete"/>" class="btn-link"></td> --%>
 				  </tr>
 				  </c:forEach>
 				</table>

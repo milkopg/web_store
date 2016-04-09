@@ -35,7 +35,6 @@ public class Customer {
 	@Column(name="name")
 	private String name;
 	
-	@NotNull
 	@Column(name="birth_date")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date birthDate;

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.softuni.webstore.constants.Constants;
 import com.softuni.webstore.entity.Product;
 import com.softuni.webstore.log4j.LoggerManager;
 import com.softuni.webstore.service.CurrencyService;
@@ -41,7 +42,7 @@ public class ProductController extends BaseController{
 	
 	@RequestMapping(value="home", method = RequestMethod.GET)
 	public ModelAndView loadProducts() {
-		return  new ModelAndView("home", "products", productService.getAllProducts());
+		return  new ModelAndView("home", "products", productService.searchByCriteria(Constants.OPERATION_CRITERIA_NAME, "", Constants.OPERATION_LIKE));
 	}
 	
 	@RequestMapping(value="product_details", method = RequestMethod.GET)
@@ -82,11 +83,11 @@ public class ProductController extends BaseController{
 		product.setCurrency(currencyService.getCurrencyById(currencyId));
 		product.setType(productTypeService.getProductTypeById(typeId));
 		product.setTypes(productTypeService.getProductTypes());
-		product.setPictureName("pic1.jpg");
 		
 		if (result.hasErrors())  return new ModelAndView("product", "product", product);
 		ModelAndView model = new ModelAndView("product", "product", null);
 		if (id == 0)  {
+			product.setPictureName("pic1.jpg");
 			productService.addProduct(product);
 			return model.addObject("msg", message.getMessage("product.create.success", null, getLocale()));
 		} else {

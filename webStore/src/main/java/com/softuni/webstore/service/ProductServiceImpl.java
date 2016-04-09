@@ -39,9 +39,9 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<Product> searchByCriteria(String criteria, Object value, String operation) {
 		if ((Constants.OPERATION_CRITERIA_NAME.equals(criteria)) || (Constants.OPERATION_CRITERIA_TYPE_NAME.equals(criteria))) {
-			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+			return productDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value.toString().toLowerCase() + Constants.OPERATION_PLACEHOLDER_LIKE, operation, true);
 		} else if (Constants.OPERATION_CRITERIA_TYPE_ID.equals(criteria))  {
-			return productDao.searchByCriteria(criteria, new Long(value.toString()), operation);
+			return productDao.searchByCriteria(criteria, new Long(value.toString()), operation, true);
 		} else if (Constants.OPERATION_CRITERIA_QUANTITY.equals(criteria)) {
 			Integer integerValue = null;
 			try {
@@ -49,7 +49,16 @@ public class ProductServiceImpl implements ProductService{
 			} catch (NumberFormatException nfe) {
 				systemlog.error("Cannot parse value Quantity to Integer: " + value);
 			}
-			return productDao.searchByCriteria(criteria, integerValue , operation);
+			return productDao.searchByCriteria(criteria, integerValue , operation, true);
+		} else if (Constants.OPERATION_CRITERIA_ACTIVE.equals(criteria)) {
+			String valueString = value.toString();
+			if ("1".equals(valueString) || "true".equalsIgnoreCase(valueString)) {
+				value = new Boolean(true);
+			} else if ("0".equals(valueString) || "false".equalsIgnoreCase(valueString)) {
+				value = new Boolean(false);
+			}
+			return productDao.searchByCriteria(criteria, value , operation, false);
+			//return productDao.getAllProducts();
 		} else {
 			BigDecimal bigDecimalValue = null;
 			try {
@@ -57,7 +66,7 @@ public class ProductServiceImpl implements ProductService{
 			} catch (NumberFormatException nfe) {
 				systemlog.error("Cannot parse value Price to BigDecimal: " + value);
 			}
-			return productDao.searchByCriteria(criteria, bigDecimalValue , operation);
+			return productDao.searchByCriteria(criteria, bigDecimalValue , operation, true);
 		}
 	}
 
