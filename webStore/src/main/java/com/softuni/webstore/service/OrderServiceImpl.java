@@ -36,7 +36,9 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	CustomerService customerService;
 	
-
+	@Autowired
+	ProductService productService;
+	
 	@Override
 	public boolean addOrder(Order order) {
 		return orderDao.addOrder(order);
@@ -83,8 +85,9 @@ public class OrderServiceImpl implements OrderService{
 			detail.setPrice(originalDetail.getPrice());
 			detail.setProduct(originalDetail.getProduct());
 			detail.setQuantity(originalDetail.getQuantity()*-1);
-			detail.getProduct().setQuantity(detail.getProduct().getQuantity() + detail.getQuantity());
 			detail.setOrder(refundOrder);
+			detail.getProduct().setQuantity(detail.getProduct().getQuantity() + Math.abs(detail.getQuantity()));
+			productService.editProduct(detail.getProduct());
 			details.add(detail);
 		}
 		return details;
