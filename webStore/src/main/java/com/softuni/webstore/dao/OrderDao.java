@@ -9,6 +9,7 @@ public interface OrderDao {
 	public boolean editOrder(Order order);
 	public Order getOrderById(long id);
 	public Order getOrderCustomerId(long id);
+	public List<Order> getOrdersByProductName(String name);
 	public List<Order> searchByCriteria(String criteria, Object value, String operation);
 	public List<Order> getOrders();
 }

@@ -11,6 +11,7 @@ public interface OrderService {
 	public boolean editOrder(Order order);
 	public Order getOrderById(long id);
 	public Order getOrderByCustomerId (long id);
+	public List<Order> getOrdersByProductName(String name);
 	public Order generateRefundOrder(Order originalOrder);
 	public List<OrderDetails> generateRefundOrderDetails(Order originalOrder, Order refundOrder);
 	public BigDecimal calculateTotalPrice(Order order);

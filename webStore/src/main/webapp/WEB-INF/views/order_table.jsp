@@ -10,6 +10,7 @@
 			</c:if>
 			<label> <spring:message code="product.searchBy"></spring:message> </label><br/>
 					<input type="radio" name="criteriaGroup" value="customer.name" checked="checked"> <spring:message code="order.criteria.customer.name"></spring:message>
+					<input type="radio" name="criteriaGroup" value="product.name" checked="checked"> <spring:message code="order.criteria.product.name"></spring:message>
 					<input type="radio" name="criteriaGroup" value="totalPrice"><spring:message code="order.criteria.totalPrice"></spring:message>
 					<input type="radio" name="criteriaGroup" value="totalQuantity"><spring:message code="order.criteria.totalQuantity"></spring:message>
 					<input type="radio" name="criteriaGroup" value="purchaseDate"><spring:message code="order.criteria.purchaseDate"></spring:message>

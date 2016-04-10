@@ -81,6 +81,16 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 		q.setParameter("id", id);
 		return getSingleResult(q);
 	}
+	
+	@Override
+	public List<Order> getOrdersByProductName(String name) {
+		TypedQuery<Order> q;
+		
+		q = em.createQuery("SELECT o FROM Order o WHERE o.id in (  SELECT det.order.id FROM OrderDetails det WHERE lower(det.product.name) like :name) " , Order.class);
+		q.setParameter("name", "%" +  name + "%");
+		return q.getResultList();
+	}
+
 
 	@Override
 	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
@@ -105,4 +115,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao{
 		q = em.createQuery("SELECT o FROM Order o ORDER BY o.id", Order.class);
 		return q.getResultList();
 	}
+
+	
+	
 }

@@ -58,6 +58,12 @@ public class OrderServiceImpl implements OrderService{
 	public Order getOrderByCustomerId(long id) {
 		return orderDao.getOrderCustomerId(id);
 	}
+	
+	@Override
+	public List<Order> getOrdersByProductName(String name) {
+		return  orderDao.getOrdersByProductName(name);
+	}
+
 
 	@Override
 	public Order generateRefundOrder(Order originalOrder) {
@@ -126,6 +132,8 @@ public class OrderServiceImpl implements OrderService{
 	public List<Order> searchByCriteria(String criteria, Object value, String operation) {
 		if (Constants.OPERATION_CRITERIA_CUSTOMER_NAME.equals(criteria)) {
 			return orderDao.searchByCriteria(criteria, Constants.OPERATION_PLACEHOLDER_LIKE + value.toString().toLowerCase() + Constants.OPERATION_PLACEHOLDER_LIKE, operation);
+		} else if (Constants.OPERATION_CRITERIA_PRODUCT_NAME.equals(criteria))  {
+			return orderDao.getOrdersByProductName(value.toString().toLowerCase());
 		} else if (Constants.OPERATION_CRITERIA_TOTAL_PRICE.equals(criteria)) {
 			try {
 				return orderDao.searchByCriteria(criteria, new BigDecimal(value.toString()), operation);
@@ -167,5 +175,6 @@ public class OrderServiceImpl implements OrderService{
 		return null;
 	}
 
+	
 
 }
