@@ -97,6 +97,8 @@ public class OrderContoller extends BaseController{
 	public String removeProductFromCart(@RequestParam int rowIndex) {
 		Order order = getOrder();
 		order.getOrderDetails().remove(rowIndex);
+		order.setTotalPrice(orderService.calculateTotalPrice(order));
+		order.setTotalQuantity(orderService.calculateTotalQuantity(order));
 		return "cart";
 	}	
 
