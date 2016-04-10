@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService{
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = sdf.parse(value.toString());
 				if (Constants.OPERATION_LIKE.equals(operation)) {
-					operation = Constants.OPERATION_BIGGER_THAN;
+					operation = Constants.OPERATION_EQUALS;
 				}
 				return customerDao.searchByCriteria(criteria, date , operation);
 			} catch (ParseException e) {
