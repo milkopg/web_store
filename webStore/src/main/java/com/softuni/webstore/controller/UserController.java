@@ -82,11 +82,11 @@ public class UserController extends BaseController{
 		} else {
 			if (id == 0) {
 				if (result.getFieldError("birthDate") != null) {
-					return register(customer).addObject("msg", message.getMessage("account.error.date", null, getLocale()));
+					return register(customer).addObject("dateError", message.getMessage("account.error.date", null, getLocale()));
 				}
 				return register(customer);
 			} 
-			return accountEdit().addObject("msg", message.getMessage("account.error.date", null, getLocale()));
+			return accountEdit().addObject("msg", message.getMessage("account.error.notsuccess", null, getLocale()));
 		}
 	}
 	
