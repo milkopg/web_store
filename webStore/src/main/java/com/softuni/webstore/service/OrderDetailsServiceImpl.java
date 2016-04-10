@@ -1,5 +1,7 @@
 package com.softuni.webstore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,10 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 	@Override
 	public OrderDetails getOrderDetailsByProductId(long id) {
 		return orderDetailsDao.getOrderDetailsByProductId(id);
+	}
+
+	@Override
+	public List<OrderDetails> getOrderDetailsByOrderId(long id) {
+		return orderDetailsDao.getOrderDetailsByOrderId(id);
 	}
 }

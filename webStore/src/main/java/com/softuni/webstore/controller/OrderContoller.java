@@ -129,4 +129,9 @@ public class OrderContoller extends BaseController{
 		if (value == null) value = "";
 		return new ModelAndView("order_table", "orders", orderService.searchByCriteria(criteria, value.trim(), operation));
 	}
+	
+	@RequestMapping(value="order_view", method=RequestMethod.GET)
+	public ModelAndView showOrderView (@RequestParam int id) {
+		return new ModelAndView("order_view", "orderDetails", orderDetailsService.getOrderDetailsByOrderId(id));
+	}
 }

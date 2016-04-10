@@ -32,6 +32,7 @@
 				    <th> <spring:message code="order.totalQuantity"></spring:message></th>
 				    <th> <spring:message code="order.purchaseDate"></spring:message></th>
 				    <th> <spring:message code="order.comment"></spring:message></th>
+				    <th> <spring:message code="order.view"></spring:message></th>
 				    <th> <spring:message code="order.refund"></spring:message></th>
 				 </tr>
 				 <c:forEach var="order" varStatus="status" items="${orders}">
@@ -43,6 +44,7 @@
 				    <td>${order.totalQuantity}</td>
 				    <td>${order.purchaseDate}</td>
 				    <td>${order.comment}</td>
+				    <td><a href="order_view?id=${order.id}" class="name"><spring:message code="order.view"></spring:message> </a></td>
 				    <td><a href="order_refund?id=${order.id}" class="name"><spring:message code="order.refund"></spring:message> </a></td>
 				  </tr>
 				  </c:forEach>

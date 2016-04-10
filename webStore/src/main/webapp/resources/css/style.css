@@ -116,6 +116,10 @@ body {
 	float: left;
 }
 
+#pad20right {
+	padding-right: 24px;	
+}
+
 .item span {
 	color: #E27C0E;
 	font-weight: bold;
@@ -328,7 +332,7 @@ body {
 
 .topblock2 a {
 	border: 1px solid #C0D6DE;
-	margin: 5px 4px 0 0;
+	margin: -1px 7px 0 0;
 	float: left
 }
 

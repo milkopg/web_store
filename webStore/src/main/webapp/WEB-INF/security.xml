@@ -26,6 +26,7 @@
 		<security:intercept-url pattern="/performProductSearch" access="permitAll"/>
 		<security:intercept-url pattern="/resources/**" access="permitAll"/>
 		<security:intercept-url pattern="/order_table" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/order_view" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/product_create" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/product_delete" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/acount_delete" access="hasRole('ROLE_ADMIN')"/>
