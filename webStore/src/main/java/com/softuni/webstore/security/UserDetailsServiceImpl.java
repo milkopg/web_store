@@ -24,10 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 *  added 2 users in db: username: "admin" role: ROLE_ADMIN password: 111111 ,
 	 *  username: "user" role: ROLE_USER password: 222222 
 	 */
-	List<GrantedAuthority> authorities = new ArrayList<>();
+	List<GrantedAuthority> authorities ; 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.softuni.webstore.entity.User dbUser = null;
+		authorities = new ArrayList<>();
 		if (username == null ) {
 			logger.error("Cannot authenticate user:" + username);
 			throw new AuthenticationServiceException("Cannot authenticate user:" + username);

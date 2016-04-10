@@ -136,7 +136,7 @@ public class UserController extends BaseController{
 			setNullPasswordOfUser(customer);
 			getSession().invalidate();
 			UserUtils.logout(request, response);;
-			return new ModelAndView("login").addObject("msg", message.getMessage("action.success", null, getLocale()));
+			return new ModelAndView("redirect:/login?logout=true").addObject("msg", message.getMessage("action.success", null, getLocale()));
 		} else {
 			setNullPasswordOfUser(customer);
 			return new ModelAndView("account_change_password", "customer", customer).addObject("msg", message.getMessage("action.unsuccess", null, getLocale()));

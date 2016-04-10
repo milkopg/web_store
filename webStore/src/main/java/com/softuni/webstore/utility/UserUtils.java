@@ -28,8 +28,9 @@ public class UserUtils {
 	public static void logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
           if (auth != null){    
-             new SecurityContextLogoutHandler().logout(request, response, auth);
+             new SecurityContextLogoutHandler().logout(request, null, null);
           }
         SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.clearContext();
     }
 }
