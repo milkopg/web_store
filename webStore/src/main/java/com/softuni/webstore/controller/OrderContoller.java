@@ -51,6 +51,13 @@ public class OrderContoller extends BaseController{
 	@Autowired
 	MessageSource message;
 	
+	/**
+	 * This method add items to Cart
+	 * @param model
+	 * @param productId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="addToCart", method = RequestMethod.POST)
 	public ModelAndView addToCart(Model model,  @RequestParam long productId, HttpServletRequest request) {
 		Order order = getOrder();
