@@ -68,7 +68,7 @@ public class OrderContoller extends BaseController{
 		getSession().setAttribute("order", order);
 		return new ModelAndView("cart", "order", order) ;
 		
-		//TOva e test
+		//Edited from server
 	}
 	
 	
