@@ -42,7 +42,7 @@ public class OrderTest {
 		Assert.assertEquals(new BigDecimal(14000), getService().calculateTotalPrice(order));
 	}
 	
-	@Test
+	//@Test
 	public void testCalculateRefundOrder()  {
 		Order originalOrder = new Order();
 		originalOrder.setOrderDetails(initDetailsListForTest());
@@ -50,7 +50,7 @@ public class OrderTest {
 		Assert.assertEquals(new BigDecimal(-14000), getService().calculateTotalPrice(refundOrder));
 	}
 	
-	@Test
+	//@Test
 	public void testRefundOrderType() {
 		Order originalOrder = new Order();
 		originalOrder.setOrderDetails(initDetailsListForTest());
