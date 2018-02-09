@@ -51,6 +51,13 @@ public class OrderContoller extends BaseController{
 	@Autowired
 	MessageSource message;
 	
+	/**
+	 * This method add items to Cart
+	 * @param model
+	 * @param productId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="addToCart", method = RequestMethod.POST)
 	public ModelAndView addToCart(Model model,  @RequestParam long productId, HttpServletRequest request) {
 		Order order = getOrder();
@@ -60,6 +67,8 @@ public class OrderContoller extends BaseController{
 		model.addAttribute(order);
 		getSession().setAttribute("order", order);
 		return new ModelAndView("cart", "order", order) ;
+		
+		//Edited from server
 	}
 	
 	
